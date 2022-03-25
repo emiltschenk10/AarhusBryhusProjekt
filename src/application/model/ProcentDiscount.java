@@ -9,12 +9,12 @@ public class ProcentDiscount implements Discount {
         this.navn = navn;
     }
 
-    public void setPris(double procent){
+    public void setProcent(double procent){
         this.procent = procent;
     }
 
     @Override
-    public double getDiscount() {
-        return 0;
+    public double getDiscount(double pris) {
+        return procent;
     }
 }

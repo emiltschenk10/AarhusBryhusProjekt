@@ -14,7 +14,7 @@ public class AftaltDiscount implements Discount{
     }
 
     @Override
-    public double getDiscount() {
-        return pris;
+    public double getDiscount(double pris) {
+        return this.pris;
     }
 }

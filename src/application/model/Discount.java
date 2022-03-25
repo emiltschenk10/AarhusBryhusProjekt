@@ -1,5 +1,5 @@
 package application.model;
 
 public interface Discount {
-    double getDiscount();
+    double getDiscount(double pris);
 }

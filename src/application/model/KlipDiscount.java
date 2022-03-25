@@ -8,7 +8,7 @@ public class KlipDiscount implements Discount {
         this.navn = navn;
     }
     @Override
-    public double getDiscount() {
+    public double getDiscount(double pris) {
         return 0;
     }
 }
