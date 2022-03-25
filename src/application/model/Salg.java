@@ -15,9 +15,7 @@ public class Salg {
 
     private Kunde kunde;
 
-    private ArrayList<Betalingsformer> betalingsformer;
-
-    private Discount discount;
+    private ArrayList<Betalingsform> betalingsformer = new ArrayList<>();
 
     private ArrayList<Ordrelinje> ordrelinjer;
 
@@ -33,12 +31,9 @@ public class Salg {
         this.prisliste = prisliste;
     }
 
-    public Discount getDiscount() {
-        return discount;
-    }
 
-    public ArrayList<Betalingsformer> getBetalingsformer() {
-        return new ArrayList<Betalingsformer>(betalingsformer);
+    public ArrayList<Betalingsform> getBetalingsformer() {
+        return new ArrayList<Betalingsform>(betalingsformer);
     }
 
     public ArrayList<Ordrelinje> getOrdrelinjer() {
