@@ -64,4 +64,18 @@ public class Salg {
             }
         }
     }
+
+    public void addOrdrelinje(Ordrelinje ordrelinje){
+        if (!ordrelinjer.contains(ordrelinje)){
+            ordrelinjer.add(ordrelinje);
+            ordrelinje.setSalg(this);
+        }
+    }
+
+    public void removeOrdrelinje(Ordrelinje ordrelinje){
+        if (ordrelinjer.contains(ordrelinje)){
+            ordrelinjer.remove(ordrelinje);
+            ordrelinje.setSalg(null);
+        }
+    }
 }
