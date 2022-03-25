@@ -78,4 +78,13 @@ public class Salg {
             ordrelinje.setSalg(null);
         }
     }
+
+    public double beregnPris(){
+    double sum = 0.0;
+        for (Ordrelinje o:ordrelinjer) {
+            sum += o.getPris();
+        }
+        return sum;
+    }
+
 }
