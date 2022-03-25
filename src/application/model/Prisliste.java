@@ -19,6 +19,14 @@ public class Prisliste {
         return navn;
     }
 
+    public HashMap<Produkt, Double> getProduktpriser() {
+        return produktpriser;
+    }
+
+    public ArrayList<Arrangement> getArragementer() {
+        return arragementer;
+    }
+
     public void setNavn(String navn) {
         this.navn = navn;
     }
