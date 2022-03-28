@@ -87,4 +87,11 @@ public class Salg {
         return sum;
     }
 
+    public Ordrelinje createOrdrelinje(Produkt produkt, int antal){
+        Ordrelinje ordrelinje = new Ordrelinje(produkt, antal, prisliste.getProduktpriser().get(produkt));
+        ordrelinjer.add(ordrelinje);
+        ordrelinje.setSalg(this);
+        return ordrelinje;
+    }
+
 }
