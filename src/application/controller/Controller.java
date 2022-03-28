@@ -55,4 +55,34 @@ public class Controller {
         Storage.addBetalingsform(betalingsform);
         return betalingsform;
     }
+
+    public static Produkt createProdukt(String navn, String beskrivelse, int klipPris, double pant, Produktgruppe produktgruppe){
+        Produkt produkt = produktgruppe.createProdukt(navn, beskrivelse, klipPris, pant);
+        return produkt;
+    }
+
+    public static Ordrelinje createOrdrelinjeSalg(Produkt produkt, int antal, double pris, Salg salg){
+        Ordrelinje ordrelinje = salg.createOrdrelinje(produkt, antal);
+        return ordrelinje;
+    }
+
+    public static void addProduktTilPrisliste(Produkt produkt,double pris, Prisliste prisliste){
+        prisliste.addProdukt(produkt,pris);
+    }
+
+    public static void addArragementTilPrisliste(Arrangement arrangement, Prisliste prisliste){
+        prisliste.addArragement(arrangement);
+    }
+
+    public static void addOrdrelinjeTilSalg(Ordrelinje ordrelinje, Salg salg){
+        salg.addOrdrelinje(ordrelinje);
+    }
+
+    public static void setKundePåSalg(Kunde kunde, Salg salg){
+        salg.setKunde(kunde);
+    }
+
+    public static void setBetalingsformPåSalg(Betalingsform betalingsform, Salg salg){
+        salg.setBetalingsform(betalingsform);
+    }
 }
