@@ -40,6 +40,10 @@ public class Ordrelinje {
         this.udlejning = udlejning;
     }
 
+    public void setDiscount(Discount discount){
+        this.discount = discount;
+    }
+
     public double getPris(){
         if(udlejning!=null){
             return produkt.getPant()*antal;
