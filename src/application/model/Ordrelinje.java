@@ -9,7 +9,7 @@ public class Ordrelinje {
     private Discount discount;
 
 
-    public Ordrelinje(Produkt produkt,int antal, double pris){
+    Ordrelinje(Produkt produkt,int antal, double pris){
         this.produkt = produkt;
         this.antal = antal;
         this.pris = pris;
