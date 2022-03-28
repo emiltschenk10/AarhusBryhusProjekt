@@ -23,6 +23,7 @@ public class Udlejning {
     public Ordrelinje createOrdrelinje(Produkt produkt,int antal, double pris){
         Ordrelinje o = new Ordrelinje(produkt,antal,prisliste.getProduktpriser().get(produkt));
         o.setUdlejning(this);
+        this.addOrdrelinje(o);
         return o;
     }
 
