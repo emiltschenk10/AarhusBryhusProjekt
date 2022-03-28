@@ -54,5 +54,13 @@ public class Udlejning {
         }
     }
 
+    public double beregnPris(){
+        double sum = 0.0;
+        for (Ordrelinje o:ordrelinjes) {
+            sum += o.getPris();
+        }
+        return sum;
+    }
+
 
 }
