@@ -31,5 +31,6 @@ public class App {
         System.out.println(s1.beregnPris());
         System.out.println(o1.getPris());
         System.out.println(o2.getPris());
+        System.out.println(u1.beregnPris());
     }
 }

@@ -11,7 +11,7 @@ public class Udlejning {
     private Kunde kunde;
     private Prisliste prisliste;
     private Betalingsform betalingsform;
-    private ArrayList<Ordrelinje> ordrelinjes;
+    private ArrayList<Ordrelinje> ordrelinjes = new ArrayList<>();
 
     public Udlejning(LocalDate afleveringsDato, LocalDateTime udleveringsDato, Kunde kunde,Prisliste prisliste){
         this.afleveringsDato=afleveringsDato;
@@ -51,6 +51,7 @@ public class Udlejning {
     public void addOrdrelinje(Ordrelinje ordrelinje){
         if(!ordrelinjes.contains(ordrelinje)){
             ordrelinjes.add(ordrelinje);
+            ordrelinje.setUdlejning(this);
         }
     }
 
