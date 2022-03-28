@@ -15,7 +15,7 @@ public class Salg {
 
     private Kunde kunde;
 
-    private ArrayList<Betalingsform> betalingsformer = new ArrayList<>();
+    private Betalingsform betalingsform;
 
     private ArrayList<Ordrelinje> ordrelinjer = new ArrayList<>();
 
@@ -32,9 +32,6 @@ public class Salg {
     }
 
 
-    public ArrayList<Betalingsform> getBetalingsformer() {
-        return new ArrayList<>(betalingsformer);
-    }
 
     public ArrayList<Ordrelinje> getOrdrelinjer() {
         return new ArrayList<>(ordrelinjer);
@@ -63,6 +60,10 @@ public class Salg {
                 kunde.addSalg(this);
             }
         }
+    }
+
+    public void setBetalingsform(Betalingsform betalingsform) {
+        this.betalingsform = betalingsform;
     }
 
     public void addOrdrelinje(Ordrelinje ordrelinje){
