@@ -10,7 +10,7 @@ public class Produkt {
     private Produktgruppe produktgruppe;
 
 
-    public Produkt(String navn, String beskrivelse, int klipPris, double pant, Produktgruppe produktgruppe) {
+    Produkt(String navn, String beskrivelse, int klipPris, double pant, Produktgruppe produktgruppe) {
         this.navn = navn;
         this.beskrivelse = beskrivelse;
         this.klipPris = klipPris;
