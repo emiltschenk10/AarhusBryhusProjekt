@@ -10,7 +10,7 @@ public class ProcentDiscount implements Discount {
     }
 
     public void setProcent(double procent){
-        this.procent = procent;
+        this.procent = 1-(procent/100);
     }
 
     @Override
