@@ -53,12 +53,12 @@ public class Storage {
 
 //-------------------------------------------------------------------------
 
-    public static ArrayList<Produktgruppe> getProduktgrupper(){return new ArrayList<>(produktgrupper);}
+    public static ArrayList<Produktgruppe> getProduktGrupper(){return new ArrayList<>(produktgrupper);}
 
-    public static void addProduktgruppe(Produktgruppe produktgruppe){
+    public static void addProduktGruppe(Produktgruppe produktgruppe){
         produktgrupper.add(produktgruppe);}
 
-    public static void removeProduktgruppe(Produktgruppe produktgruppe){
+    public static void removeProduktGruppe(Produktgruppe produktgruppe){
         produktgrupper.remove(produktgruppe);}
 
 //-------------------------------------------------------------------------
