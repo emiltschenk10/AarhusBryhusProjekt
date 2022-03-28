@@ -45,10 +45,13 @@ public class Ordrelinje {
     }
 
     public double getPris(){
+
         if(udlejning!=null){
             return produkt.getPant()*antal;
-        }else {
+        }else if (discount!= null) {
             return (discount.getDiscount(pris)+produkt.getPant()) * antal;
+        }else{
+            return (pris+produkt.getPant())*antal;
         }
     }
 
