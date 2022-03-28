@@ -6,6 +6,7 @@ public class Ordrelinje {
     private double pris;
     private Salg salg;
     private Udlejning udlejning;
+    private Discount discount;
 
 
     public Ordrelinje(Produkt produkt,int antal, double pris){
@@ -38,4 +39,13 @@ public class Ordrelinje {
     public void setUdlejning(Udlejning udlejning) {
         this.udlejning = udlejning;
     }
+
+    public double getPris(){
+        if(udlejning!=null){
+            return produkt.getPant()*antal;
+        }else {
+            return (discount.getDiscount(pris)+produkt.getPant()) * antal;
+        }
+    }
+
 }

@@ -15,6 +15,6 @@ public class ProcentDiscount implements Discount {
 
     @Override
     public double getDiscount(double pris) {
-        return procent;
+        return procent*pris;
     }
 }
