@@ -18,6 +18,13 @@ public class Produkt {
         this.produktgruppe = produktgruppe;
     }
 
+    public Produkt(String navn, String beskrivelse, int klipPris,Produktgruppe produktgruppe) {
+        this.navn = navn;
+        this.beskrivelse = beskrivelse;
+        this.klipPris = klipPris;
+        this.produktgruppe = produktgruppe;
+    }
+
     public String getNavn() {
         return navn;
     }
