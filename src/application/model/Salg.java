@@ -49,6 +49,10 @@ public class Salg {
         return prisliste;
     }
 
+    public void setPrisliste(Prisliste prisliste) {
+        this.prisliste = prisliste;
+    }
+
     public void setKunde(Kunde kunde) {
         if (this.kunde != kunde) {
             Kunde oldKunde = this.kunde;
