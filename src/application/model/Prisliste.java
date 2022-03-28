@@ -6,6 +6,8 @@ import java.util.HashMap;
 public class Prisliste {
     private String navn;
 
+    private ArrayList<Produkt> produkter = new ArrayList<>();
+
     private ArrayList<Arrangement> arragementer = new ArrayList<Arrangement>();
 
     private HashMap<Produkt, Double> produktpriser = new HashMap<>();
