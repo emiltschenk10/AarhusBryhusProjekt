@@ -8,10 +8,12 @@ public class Udlejning {
     private LocalDate afleveringsDato;
     private LocalDateTime udleveringsDato;
     private boolean betalt;
+    private boolean udestående;
     private Kunde kunde;
     private Prisliste prisliste;
     private Betalingsform betalingsform;
     private ArrayList<Ordrelinje> ordrelinjes = new ArrayList<>();
+
 
     public Udlejning(LocalDate afleveringsDato, LocalDateTime udleveringsDato, Kunde kunde,Prisliste prisliste){
         this.afleveringsDato=afleveringsDato;
