@@ -66,6 +66,12 @@ public class Controller {
         return ordrelinje;
     }
 
+    //TODO createOrdrelinjeUdlejning()
+    public static Ordrelinje createOrdrelinjeUdlejning(Produkt produkt, int antal, double pris, Udlejning udlejning){
+        Ordrelinje ordrelinje = udlejning.createOrdrelinje(produkt, antal, pris);
+        return ordrelinje;
+    }
+
     public static void addProduktTilPrisliste(Produkt produkt,double pris, Prisliste prisliste){
         prisliste.addProdukt(produkt,pris);
     }
@@ -84,5 +90,18 @@ public class Controller {
 
     public static void setBetalingsformPåSalg(Betalingsform betalingsform, Salg salg){
         salg.setBetalingsform(betalingsform);
+    }
+
+
+
+
+
+    private static void initStorage() {
+        Produktgruppe produktgruppe = Controller.createProduktGruppe("Fadøl","Bajer");
+        Produktgruppe produktgruppe1 = Controller.createProduktGruppe("Flaske","Pant");
+        Produktgruppe produktgruppe2 = Controller.createProduktGruppe("Fustage","asdasd");
+        Produkt p1 = Controller.createProdukt("Klosterbryg","Bajer",1,0, produktgruppe);
+        Produkt p2 = Controller.createProdukt("Klosterbryg","Pant",2,1, produktgruppe1);
+        Produkt p3 = Controller.createProdukt("Klosterbryg","asdasd",0, 200, produktgruppe2);
     }
 }
