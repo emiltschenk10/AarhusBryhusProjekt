@@ -13,7 +13,6 @@ public class Storage {
     private ArrayList<Produktgruppe> produktgrupper;
     private ArrayList<Betalingsform> betalingsformer;
     private ArrayList<Kunde> kunder;
-
     private static Storage uniqueInstance;
 
     private Storage(){
