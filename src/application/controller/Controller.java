@@ -66,6 +66,7 @@ public class Controller {
         return ordrelinje;
     }
 
+    //Metoder til prisliste
     public static void addProduktTilPrisliste(Produkt produkt,double pris, Prisliste prisliste){
         prisliste.addProdukt(produkt,pris);
     }
@@ -74,6 +75,7 @@ public class Controller {
         prisliste.addArragement(arrangement);
     }
 
+    //Metoder til salg
     public static void addOrdrelinjeTilSalg(Ordrelinje ordrelinje, Salg salg){
         salg.addOrdrelinje(ordrelinje);
     }
@@ -84,5 +86,9 @@ public class Controller {
 
     public static void setBetalingsformPåSalg(Betalingsform betalingsform, Salg salg){
         salg.setBetalingsform(betalingsform);
+    }
+
+    public static void beregnPris(Salg salg){
+        beregnPris(salg);
     }
 }
