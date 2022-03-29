@@ -124,4 +124,6 @@ public class Controller {
         Controller.addProduktTilPrisliste(p3, 575, pr2);
 
     }
+
+    public static void init(){initStorage();}
 }

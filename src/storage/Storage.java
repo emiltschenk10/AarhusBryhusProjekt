@@ -6,13 +6,13 @@ import java.util.ArrayList;
 
 public class Storage {
 
-    private ArrayList<Salg> salgs;
-    private ArrayList<Udlejning> udlejninger;
-    private ArrayList<Prisliste> prislister;
-    private ArrayList<Arrangement> arrangementer;
-    private ArrayList<Produktgruppe> produktgrupper;
-    private ArrayList<Betalingsform> betalingsformer;
-    private ArrayList<Kunde> kunder;
+    private ArrayList<Salg> salgs = new ArrayList<>();
+    private ArrayList<Udlejning> udlejninger = new ArrayList<>();
+    private ArrayList<Prisliste> prislister = new ArrayList<>();
+    private ArrayList<Arrangement> arrangementer = new ArrayList<>();
+    private ArrayList<Produktgruppe> produktgrupper = new ArrayList<>();
+    private ArrayList<Betalingsform> betalingsformer = new ArrayList<>();
+    private ArrayList<Kunde> kunder = new ArrayList<>();
     private static Storage uniqueInstance;
 
     private Storage(){
