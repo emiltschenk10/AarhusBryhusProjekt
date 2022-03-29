@@ -5,6 +5,7 @@ import storage.Storage;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Controller {
 
@@ -100,6 +101,16 @@ public class Controller {
 
     public static void beregnPris(Salg salg){
         beregnPris(salg);
+    }
+
+    //Get metoder
+
+    public Prisliste getPrislisteFraSalg(Salg salg){
+        return salg.getPrisliste();
+    }
+
+    public ArrayList<Prisliste> getAllePrislister(){
+        return Storage.getInstance().getPrislister();
     }
 
 
