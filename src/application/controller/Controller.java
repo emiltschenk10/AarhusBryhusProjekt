@@ -107,14 +107,15 @@ public class Controller {
 
 
     private static void initStorage() {
-        Produktgruppe produktgruppe = Controller.createProduktGruppe("Fadøl","Bajer");
-        Produktgruppe produktgruppe1 = Controller.createProduktGruppe("Flaske","Pant");
-        Produktgruppe produktgruppe2 = Controller.createProduktGruppe("Fustage","asdasd");
+        Controller controller = new Controller();
+        Produktgruppe produktgruppe = controller.createProduktGruppe("Fadøl","Bajer");
+        Produktgruppe produktgruppe1 = controller.createProduktGruppe("Flaske","Pant");
+        Produktgruppe produktgruppe2 = controller.createProduktGruppe("Fustage","asdasd");
         Produkt p1 = Controller.createProdukt("Klosterbryg","Bajer",1,0, produktgruppe);
         Produkt p2 = Controller.createProdukt("Klosterbryg","Pant",2,1, produktgruppe1);
         Produkt p3 = Controller.createProdukt("Klosterbryg","asdasd",0, 200, produktgruppe2);
-        Prisliste pr1 = Controller.createPrisliste("Fredagsbar");
-        Prisliste pr2 = Controller.createPrisliste("Butik");
+        Prisliste pr1 = controller.createPrisliste("Fredagsbar");
+        Prisliste pr2 = controller.createPrisliste("Butik");
         Controller.addProduktTilPrisliste(p1, 38.0, pr1);
         Controller.addProduktTilPrisliste(p2, 70.0, pr1);
         Controller.addProduktTilPrisliste(p3, 575, pr1);
