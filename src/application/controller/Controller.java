@@ -115,8 +115,6 @@ public class Controller {
 
 
 
-
-
     private static void initStorage() {
         Controller controller = new Controller();
         Produktgruppe produktgruppe = controller.createProduktGruppe("Fadøl","Bajer");
