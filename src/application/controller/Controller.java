@@ -130,7 +130,7 @@ public class Controller {
         Controller.addProduktTilPrisliste(p3, 575, pr1);
         Controller.addProduktTilPrisliste(p1, 38.0, pr2);
         Controller.addProduktTilPrisliste(p2, 36.0, pr2);
-        Controller.addProduktTilPrisliste(p3, 575, pr2);
+//        Controller.addProduktTilPrisliste(p3, 575, pr2);
 
     }
 

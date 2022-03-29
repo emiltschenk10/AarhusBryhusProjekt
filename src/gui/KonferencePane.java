@@ -13,6 +13,7 @@ import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -56,10 +57,8 @@ public class KonferencePane extends GridPane {
         // lvwUdflugter.setPrefHeight(100);
 
 
-
         ChangeListener<Prisliste> listener1 = (ov, gammelPrisListe, nyPrisListe) -> this.selectedPrislisteChanged();
         prislisteComboBox.getSelectionModel().selectedItemProperty().addListener(listener1);
-
 
 
         // ChangeListener<Udflugt> listener2 = (ov, gammelUdflugt, nyUdflugt) -> this.selectedUdflugtChanged();
@@ -97,25 +96,19 @@ public class KonferencePane extends GridPane {
         this.updateControls();
     }
 
-    Map map = new HashMap();
 
-    public void updateControls(){
+    public void updateControls() {
         Prisliste prisliste = prislisteComboBox.getSelectionModel().getSelectedItem();
         //lvwPriser.getItems().setAll(prisliste.getProduktpriser());
-        for (Map.Entry<Produkt,Double> entry : prisliste.getProduktpriser().entrySet()){
-            Produkt key =  entry.getKey();
-            Double value = entry.getValue();
-
-           // for(int i = 0;  i < prisliste.getProduktpriser().keySet(); i++ ){
-              //  map.put(key.getNavn(),value);
-              //  lvwPriser.getItems().add(i, value);
-
-            }
-
+        ArrayList<ProduktListview> produktListviews = new ArrayList<>();
+        for (Produkt produkt : prisliste.getProduktpriser().keySet()) {
+            produktListviews.add(new ProduktListview(produkt,prisliste.getProduktpriser().get(produkt)));
         }
-        }
+        lvwPriser.getItems().setAll(produktListviews);
+    }
+}
 
-    //}
+
 
 
 /*
