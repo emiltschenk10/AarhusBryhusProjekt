@@ -54,4 +54,8 @@ public class Produkt {
         this.pant = pant;
     }
 
+    @Override
+    public String toString() {
+        return navn;
+    }
 }

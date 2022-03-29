@@ -3,6 +3,7 @@ package gui;
 import application.controller.Controller;
 import application.model.Prisliste;
 import application.model.Produkt;
+import com.sun.javafx.css.StyleCache;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -10,11 +11,12 @@ import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class KonferencePane extends GridPane {
-    private final TextField txfNavn, txfAdresse, txfstartDato, txfSlutDato, txfPris;
-    private final TextArea txaBeskrivelse, txaLedsagere, txaHoteller, txaDeltager;
+
     private final ListView<Map<Produkt, Double>> lvwPriser;
     private final ComboBox<Prisliste> prislisteComboBox;
     //private final ListView<Udflugt> lvwUdflugter;
@@ -24,10 +26,11 @@ public class KonferencePane extends GridPane {
         this.setHgap(20);
         this.setVgap(10);
         this.setGridLinesVisible(false);
-        //Controller controller = new Controller();
+        Controller controller = new Controller();
 
         prislisteComboBox = new ComboBox<>();
         this.add(prislisteComboBox, 0, 0);
+        prislisteComboBox.getItems().setAll(controller.getAllePrislister());
 
 
         Label lblPriser = new Label("Priser");
@@ -45,98 +48,16 @@ public class KonferencePane extends GridPane {
         lblUdflugter.setPadding(new Insets(4, 0, 4, 0));
 
         //lvwUdflugter = new ListView<>();
-       // this.add(lvwUdflugter, 0, 9, 1, 1);
-       // lvwUdflugter.setPrefWidth(200);
-       // lvwUdflugter.setPrefHeight(100);
+        // this.add(lvwUdflugter, 0, 9, 1, 1);
+        // lvwUdflugter.setPrefWidth(200);
+        // lvwUdflugter.setPrefHeight(100);
 
-       // ChangeListener<Konference> listener = (ov, gammelKonference, nyKonference) -> this.selectedKonferenceChanged();
-       // lvwPriser.getSelectionModel().selectedItemProperty().addListener(listener);
+        ChangeListener<Prisliste> listener1 = (ov, gammelPrisListe, nyPrisListe) -> this.selectedPrislisteChanged();
+        prislisteComboBox.getSelectionModel().selectedItemProperty().addListener(listener1);
 
-       // ChangeListener<Udflugt> listener2 = (ov, gammelUdflugt, nyUdflugt) -> this.selectedUdflugtChanged();
-       // lvwUdflugter.getSelectionModel().selectedItemProperty().addListener(listener2);
+        // ChangeListener<Udflugt> listener2 = (ov, gammelUdflugt, nyUdflugt) -> this.selectedUdflugtChanged();
+        // lvwUdflugter.getSelectionModel().selectedItemProperty().addListener(listener2);
 
-        Label lblNavn = new Label("Navn:");
-        this.add(lblNavn, 1, 1);
-        GridPane.setHalignment(lblNavn, HPos.RIGHT);
-
-        txfNavn = new TextField();
-        this.add(txfNavn, 2, 1);
-        txfNavn.setEditable(false);
-
-        Label lblAdresse = new Label("Adresse:");
-        this.add(lblAdresse, 1, 2);
-        GridPane.setHalignment(lblAdresse, HPos.RIGHT);
-
-        txfAdresse = new TextField();
-        this.add(txfAdresse, 2, 2);
-        txfAdresse.setEditable(false);
-
-        Label lblBeskrivelse = new Label("Beskrivelse:");
-        this.add(lblBeskrivelse, 1, 3);
-        GridPane.setValignment(lblBeskrivelse, VPos.BASELINE);
-        lblBeskrivelse.setPadding(new Insets(4, 0, 4, 0));
-        GridPane.setHalignment(lblBeskrivelse, HPos.RIGHT);
-
-        txaBeskrivelse = new TextArea();
-        this.add(txaBeskrivelse, 2, 3);
-        txaBeskrivelse.setPrefWidth(200);
-        txaBeskrivelse.setPrefHeight(100);
-        txaBeskrivelse.setEditable(false);
-
-        Label lblStartDato = new Label("Start dato:");
-        this.add(lblStartDato, 1, 4);
-        GridPane.setHalignment(lblStartDato, HPos.RIGHT);
-
-        txfstartDato = new TextField();
-        this.add(txfstartDato, 2, 4);
-        txfstartDato.setEditable(false);
-
-        Label lblSlutDato = new Label("Slut dato:");
-        this.add(lblSlutDato, 1, 5);
-        GridPane.setHalignment(lblSlutDato, HPos.RIGHT);
-
-        txfSlutDato = new TextField();
-        this.add(txfSlutDato, 2, 5);
-        txfSlutDato.setEditable(false);
-
-        Label lblPris = new Label("Pris:");
-        this.add(lblPris, 1, 6);
-        GridPane.setHalignment(lblPris, HPos.RIGHT);
-
-        txfPris = new TextField();
-        this.add(txfPris, 2, 6);
-        txfPris.setEditable(false);
-
-        Label lblDeltagere = new Label("Deltagere:");
-        this.add(lblDeltagere, 1, 8);
-        GridPane.setValignment(lblDeltagere, VPos.BASELINE);
-        lblDeltagere.setPadding(new Insets(4, 0, 4, 0));
-
-        txaDeltager = new TextArea();
-        this.add(txaDeltager, 1, 9);
-        txaDeltager.setPrefWidth(200);
-        txaDeltager.setPrefHeight(100);
-        txaDeltager.setEditable(false);
-
-        Label lblHoteller = new Label("Hoteller: ");
-        this.add(lblHoteller, 2, 8);
-        GridPane.setValignment(lblHoteller, VPos.BASELINE);
-        lblHoteller.setPadding(new Insets(4, 0, 4, 0));
-
-        txaHoteller = new TextArea();
-        this.add(txaHoteller, 2, 9);
-        txaHoteller.setPrefWidth(200);
-        txaHoteller.setPrefHeight(100);
-        txaHoteller.setEditable(false);
-
-        Label lblLedsagere = new Label("Ledsagere:");
-        this.add(lblLedsagere, 0, 10);
-
-        txaLedsagere = new TextArea();
-        this.add(txaLedsagere, 0, 11);
-        txaLedsagere.setPrefWidth(200);
-        txaLedsagere.setPrefHeight(100);
-        txaLedsagere.setEditable(false);
 
         Button btnOpretKonference = new Button("Opret konference");
         this.add(btnOpretKonference, 0, 0);
@@ -157,12 +78,31 @@ public class KonferencePane extends GridPane {
             lvwPriser.getSelectionModel().select(0);
         }
 
-       // if (lvwUdflugter.getItems().size() > 0) {
-         //   lvwUdflugter.getSelectionModel().select(0);
-        }
+        // if (lvwUdflugter.getItems().size() > 0) {
+        //   lvwUdflugter.getSelectionModel().select(0);
     }
 
+
     // -----------------------------------------------------------------------------------------------------------------
+
+
+    public void selectedPrislisteChanged() {
+        this.updateControls();
+    }
+
+    public void updateControls(){
+        Prisliste prisliste = prislisteComboBox.getSelectionModel().getSelectedItem();
+        //lvwPriser.getItems().setAll(prisliste.getProduktpriser());
+        for (Map.Entry<Produkt,Double> entry : prisliste.getProduktpriser().entrySet()){
+            Produkt key =  entry.getKey();
+            Double value = entry.getValue();
+          //  lvwPriser.getItems().add(key,value);
+        }
+        }
+
+    }
+
+
 /*
     private void opretKonferenceAction() {
         KonferenceWindow dia = new KonferenceWindow("Oprat konference");
@@ -207,46 +147,12 @@ public class KonferencePane extends GridPane {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    public void selectedKonferenceChanged() {
-        this.updateControls();
-    }
+
 
     private void selectedUdflugtChanged() {
         this.updateUdflugtControls();
     }
 
-    //TODO
-    public void updateControls() {
-        Konference konference = lvwPriser.getSelectionModel().getSelectedItem();
-        if (konference != null) {
-            txfNavn.setText(konference.getNavn());
-            txfAdresse.setText(konference.getAdresse());
-            txaBeskrivelse.setText(konference.getBeskrivelse());
-            txfstartDato.setText(konference.getStartDato().toString());
-            txfSlutDato.setText(konference.getSlutDato().toString());
-            txfPris.setText("" + konference.getPrisPrDag());
-            StringBuilder sb = new StringBuilder();
-            for (Tilmelding t : konference.getTilmeldinger()) {
-                sb.append(t.getDeltager() + "\n");
-            }
-            txaDeltager.setText(sb.toString());
-
-            StringBuilder sb1 = new StringBuilder();
-            for (Hotel hotel : konference.getHoteller()) {
-                sb1.append(hotel.getNavn() + "\n");
-            }
-            txaHoteller.setText(sb1.toString());
-            lvwUdflugter.getItems().setAll(konference.getUdflugter());
-        } else {
-            txfNavn.clear();
-            txfAdresse.clear();
-            txaBeskrivelse.clear();
-            txfstartDato.clear();
-            txfSlutDato.clear();
-            txfPris.clear();
-        }
-
-    }
 
     public void updateUdflugtControls() {
 
