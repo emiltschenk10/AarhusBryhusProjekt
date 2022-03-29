@@ -49,4 +49,9 @@ public class Prisliste {
             arragementer.add(arrangement);
         }
     }
+
+    @Override
+    public String toString() {
+        return navn;
+    }
 }
