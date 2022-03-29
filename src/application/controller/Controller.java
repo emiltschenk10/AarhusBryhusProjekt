@@ -71,6 +71,11 @@ public class Controller {
         return ordrelinje;
     }
 
+    public static Ordrelinje createOrdrelinjeUdlejning(Produkt produkt, int antal, double pris, Udlejning udlejning){
+        Ordrelinje ordrelinje = udlejning.createOrdrelinje(produkt, antal, pris);
+        return ordrelinje;
+    }
+
     //Metoder til prisliste
     public static void addProduktTilPrisliste(Produkt produkt,double pris, Prisliste prisliste){
         prisliste.addProdukt(produkt,pris);
@@ -108,5 +113,14 @@ public class Controller {
         Produkt p1 = Controller.createProdukt("Klosterbryg","Bajer",1,0, produktgruppe);
         Produkt p2 = Controller.createProdukt("Klosterbryg","Pant",2,1, produktgruppe1);
         Produkt p3 = Controller.createProdukt("Klosterbryg","asdasd",0, 200, produktgruppe2);
+        Prisliste pr1 = Controller.createPrisliste("Fredagsbar");
+        Prisliste pr2 = Controller.createPrisliste("Butik");
+        Controller.addProduktTilPrisliste(p1, 38.0, pr1);
+        Controller.addProduktTilPrisliste(p2, 70.0, pr1);
+        Controller.addProduktTilPrisliste(p3, 575, pr1);
+        Controller.addProduktTilPrisliste(p1, 38.0, pr2);
+        Controller.addProduktTilPrisliste(p2, 36.0, pr2);
+        Controller.addProduktTilPrisliste(p3, 575, pr2);
+
     }
 }
