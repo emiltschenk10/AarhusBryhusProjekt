@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class KonferencePane extends GridPane {
 
-    private final ListView<Map<Produkt, Double>> lvwPriser;
+    private final ListView<ProduktListview> lvwPriser;
     private final ComboBox<Prisliste> prislisteComboBox;
     //private final ListView<Udflugt> lvwUdflugter;
 
@@ -90,17 +90,25 @@ public class KonferencePane extends GridPane {
         this.updateControls();
     }
 
+    Map map = new HashMap();
+
     public void updateControls(){
         Prisliste prisliste = prislisteComboBox.getSelectionModel().getSelectedItem();
         //lvwPriser.getItems().setAll(prisliste.getProduktpriser());
         for (Map.Entry<Produkt,Double> entry : prisliste.getProduktpriser().entrySet()){
             Produkt key =  entry.getKey();
             Double value = entry.getValue();
-          //  lvwPriser.getItems().add(key,value);
+
+           // for(int i = 0;  i < prisliste.getProduktpriser().keySet(); i++ ){
+              //  map.put(key.getNavn(),value);
+              //  lvwPriser.getItems().add(i, value);
+
+            }
+
         }
         }
 
-    }
+    //}
 
 
 /*
