@@ -6,79 +6,91 @@ import java.util.ArrayList;
 
 public class Storage {
 
-    private static ArrayList<Salg> salgs;
-    private static ArrayList<Udlejning> udlejninger;
-    private static ArrayList<Prisliste> prislister;
-    private static ArrayList<Arrangement> arrangementer;
-    private static ArrayList<Produktgruppe> produktgrupper;
-    private static ArrayList<Betalingsform> betalingsformer;
-    private static ArrayList<Kunde> kunder;
+    private ArrayList<Salg> salgs;
+    private ArrayList<Udlejning> udlejninger;
+    private ArrayList<Prisliste> prislister;
+    private ArrayList<Arrangement> arrangementer;
+    private ArrayList<Produktgruppe> produktgrupper;
+    private ArrayList<Betalingsform> betalingsformer;
+    private ArrayList<Kunde> kunder;
+
+    private static Storage uniqueInstance;
+
+    private Storage(){
+    }
+
+    public static synchronized Storage getInstance(){
+        if(uniqueInstance == null){
+            uniqueInstance = new Storage();
+        }
+        return uniqueInstance;
+    }
 
 
 //-------------------------------------------------------------------------
-    public static ArrayList<Salg> getSalgs(){return new ArrayList<>(salgs);}
+    public ArrayList<Salg> getSalgs(){return new ArrayList<>(salgs);}
 
-    public static void addSalg(Salg salg){salgs.add(salg);}
+    public void addSalg(Salg salg){salgs.add(salg);}
 
-    public static void removeSalg(Salg salg){salgs.remove(salg);}
-
-//-------------------------------------------------------------------------
-
-    public static ArrayList<Udlejning> getUdlejnings(){return new ArrayList<>(udlejninger);}
-
-    public static void addUdlejning(Udlejning udlejning){udlejninger.add(udlejning);}
-
-    public static void removeUdlejning(Udlejning udlejning){udlejninger.remove(udlejning);}
+    public void removeSalg(Salg salg){salgs.remove(salg);}
 
 //-------------------------------------------------------------------------
 
-    public static ArrayList<Prisliste> getPrislister(){return new ArrayList<>(prislister);}
+    public ArrayList<Udlejning> getUdlejnings(){return new ArrayList<>(udlejninger);}
 
-    public static void addPrisliste(Prisliste prisliste){
+    public void addUdlejning(Udlejning udlejning){udlejninger.add(udlejning);}
+
+    public void removeUdlejning(Udlejning udlejning){udlejninger.remove(udlejning);}
+
+//-------------------------------------------------------------------------
+
+    public ArrayList<Prisliste> getPrislister(){return new ArrayList<>(prislister);}
+
+    public void addPrisliste(Prisliste prisliste){
         prislister.add(prisliste);}
 
-    public static void removePrisliste(Prisliste prisliste){
+    public void removePrisliste(Prisliste prisliste){
         prislister.remove(prisliste);}
 
 //-------------------------------------------------------------------------
 
-    public static ArrayList<Arrangement> getArrangementer(){return new ArrayList<>(arrangementer);}
+    public ArrayList<Arrangement> getArrangementer(){return new ArrayList<>(arrangementer);}
 
-    public static void addArrangement(Arrangement arrangement){
+    public void addArrangement(Arrangement arrangement){
         arrangementer.add(arrangement);}
 
-    public static void removeArrangement(Arrangement arrangement){
+    public void removeArrangement(Arrangement arrangement){
         arrangementer.remove(arrangement);}
 
 
 //-------------------------------------------------------------------------
 
-    public static ArrayList<Produktgruppe> getProduktGrupper(){return new ArrayList<>(produktgrupper);}
+    public ArrayList<Produktgruppe> getProduktGrupper(){return new ArrayList<>(produktgrupper);}
 
-    public static void addProduktGruppe(Produktgruppe produktgruppe){
+    public void addProduktGruppe(Produktgruppe produktgruppe){
         produktgrupper.add(produktgruppe);}
 
-    public static void removeProduktGruppe(Produktgruppe produktgruppe){
+    public void removeProduktGruppe(Produktgruppe produktgruppe){
         produktgrupper.remove(produktgruppe);}
 
 //-------------------------------------------------------------------------
 
-    public static ArrayList<Betalingsform> getBetalingsformer(){return new ArrayList<>(betalingsformer);}
+    public ArrayList<Betalingsform> getBetalingsformer(){return new ArrayList<>(betalingsformer);}
 
-    public static void addBetalingsform(Betalingsform betalingsform){
+    public void addBetalingsform(Betalingsform betalingsform){
         betalingsformer.add(betalingsform);}
 
-    public static void removeBetalingsform(Betalingsform betalingsform){
+    public void removeBetalingsform(Betalingsform betalingsform){
         betalingsformer.remove(betalingsform);}
 
 //-------------------------------------------------------------------------
 
-    public static ArrayList<Kunde> getKunder(){return new ArrayList<>(kunder);}
+    public ArrayList<Kunde> getKunder(){return new ArrayList<>(kunder);}
 
-    public static void addKunde(Kunde kunde){
+    public void addKunde(Kunde kunde){
         kunder.add(kunde);}
 
-    public static void removeKunde(Kunde kunde){
+    public void removeKunde(Kunde kunde){
         kunder.remove(kunde);}
 
 
