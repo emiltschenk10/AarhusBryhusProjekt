@@ -3,8 +3,10 @@ package gui;
 import application.controller.Controller;
 import application.model.Prisliste;
 import application.model.Produkt;
+import com.sun.javafx.collections.MapListenerHelper;
 import com.sun.javafx.css.StyleCache;
 import javafx.beans.value.ChangeListener;
+import javafx.collections.MapChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
@@ -42,6 +44,7 @@ public class KonferencePane extends GridPane {
         lvwPriser.setPrefHeight(200);
         //lvwPriser.getItems().setAll(Controller.getKonferencer());
 
+
         Label lblUdflugter = new Label("Udflugter:");
         this.add(lblUdflugter, 0, 8);
         GridPane.setValignment(lblUdflugter, VPos.BASELINE);
@@ -52,8 +55,12 @@ public class KonferencePane extends GridPane {
         // lvwUdflugter.setPrefWidth(200);
         // lvwUdflugter.setPrefHeight(100);
 
+
+
         ChangeListener<Prisliste> listener1 = (ov, gammelPrisListe, nyPrisListe) -> this.selectedPrislisteChanged();
         prislisteComboBox.getSelectionModel().selectedItemProperty().addListener(listener1);
+
+
 
         // ChangeListener<Udflugt> listener2 = (ov, gammelUdflugt, nyUdflugt) -> this.selectedUdflugtChanged();
         // lvwUdflugter.getSelectionModel().selectedItemProperty().addListener(listener2);
