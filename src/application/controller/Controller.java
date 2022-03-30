@@ -122,13 +122,13 @@ public class Controller {
 
     //Statestik
 
-    public double salgForDato(LocalDateTime dato){
+    public double salgForDato(LocalDate dato){
 
         double totalIndtjening = 0.0;
 
             for (Salg s: storage.getSalgs()) {
-                if (s.getDato() == dato){
-                    totalIndtjening += s.beregnPris();
+                if (dato.equals(s.getDato().toLocalDate())){
+                    totalIndtjening = totalIndtjening + s.beregnPris();
                 }
             }
 
@@ -143,12 +143,14 @@ public class Controller {
         int totalSolgte = 0;
 
         for(Salg s: storage.getSalgs()){
-            if (s.getDato() == LocalDateTime.from(dato)){
+            if (dato.equals(s.getDato().toLocalDate())){
                 for (Produktgruppe p: storage.getProduktGrupper()) {
                     if (p == produktgruppe) {
                         for (Produkt pp : produktgruppe.getProdukter()) {
                             if (pp == produkt){
-                                totalSolgte++;
+                                for (Ordrelinje o: s.getOrdrelinjer()) {
+                                  totalSolgte += o.getAntal();
+                                }
                             }
                         }
                     }
@@ -177,9 +179,12 @@ public class Controller {
         Controller.addProduktTilPrisliste(p3, 575, pr3);
 //        Controller.addProduktTilPrisliste(p3, 575, pr2);
 
+
+
        Salg s1 = controller.createSalgMedParm(LocalDateTime.now(),true,pr1);
        Salg s2 = controller.createSalgMedParm(LocalDateTime.now(),true,pr1);
        Salg s3 = controller.createSalgMedParm(LocalDateTime.now(),true,pr1);
+
        Ordrelinje o1 = Controller.createOrdrelinjeSalg(p1,2,70,s1);
        Ordrelinje o2 = Controller.createOrdrelinjeSalg(p1,2,70,s2);
        Ordrelinje o3 = Controller.createOrdrelinjeSalg(p1,2,70,s3);
