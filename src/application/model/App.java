@@ -1,5 +1,7 @@
 package application.model;
 
+import application.controller.Controller;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -33,5 +35,7 @@ public class App {
         System.out.println(o1.getPris());
         System.out.println(o2.getPris());
         System.out.println(u1.beregnPris());
+
+
     }
 }
