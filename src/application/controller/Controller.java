@@ -115,6 +115,11 @@ public class Controller {
 
     public ArrayList<Ordrelinje> getOrdrelinjer(Salg salg){return salg.getOrdrelinjer();}
 
+    public ArrayList<Produktgruppe> getProduktGrupper(){return storage.getProduktGrupper();}
+
+    public ArrayList<Produkt> getProduktGruppensProdukter(Produktgruppe produktgruppe){return produktgruppe.getProdukter();}
+
+
     private static void initStorage() {
         Controller controller = new Controller();
         Produktgruppe produktgruppe = controller.createProduktGruppe("Fadøl","Bajer");
