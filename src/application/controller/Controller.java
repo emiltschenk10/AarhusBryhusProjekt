@@ -6,10 +6,10 @@ import storage.Storage;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Controller {
-
-
 
 
     private Storage storage = Storage.getInstance();
@@ -115,6 +115,44 @@ public class Controller {
 
     public ArrayList<Ordrelinje> getOrdrelinjer(Salg salg){return salg.getOrdrelinjer();}
 
+    //Statestik
+
+    public double salgForDato(LocalDateTime dato){
+
+        double totalIndtjening = 0.0;
+
+            for (Salg s: storage.getSalgs()) {
+                if (s.getDato() == dato){
+                    totalIndtjening += s.beregnPris();
+                }
+            }
+
+        return totalIndtjening;
+    }
+
+   // public Map<Produktgruppe, Produkt> salgForBestemtProdukt(Produktgruppe produktgruppe, Produkt produkt){
+    //    double totalIndtjeningPåPro
+   // }
+
+    public int salgForProduktogProduktgruppe(Produktgruppe produktgruppe, Produkt produkt, LocalDate dato){
+        int totalSolgte = 0;
+
+        for(Salg s: storage.getSalgs()){
+            if (s.getDato() == LocalDateTime.from(dato)){
+                for (Produktgruppe p: storage.getProduktGrupper()) {
+                    if (p == produktgruppe) {
+                        for (Produkt pp : produktgruppe.getProdukter()) {
+                            if (pp == produkt){
+                                totalSolgte++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return totalSolgte;
+    }
+
     private static void initStorage() {
         Controller controller = new Controller();
         Produktgruppe produktgruppe = controller.createProduktGruppe("Fadøl","Bajer");
@@ -132,7 +170,17 @@ public class Controller {
         Controller.addProduktTilPrisliste(p2, 36.0, pr2);
 //        Controller.addProduktTilPrisliste(p3, 575, pr2);
 
+       Salg s1 = controller.createSalgMedParm(LocalDateTime.now(),true,pr1);
+       Salg s2 = controller.createSalgMedParm(LocalDateTime.now(),true,pr1);
+       Salg s3 = controller.createSalgMedParm(LocalDateTime.now(),true,pr1);
+       Ordrelinje o1 = Controller.createOrdrelinjeSalg(p1,2,70,s1);
+       Ordrelinje o2 = Controller.createOrdrelinjeSalg(p1,2,70,s2);
+       Ordrelinje o3 = Controller.createOrdrelinjeSalg(p1,2,70,s3);
     }
 
     public static void init(){initStorage();}
+
+    public static void main(String[] args) {
+
+    }
 }
