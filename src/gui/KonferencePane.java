@@ -1,19 +1,18 @@
 package gui;
 
 import application.controller.Controller;
-import application.model.Ordrelinje;
-import application.model.Prisliste;
-import application.model.Produkt;
-import application.model.Salg;
+import application.model.*;
 import com.sun.javafx.collections.MapListenerHelper;
 import com.sun.javafx.css.StyleCache;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.MapChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +28,7 @@ public class KonferencePane extends GridPane {
     private final CheckBox chkRabat;
     private final ToggleGroup rabat;
     private Salg salg;
+    private RadioButton r1,r2,r3;
 
 
     public KonferencePane() {
@@ -67,19 +67,30 @@ public class KonferencePane extends GridPane {
         chkRabat = new CheckBox("Rabat");
         this.add(chkRabat, 2, 5);
 
+        chkRabat.setOnAction(event -> chkboxrabatAction());
 
         rabat = new ToggleGroup();
         ArrayList<String> rabatter = new ArrayList<>();
         rabatter.add("Procent Rabat");
         rabatter.add("Aftalt tilbud");
         rabatter.add("Klippekort");
-        for (int i = 0; i < rabatter.size(); i++) {
-            RadioButton r = new RadioButton(rabatter.get(i));
-            this.add(r, 2 + i, 6);
-            GridPane.setValignment(r, VPos.TOP);
-            GridPane.setHalignment(r, HPos.LEFT);
-            r.setToggleGroup(rabat);
-        }
+
+        r1 = new RadioButton("Procent rabat");
+        r2 = new RadioButton("Aftalt tilbud");
+        r3 = new RadioButton("Klippekort");
+        r1.setAlignment(Pos.TOP_CENTER);
+        r2.setAlignment(Pos.TOP_CENTER);
+        r3.setAlignment(Pos.TOP_CENTER);
+        r1.setToggleGroup(rabat);
+        r2.setToggleGroup(rabat);
+        r3.setToggleGroup(rabat);
+
+        r1.setDisable(true);
+        r2.setDisable(true);
+        r3.setDisable(true);
+        HBox hBox = new HBox(r1,r2,r3);
+        this.add(hBox,2,6);
+
 
         txfRabat = new TextField();
         this.add(txfRabat, 3, 6);
@@ -159,12 +170,39 @@ public class KonferencePane extends GridPane {
         lvwPriser.getItems().setAll(produktListviews);
     }
 
+    public void chkboxrabatAction(){
+        if(chkRabat.isSelected()){
+            r1.setDisable(false);
+            r2.setDisable(false);
+            r3.setDisable(false);
+        }else{
+            r1.setDisable(true);
+            r2.setDisable(true);
+            r3.setDisable(true);
+        }
+    }
+
     public void tilføjTilKurvAction(){
+        //TODO
         Controller controller = new Controller();
         Produkt produkt = lvwPriser.getSelectionModel().getSelectedItem().getProdukt();
         int antal = Integer.parseInt(txfAntal.getText().trim());
         double pris = lvwPriser.getSelectionModel().getSelectedItem().getPris();
-        Controller.createOrdrelinjeSalg(produkt,antal ,pris, salg);
+        Ordrelinje ordrelinje = Controller.createOrdrelinjeSalg(produkt,antal ,pris, salg);
+        if(chkRabat.isSelected() && rabat.getSelectedToggle() != null){
+            if(rabat.getSelectedToggle()==r1 && !txfRabat.getText().equals("")){
+                ProcentDiscount discount = new ProcentDiscount("");
+                discount.setProcent(Double.parseDouble(txfRabat.getText()));
+                ordrelinje.setDiscount(discount);
+            }else if(rabat.getSelectedToggle()==r2 && !txfRabat.getText().equals("")){
+                AftaltDiscount discount = new AftaltDiscount("");
+                discount.setPris(Double.parseDouble(txfRabat.getText()));
+                ordrelinje.setDiscount(discount);
+            }else{
+                Discount discount = new KlipDiscount("");
+                ordrelinje.setDiscount(discount);
+            }
+        }
         lvwIndkøbskurv.getItems().setAll(controller.getOrdrelinjer(salg));
         txfAntal.clear();
         lvwPriser.getSelectionModel().clearSelection();
