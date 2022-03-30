@@ -58,4 +58,8 @@ public class Kunde {
             salg.setKunde(null);
         }
     }
+
+    public String toString(){
+        return navn + "   " + tlfNummer + "   " + email;
+    }
 }

@@ -25,4 +25,8 @@ public class Betalingsform {
     public void setType(String type) {
         this.type = type;
     }
+
+    public String toString(){
+        return navn + "   " + type;
+    }
 }

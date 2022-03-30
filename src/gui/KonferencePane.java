@@ -82,7 +82,8 @@ public class KonferencePane extends GridPane {
         r2.setDisable(true);
         r3.setDisable(true);
         HBox hBox = new HBox(r1,r2,r3);
-        this.add(hBox,2,6);
+        this.add(hBox,2,6, 2, 1);
+
 
 
         txfRabat = new TextField();
@@ -140,8 +141,8 @@ public class KonferencePane extends GridPane {
         hBox1.setSpacing(10);
 
         Button btnTilføjTilKurv = new Button("Tilføj til kurv");
-        this.add(btnTilføjTilKurv, 3, 7);
-        GridPane.setValignment(btnTilføjTilKurv, VPos.TOP);
+        this.add(btnTilføjTilKurv, 3, 6);
+        GridPane.setValignment(btnTilføjTilKurv, VPos.BOTTOM);
         btnTilføjTilKurv.setOnAction(event -> this.tilføjTilKurvAction());
 
         if (lvwPriser.getItems().size() > 0) {
@@ -215,7 +216,7 @@ public class KonferencePane extends GridPane {
     }
 
     public void købBtnAction(){
-        KundeWindow dia = new KundeWindow("Betalingsvindue");
+        KundeWindow dia = new KundeWindow("Betalingsvindue",salg);
         dia.showAndWait();
     }
 
