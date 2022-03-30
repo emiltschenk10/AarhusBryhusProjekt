@@ -46,18 +46,18 @@ public class StartWindow extends Application {
         tabSalg.setContent(konferencePane);
 
 
-        /*
-        Tab tabSalg = new Tab("Udlejning");
-        tabPane.getTabs().add(tabSalg);
 
-        DeltagerPane deltagerPane = new DeltagerPane();
-        tabSalg.setContent(deltagerPane);
+        Tab tabUdlejning = new Tab("Udlejning");
+        tabPane.getTabs().add(tabUdlejning);
 
-        Tab tabHoteller = new Tab("Hoteller");
-        tabPane.getTabs().add(tabHoteller);
+        UdlejningsPane udlejningsPane = new UdlejningsPane();
+        tabUdlejning.setContent(udlejningsPane);
 
-        HotelPane hotelPane = new HotelPane();
-        tabHoteller.setContent(hotelPane);
-         */
+        Tab tabSortiment = new Tab("Sortiment");
+        tabPane.getTabs().add(tabSortiment);
+
+        SortimentPane sortimentPane = new SortimentPane();
+        tabSortiment.setContent(sortimentPane);
+
     }
 }
