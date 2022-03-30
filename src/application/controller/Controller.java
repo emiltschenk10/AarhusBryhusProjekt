@@ -139,17 +139,19 @@ public class Controller {
     //    double totalIndtjeningPåPro
    // }
 
-    public int salgForProduktogProduktgruppe(Produktgruppe produktgruppe, Produkt produkt, LocalDate dato){
+    public int salgForProduktogProduktgruppe(Produktgruppe produktgruppe, Produkt produkt, LocalDate dato, Arrangement arrangement){
         int totalSolgte = 0;
 
-        for(Salg s: storage.getSalgs()){
-            if (dato.equals(s.getDato().toLocalDate())){
-                for (Produktgruppe p: storage.getProduktGrupper()) {
-                    if (p == produktgruppe) {
-                        for (Produkt pp : produktgruppe.getProdukter()) {
-                            if (pp == produkt){
-                                for (Ordrelinje o: s.getOrdrelinjer()) {
-                                  totalSolgte += o.getAntal();
+        for(Salg s: storage.getSalgs()) {
+            if (dato.equals(s.getDato().toLocalDate())) {
+                if (s.getPrisliste().getArragementer().contains(arrangement) || arrangement == null) {
+                    for (Produktgruppe p : storage.getProduktGrupper()) {
+                        if (p == produktgruppe) {
+                            for (Produkt pp : produktgruppe.getProdukter()) {
+                                if (pp == produkt) {
+                                    for (Ordrelinje o : s.getOrdrelinjer()) {
+                                        totalSolgte += o.getAntal();
+                                    }
                                 }
                             }
                         }
