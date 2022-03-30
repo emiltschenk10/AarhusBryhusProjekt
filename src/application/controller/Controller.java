@@ -47,6 +47,7 @@ public class Controller {
     public Udlejning createUdlejning(LocalDate afleveringsdato, LocalDateTime udlejningdato, Kunde kunde, Prisliste prisliste){
         Udlejning udlejning = new Udlejning(afleveringsdato, udlejningdato, kunde, prisliste);
         storage.addUdlejning(udlejning);
+        udlejning.udlejningsNr();
         return udlejning;
     }
 
@@ -160,6 +161,21 @@ public class Controller {
             }
         }
         return totalSolgte;
+    }
+
+    public Map<Udlejning,Integer> antalIkkeAfleveredeProdukter(){
+        HashMap<Udlejning, Integer> map = new HashMap<>();
+
+        for (Udlejning u: storage.getUdlejnings()) {
+            if(LocalDate.now().isAfter(u.getAfleveringsDato())){
+                for (Ordrelinje o : u.getOrdrelinjer()) {
+                    map.put(u,o.getAntal());
+                }
+
+            }
+        }
+
+        return map;
     }
 
     private static void initStorage() {
