@@ -30,9 +30,14 @@ public class Test {
         Ordrelinje o1 = Controller.createOrdrelinjeSalg(p1,2,70,s1);
         Ordrelinje o2 = Controller.createOrdrelinjeSalg(p1,2,70,s2);
         Ordrelinje o3 = Controller.createOrdrelinjeSalg(p1,2,70,s3);
+        Controller.addOrdrelinjeTilSalg(o1,s1);
+        Controller.addOrdrelinjeTilSalg(o2,s1);
+        Controller.addOrdrelinjeTilSalg(o3,s1);
 
         System.out.println(s1.beregnPris());
 
-        System.out.println(controller.salgForDato(LocalDateTime.now()));
+        System.out.println(controller.salgForDato(LocalDate.now()));
+
+        System.out.println(controller.salgForProduktogProduktgruppe(produktgruppe,p1, LocalDate.now()));
     }
 }
