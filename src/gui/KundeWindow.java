@@ -3,6 +3,7 @@ package gui;
 import application.controller.Controller;
 import application.model.Betalingsform;
 import application.model.Kunde;
+import application.model.Salg;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -16,10 +17,11 @@ import storage.Storage;
 
 public class KundeWindow extends Stage {
 
-    public KundeWindow(String title){
+    public KundeWindow(String title, Salg salg){
         this.initStyle(StageStyle.UTILITY);
         this.initModality(Modality.APPLICATION_MODAL);
         this.setResizable(false);
+        this.salg=salg;
 
         this.setTitle(title);
         GridPane pane = new GridPane();
@@ -38,6 +40,7 @@ public class KundeWindow extends Stage {
     private DatePicker afhentPicker;
     private ComboBox<Betalingsform> cbxBetalingsform;
     private Storage storage = Storage.getInstance();
+    private Salg salg;
 
     private void initContent(GridPane pane){
         pane.setPadding(new Insets(10));
@@ -130,27 +133,19 @@ public class KundeWindow extends Stage {
         txfTlfNr.setEditable(true);
     }
 
-//    private void okAction(){
-//        String name = txfName.getText().trim();
-//        String adresse = txfAdresse.getText().trim();
-//        String land = txfLand.getText().trim();
-//        if(name.length()==0 || adresse.length()==0 || land.length()==0){
-//            lblError.setText("Udfyld alle felter");
-//        }else{
-//            int tlfNr = -1;
-//            try {
-//                tlfNr = Integer.parseInt(txfTlfNr.getText().trim());
-//            } catch (NumberFormatException ex) {
-//                // do nothing
-//            }
-//            if(tlfNr<=0 || tlfNr>1000000000){
-//                lblError.setText("Udfyld alle felter");
-//            }else {
-//                Controller.createDeltager(name,adresse ,land ,tlfNr);
-//                this.hide();
-//            }
-//        }
-//    }
+    private void btnOkAction(){
+        //TODO Vi skal have lavet en setKunde i controller til salg
+        Controller controller = new Controller();
+        if(rbNyKunde.isSelected()){
+            Kunde kunde = controller.createKunde(txfName.getText(),Integer.parseInt(txfTlfNr.getText()),txfAdresse.getText());
+            controller.salgForDato(afhentPicker.getValue());
+            Controller.setKundePåSalg(kunde,salg);
+        }else if(rbTidligereKunde.isSelected() && kundeListView.getSelectionModel().getSelectedItem()!=null){
+            Controller.setKundePåSalg(kundeListView.getSelectionModel().getSelectedItem(),salg);
+        }
+        this.hide();
+    }
+
 
 
 }

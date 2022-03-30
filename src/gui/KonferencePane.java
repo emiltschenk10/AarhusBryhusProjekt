@@ -215,7 +215,7 @@ public class KonferencePane extends GridPane {
     }
 
     public void købBtnAction(){
-        KundeWindow dia = new KundeWindow("Betalingsvindue");
+        KundeWindow dia = new KundeWindow("Betalingsvindue",salg);
         dia.showAndWait();
     }
 
