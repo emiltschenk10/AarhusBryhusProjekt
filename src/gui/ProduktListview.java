@@ -13,6 +13,13 @@ public class ProduktListview {
     }
 
 
+    public Produkt getProdukt() {
+        return produkt;
+    }
+
+    public double getPris() {
+        return pris;
+    }
 
     public String toString(){
         return produkt + " " + pris;

@@ -45,6 +45,7 @@ public class StartWindow extends Application {
         KonferencePane konferencePane = new KonferencePane();
         tabSalg.setContent(konferencePane);
 
+
         /*
         Tab tabSalg = new Tab("Udlejning");
         tabPane.getTabs().add(tabSalg);

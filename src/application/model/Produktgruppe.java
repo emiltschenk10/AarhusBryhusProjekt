@@ -42,5 +42,8 @@ public class Produktgruppe {
         }
     }
 
-
+    @Override
+    public String toString() {
+        return navn;
+    }
 }

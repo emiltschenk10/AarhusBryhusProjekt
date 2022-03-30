@@ -56,6 +56,6 @@ public class Produkt {
 
     @Override
     public String toString() {
-        return navn;
+        return produktgruppe + " " + navn;
     }
 }

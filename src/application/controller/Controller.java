@@ -113,7 +113,7 @@ public class Controller {
         return Storage.getInstance().getPrislister();
     }
 
-
+    public ArrayList<Ordrelinje> getOrdrelinjer(Salg salg){return salg.getOrdrelinjer();}
 
     private static void initStorage() {
         Controller controller = new Controller();

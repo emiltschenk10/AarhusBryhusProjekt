@@ -55,4 +55,7 @@ public class Ordrelinje {
         }
     }
 
+    public String toString(){
+        return antal + " " + produkt + " " + getPris();
+    }
 }
