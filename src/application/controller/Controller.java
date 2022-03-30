@@ -188,6 +188,13 @@ public class Controller {
        Ordrelinje o1 = Controller.createOrdrelinjeSalg(p1,2,70,s1);
        Ordrelinje o2 = Controller.createOrdrelinjeSalg(p1,2,70,s2);
        Ordrelinje o3 = Controller.createOrdrelinjeSalg(p1,2,70,s3);
+
+       controller.createKunde("Kvickly",121312312,"dyrt.dk");
+       controller.createKunde("Fakta",22223333,"BudgetKvickly.dk");
+
+       controller.createBetalingsform("Mobilepay","Online");
+       controller.createBetalingsform("Mastercard", "Creditkort");
+       controller.createBetalingsform("Bitcoin","Crypto");
     }
 
     public static void init(){initStorage();}

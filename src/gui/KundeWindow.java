@@ -114,7 +114,7 @@ public class KundeWindow extends Stage {
     private void cancelAction(){this.hide();}
 
     private void showKunderAction(){
-        kundeListView.getItems().setAll();
+        kundeListView.getItems().setAll(storage.getKunder());
         txfName.clear();
         txfAdresse.clear();
         txfTlfNr.clear();
