@@ -2,11 +2,7 @@ package gui;
 
 import application.controller.Controller;
 import application.model.*;
-import com.sun.javafx.collections.MapListenerHelper;
-import com.sun.javafx.css.StyleCache;
 import javafx.beans.value.ChangeListener;
-import javafx.collections.MapChangeListener;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -15,9 +11,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 public class KonferencePane extends GridPane {
 
@@ -133,7 +126,19 @@ public class KonferencePane extends GridPane {
         this.add(btnOpretUdflugt, 0, 8);
         GridPane.setHalignment(btnOpretUdflugt, HPos.RIGHT);
         //btnOpretUdflugt.setOnAction(event -> this.opretUdflugtAction());
+
 */
+
+        Button btnKøb = new Button("Køb");
+        btnKøb.setOnAction(event ->købBtnAction());
+
+        Button btnCancel = new Button("Cancel");
+
+
+        HBox hBox1 = new HBox(btnCancel, btnKøb);
+        this.add(hBox1,5,8);
+        hBox1.setSpacing(10);
+
         Button btnTilføjTilKurv = new Button("Tilføj til kurv");
         this.add(btnTilføjTilKurv, 3, 7);
         GridPane.setValignment(btnTilføjTilKurv, VPos.TOP);
@@ -208,6 +213,12 @@ public class KonferencePane extends GridPane {
         lvwPriser.getSelectionModel().clearSelection();
         txfSamletPris.setText(""+salg.beregnPris());
     }
+
+    public void købBtnAction(){
+        KundeWindow dia = new KundeWindow("Betalingsvindue");
+        dia.showAndWait();
+    }
+
 }
 
 
