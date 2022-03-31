@@ -43,6 +43,7 @@ public class Kunde {
     public void addUdlejning(Udlejning udlejning){
         if (!udlejningArrayList.contains(udlejning)){
             udlejningArrayList.add(udlejning);
+            udlejning.setKunde(this);
         }
     }
 

@@ -37,7 +37,7 @@ public class KundeWindowUdlejning extends Stage {
     private ListView<Kunde> kundeListView;
     private RadioButton rbNyKunde,rbTidligereKunde;
     private ToggleGroup group = new ToggleGroup();
-    private DatePicker afhentPicker;
+    private DatePicker afleveringsPicker, udleveringspicker;
     private ComboBox<Betalingsform> cbxBetalingsform;
     private Storage storage = Storage.getInstance();
     private Udlejning udlejning;
@@ -78,7 +78,9 @@ public class KundeWindowUdlejning extends Stage {
 
         Label lblAfhentning = new Label("Dato:");
 
-        afhentPicker = new DatePicker();
+        afleveringsPicker = new DatePicker();
+
+        udleveringspicker = new DatePicker();
 
         cbxBetalingsform = new ComboBox<>();
         cbxBetalingsform.getItems().setAll(storage.getBetalingsformer());
@@ -88,7 +90,7 @@ public class KundeWindowUdlejning extends Stage {
         pane.add(vBox,0,1);
         vBox.setSpacing(20);
 
-        VBox vBox1 = new VBox(txfName,txfAdresse,txfTlfNr,afhentPicker,cbxBetalingsform);
+        VBox vBox1 = new VBox(txfName,txfAdresse,txfTlfNr,afleveringsPicker,udleveringspicker, cbxBetalingsform);
         pane.add(vBox1,1,1);
         vBox1.setSpacing(10);
 
@@ -150,13 +152,13 @@ public class KundeWindowUdlejning extends Stage {
         Controller controller = new Controller();
         if(rbNyKunde.isSelected()){
             Kunde kunde = controller.createKunde(txfName.getText(),Integer.parseInt(txfTlfNr.getText()),txfAdresse.getText());
-            controller.salgForDato(afhentPicker.getValue());
-            //Controller.setKundePåSalg(kunde,salg);
-            //Controller.setBetalingsformPåSalg(cbxBetalingsform.getSelectionModel().getSelectedItem(),salg);
+            //controller.salgForDato(afhentPicker.getValue());
+            Controller.setKundePåUdlejning(kunde,udlejning);
+            Controller.setBetalingsformPåUdlejning(cbxBetalingsform.getSelectionModel().getSelectedItem(),udlejning);
         }else if(rbTidligereKunde.isSelected() && kundeListView.getSelectionModel().getSelectedItem()!=null){
-            //Controller.setKundePåSalg(kundeListView.getSelectionModel().getSelectedItem(),salg);
-            controller.salgForDato(afhentPicker.getValue());
-            //Controller.setBetalingsformPåSalg(cbxBetalingsform.getSelectionModel().getSelectedItem(),salg);
+            Controller.setKundePåUdlejning(kundeListView.getSelectionModel().getSelectedItem(),udlejning);
+            //controller.salgForDato(afhentPicker.getValue());
+            Controller.setBetalingsformPåUdlejning(cbxBetalingsform.getSelectionModel().getSelectedItem(),udlejning);
         }
         this.hide();
     }

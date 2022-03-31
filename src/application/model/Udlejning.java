@@ -40,6 +40,14 @@ public class Udlejning {
         return o;
     }
 
+    public boolean isBetalt(){
+        return betalt;
+    }
+
+    public boolean isUdestående(){
+        return udestående;
+    }
+
     public LocalDate getAfleveringsDato() {
         return afleveringsDato;
     }
@@ -64,6 +72,19 @@ public class Udlejning {
         this.prisliste = prisliste;
     }
 
+    public void setKunde(Kunde kunde) {
+        if (this.kunde != kunde) {
+            Kunde oldKunde = this.kunde;
+            if (oldKunde != null) {
+                oldKunde.removeUdlejning(this);
+            }
+            this.kunde = kunde;
+            if (kunde != null) {
+                kunde.addUdlejning(this);
+            }
+        }
+    }
+
     public Betalingsform getBetalingsform() {
         return betalingsform;
     }
@@ -71,6 +92,8 @@ public class Udlejning {
     public void setBetalingsform(Betalingsform betalingsform) {
         this.betalingsform = betalingsform;
     }
+
+    public void setBetalt(Boolean betalt){this.betalt = betalt;}
 
     public void addOrdrelinje(Ordrelinje ordrelinje){
         if(!ordrelinjes.contains(ordrelinje)){
