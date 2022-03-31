@@ -138,10 +138,6 @@ public class Controller {
         return totalIndtjening;
     }
 
-   // public Map<Produktgruppe, Produkt> salgForBestemtProdukt(Produktgruppe produktgruppe, Produkt produkt){
-    //    double totalIndtjeningPåPro
-   // }
-
     public int salgForProduktogProduktgruppe(Produktgruppe produktgruppe, Produkt produkt, LocalDate dato, Arrangement arrangement){
         int totalSolgte = 0;
 

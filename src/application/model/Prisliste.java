@@ -29,6 +29,7 @@ public class Prisliste {
         return arragementer;
     }
 
+
     public void setNavn(String navn) {
         this.navn = navn;
     }
