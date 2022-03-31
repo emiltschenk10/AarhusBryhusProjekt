@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Udlejning {
     private LocalDate afleveringsDato;
-    private LocalDateTime udleveringsDato;
+    private LocalDate udleveringsDato;
     private boolean betalt;
     private boolean udestående;
     private Kunde kunde;
@@ -17,7 +17,7 @@ public class Udlejning {
     private  static  int udlejningNext = 0;
 
 
-    public Udlejning(LocalDate afleveringsDato, LocalDateTime udleveringsDato, Kunde kunde,Prisliste prisliste){
+    public Udlejning(LocalDate afleveringsDato, LocalDate udleveringsDato, Kunde kunde,Prisliste prisliste){
         this.afleveringsDato=afleveringsDato;
         this.udleveringsDato = udleveringsDato;
         this.kunde = kunde;
@@ -60,11 +60,11 @@ public class Udlejning {
         this.afleveringsDato = afleveringsDato;
     }
 
-    public LocalDateTime getUdleveringsDato() {
+    public LocalDate getUdleveringsDato() {
         return udleveringsDato;
     }
 
-    public void setUdleveringsDato(LocalDateTime udleveringsDato) {
+    public void setUdleveringsDato(LocalDate udleveringsDato) {
         this.udleveringsDato = udleveringsDato;
     }
 

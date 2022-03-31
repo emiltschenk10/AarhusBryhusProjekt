@@ -46,8 +46,15 @@ public class Controller {
         return salg;
     }
 
-    public Udlejning createUdlejning(LocalDate afleveringsdato, LocalDateTime udlejningdato, Kunde kunde, Prisliste prisliste){
+    public Udlejning createUdlejning(LocalDate afleveringsdato, LocalDate udlejningdato, Kunde kunde, Prisliste prisliste){
         Udlejning udlejning = new Udlejning(afleveringsdato, udlejningdato, kunde, prisliste);
+        udlejning.udlejningsNr();
+        storage.addUdlejning(udlejning);
+        return udlejning;
+    }
+
+    public Udlejning createUdlejningUdenParm(){
+        Udlejning udlejning = new Udlejning();
         udlejning.udlejningsNr();
         storage.addUdlejning(udlejning);
         return udlejning;
@@ -123,7 +130,7 @@ public class Controller {
         udlejning.setAfleveringsDato(date);
     }
 
-    public static void setUdleveringsDato(Udlejning udlejning, LocalDateTime date){
+    public static void setUdleveringsDato(Udlejning udlejning, LocalDate date){
         udlejning.setUdleveringsDato(date);
     }
 

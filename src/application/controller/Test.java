@@ -44,18 +44,18 @@ public class Test {
         Kunde k1 = new Kunde("Hans",124124,"Hej");
 
 
-       Udlejning u1 = controller.createUdlejning(LocalDate.of(2021,2,2),LocalDateTime.of(2021,1,2,2,22),k1,pr1);
+       Udlejning u1 = controller.createUdlejning(LocalDate.of(2021,2,2),LocalDate.of(2021,1,2),k1,pr1);
         Ordrelinje o4 = Controller.createOrdrelinjeUdlejning(p1,3,100,u1);
         Ordrelinje o5 = Controller.createOrdrelinjeUdlejning(p1,3,100,u1);
         Ordrelinje o6 = Controller.createOrdrelinjeUdlejning(p1,3,100,u1);
 
-        Udlejning u2 = controller.createUdlejning(LocalDate.of(2021,2,2),LocalDateTime.of(2021,1,2,2,22),k1,pr1);
+        Udlejning u2 = controller.createUdlejning(LocalDate.of(2021,2,2),LocalDate.of(2021,1,2),k1,pr1);
         Ordrelinje o7 = Controller.createOrdrelinjeUdlejning(p1,3,100,u2);
         Ordrelinje o8 = Controller.createOrdrelinjeUdlejning(p1,3,100,u2);
         Ordrelinje o9 = Controller.createOrdrelinjeUdlejning(p1,3,100,u2);
 
 
-        Udlejning u3 = controller.createUdlejning(LocalDate.of(2021,2,2),LocalDateTime.of(2021,1,2,2,22),k1,pr1);
+        Udlejning u3 = controller.createUdlejning(LocalDate.of(2021,2,2),LocalDate.of(2021,1,2),k1,pr1);
         Ordrelinje o10 = Controller.createOrdrelinjeUdlejning(p1,3,100,u3);
         Ordrelinje o11 = Controller.createOrdrelinjeUdlejning(p1,3,100,u3);
         Ordrelinje o12 = Controller.createOrdrelinjeUdlejning(p1,10,100,u3);
