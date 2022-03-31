@@ -16,6 +16,7 @@ public class RedigerPane extends GridPane {
     CheckBox chxSalgBetalt;
     DatePicker datePicker;
     Button btnRediger,btnGem;
+    private int salgNr;
 
     public RedigerPane() {
         this.setPadding(new Insets(20));
@@ -84,8 +85,16 @@ public class RedigerPane extends GridPane {
         if(!salg.isBetalt()){
             chxSalgBetalt.setDisable(false);
         }
+        this.salgNr = salg.getSalgsNr();
         datePicker.setValue(salg.getDato().toLocalDate());
     }
+
+//    public void btnGemAction(){
+//        Salg salg = salgListView.getSelectionModel().getSelectedItem();
+//        if(salg.getSalgsNr() ==salgNr){
+//            Controller.setSalgsDato(salg,datePicker.getValue());
+//        }
+//    }
 
 
 }

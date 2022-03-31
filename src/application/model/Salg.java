@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Salg {
 
-    private LocalDateTime dato;
+    private LocalDate dato;
 
     private boolean betalt;
 
@@ -27,11 +27,11 @@ public class Salg {
 
 
     public Salg() {
-        this.dato = LocalDateTime.now();
+        this.dato = LocalDate.now();
         this.betalt = false;
     }
 
-    public Salg(LocalDateTime dato, boolean betalt, Prisliste prisliste) {
+    public Salg(LocalDate dato, boolean betalt, Prisliste prisliste) {
         this.dato = dato;
         this.betalt = betalt;
         this.prisliste = prisliste;
@@ -46,11 +46,15 @@ public class Salg {
         return new ArrayList<>(ordrelinjer);
     }
 
+    public int getSalgsNr(){
+        return salgsNr;
+    }
+
     public Kunde getKunde() {
         return kunde;
     }
 
-    public LocalDateTime getDato() {
+    public LocalDate getDato() {
         return dato;
     }
 
@@ -66,7 +70,7 @@ public class Salg {
         this.prisliste = prisliste;
     }
 
-    public void setSalgsDato(LocalDateTime dato) {
+    public void setSalgsDato(LocalDate dato) {
         this.dato = dato;
     }
 
@@ -121,7 +125,7 @@ public class Salg {
         if(kunde!=null){
             result = "Salgs Nr: " + salgsNr + "  Kunde: " + kunde.getNavn() + "  Dato: " + dato + "  Betalt: " + betalt;
         }else{
-            result = "Salgs Nr: " + salgsNr + "  Dato: " + dato.toLocalDate() + "  Betalt: " + betalt;
+            result = "Salgs Nr: " + salgsNr + "  Dato: " + dato + "  Betalt: " + betalt;
         }
         return result;
     }

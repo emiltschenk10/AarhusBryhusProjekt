@@ -39,7 +39,7 @@ public class Controller {
         return salg;
     }
 
-    public Salg createSalgMedParm(LocalDateTime dato, boolean betalt, Prisliste prisliste){
+    public Salg createSalgMedParm(LocalDate dato, boolean betalt, Prisliste prisliste){
         Salg salg = new Salg(dato, betalt, prisliste);
         salg.salgsNr();
         storage.addSalg(salg);
@@ -122,7 +122,7 @@ public class Controller {
         salg.setBetalingsform(betalingsform);
     }
 
-    public static void setSalgsDato(Salg salg, LocalDateTime dato){
+    public static void setSalgsDato(Salg salg, LocalDate dato){
         salg.setSalgsDato(dato);
     }
 
@@ -159,7 +159,7 @@ public class Controller {
     public ArrayList<Salg> getAktuelleSalg(){
         ArrayList<Salg> nySalg = new ArrayList<>();
         for(Salg salg:storage.getSalgs()){
-            if(!salg.isBetalt() || salg.getDato().isAfter(LocalDateTime.now())){
+            if(!salg.isBetalt() || salg.getDato().isAfter(LocalDate.now())){
                 nySalg.add(salg);
             }
         }
@@ -184,7 +184,7 @@ public class Controller {
         double totalIndtjening = 0.0;
 
             for (Salg s: storage.getSalgs()) {
-                if (dato.equals(s.getDato().toLocalDate())){
+                if (dato.equals(s.getDato())){
                     totalIndtjening = totalIndtjening + s.beregnPris();
                 }
             }
@@ -196,7 +196,7 @@ public class Controller {
         int totalSolgte = 0;
 
         for(Salg s: storage.getSalgs()) {
-            if (dato.equals(s.getDato().toLocalDate())) {
+            if (dato.equals(s.getDato())) {
                 if (s.getPrisliste().getArragementer().contains(arrangement) || arrangement == null) {
                     for (Produktgruppe p : storage.getProduktGrupper()) {
                         if (p == produktgruppe) {
@@ -253,9 +253,9 @@ public class Controller {
 
 
 
-       Salg s1 = controller.createSalgMedParm(LocalDateTime.now(),false,pr1);
-       Salg s2 = controller.createSalgMedParm(LocalDateTime.now(),false,pr1);
-       Salg s3 = controller.createSalgMedParm(LocalDateTime.now(),false,pr1);
+       Salg s1 = controller.createSalgMedParm(LocalDate.now(),false,pr1);
+       Salg s2 = controller.createSalgMedParm(LocalDate.now(),false,pr1);
+       Salg s3 = controller.createSalgMedParm(LocalDate.now(),false,pr1);
 
        Ordrelinje o1 = Controller.createOrdrelinjeSalg(p1,2,70,s1);
        Ordrelinje o2 = Controller.createOrdrelinjeSalg(p1,2,70,s2);
