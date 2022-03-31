@@ -59,5 +59,11 @@ public class StartWindow extends Application {
         SortimentPane sortimentPane = new SortimentPane();
         tabSortiment.setContent(sortimentPane);
 
+        Tab tabStatistik = new Tab("Statistik");
+        tabPane.getTabs().add(tabStatistik);
+
+        StatistikPane statistikPane = new StatistikPane();
+        tabStatistik.setContent(statistikPane);
+
     }
 }

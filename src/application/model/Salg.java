@@ -40,8 +40,6 @@ public class Salg {
         this.salgsNr = salgNext;
     }
 
-
-
     public ArrayList<Ordrelinje> getOrdrelinjer() {
         return new ArrayList<>(ordrelinjer);
     }
