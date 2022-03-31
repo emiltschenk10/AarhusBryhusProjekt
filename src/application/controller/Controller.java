@@ -115,6 +115,20 @@ public class Controller {
         salg.setBetalingsform(betalingsform);
     }
 
+    public static void setSalgsDato(Salg salg, LocalDateTime dato){
+        salg.setSalgsDato(dato);
+    }
+
+    public static void setAfleveringsDato(Udlejning udlejning, LocalDate date){
+        udlejning.setAfleveringsDato(date);
+    }
+
+    public static void setUdleveringsDato(Udlejning udlejning, LocalDateTime date){
+        udlejning.setUdleveringsDato(date);
+    }
+
+    public ArrayList<Arrangement> getArrangementer(){return storage.getArrangementer();}
+
     public static void beregnPris(Salg salg){
         beregnPris(salg);
     }

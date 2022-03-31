@@ -66,6 +66,10 @@ public class Salg {
         this.prisliste = prisliste;
     }
 
+    public void setSalgsDato(LocalDateTime dato) {
+        this.dato = dato;
+    }
+
     public void setKunde(Kunde kunde) {
         if (this.kunde != kunde) {
             Kunde oldKunde = this.kunde;
