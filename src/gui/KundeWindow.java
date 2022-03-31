@@ -3,7 +3,9 @@ package gui;
 import application.controller.Controller;
 import application.model.Betalingsform;
 import application.model.Kunde;
+import application.model.Prisliste;
 import application.model.Salg;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -97,6 +99,10 @@ public class KundeWindow extends Stage {
         kundeListView.setPrefWidth(200);
         kundeListView.setPrefHeight(200);
 
+//        ChangeListener<Kunde> listener = (ov, gammelKundeliste, nyKundeliste) -> this.selectedKundeHasChanged();
+//        kundeListView.getSelectionModel().selectedItemProperty().addListener(listener);
+//
+
         Button btnOk = new Button("OK");
         pane.add(btnOk,1,4);
         btnOk.setOnAction(event -> btnOkAction());
@@ -113,6 +119,14 @@ public class KundeWindow extends Stage {
         //---------------------------------------------------------------------------------------------
     }
 
+//    public void selectedKundeHasChanged() {
+//        this.updateControls();
+//    }
+
+
+//    public void updateControls(){
+//
+//    }
 
     private void cancelAction(){this.hide();}
 
