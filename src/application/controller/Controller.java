@@ -59,10 +59,19 @@ public class Controller {
         return kunde;
     }
 
+    public static void setKundePåUdlejning(Kunde kunde, Udlejning udlejning){
+        udlejning.setKunde(kunde);
+    }
+
+
     public Betalingsform createBetalingsform(String navn, String type){
         Betalingsform betalingsform = new Betalingsform(navn, type);
         storage.addBetalingsform(betalingsform);
         return betalingsform;
+    }
+
+    public static void setBetalingsformPåUdlejning(Betalingsform betalingsform, Udlejning udlejning){
+        udlejning.setBetalingsform(betalingsform);
     }
 
     public static Produkt createProdukt(String navn, String beskrivelse, int klipPris, double pant, Produktgruppe produktgruppe){
