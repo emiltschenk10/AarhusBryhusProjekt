@@ -80,6 +80,10 @@ public class Controller {
         return ordrelinje;
     }
 
+    public static ArrayList<Ordrelinje> getOrdrelinjePåUdlejning(Udlejning udlejning){
+        return udlejning.getOrdrelinjer();
+    }
+
     //Metoder til prisliste
     public static void addProduktTilPrisliste(Produkt produkt,double pris, Prisliste prisliste){
         prisliste.addProdukt(produkt,pris);
@@ -121,6 +125,7 @@ public class Controller {
     public ArrayList<Produktgruppe> getProduktGrupper(){return storage.getProduktGrupper();}
 
     public ArrayList<Produkt> getProduktGruppensProdukter(Produktgruppe produktgruppe){return produktgruppe.getProdukter();}
+
 
 
     //Statestik

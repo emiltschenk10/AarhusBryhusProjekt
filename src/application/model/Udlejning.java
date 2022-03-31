@@ -45,7 +45,7 @@ public class Udlejning {
     }
 
     public ArrayList<Ordrelinje> getOrdrelinjer() {
-        return ordrelinjes;
+        return new ArrayList<>(ordrelinjes);
     }
 
     public void setAfleveringsDato(LocalDate afleveringsDato) {
