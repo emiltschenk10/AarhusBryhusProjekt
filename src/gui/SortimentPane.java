@@ -16,7 +16,7 @@ import javafx.scene.layout.GridPane;
 public class SortimentPane extends GridPane {
     private final ListView<Produktgruppe> lvwProduktGrupper;
     private final ListView<Produkt> lvwProdukter;
-    private final TextField txfNavn, txfBeskrivelse, txfKlipPris, txfPant;
+    private final TextField txfNavn, txfBeskrivelse, txfKlipPris, txfPant, txfPGnavn, txfPGbeskrivelse;
     private Udlejning udlejning;
     private RadioButton r1, r2, r3;
     private Controller controller;
@@ -82,6 +82,29 @@ public class SortimentPane extends GridPane {
         this.add(txfPant, 6, 5);
 
 
+        Label lblOpretProduktgruppe = new Label("Opret en ny produktgruppe:");
+        this.add(lblOpretProduktgruppe, 0, 8);
+
+        Label lblPGnavn = new Label("Navn:");
+        this.add(lblPGnavn, 0, 9);
+        GridPane.setHalignment(lblPGnavn, HPos.LEFT);
+
+        txfPGnavn = new TextField();
+        this.add(txfPGnavn, 0, 10);
+        GridPane.setHalignment(txfPGnavn, HPos.RIGHT);
+        txfPGnavn.setPrefWidth(50);
+
+        Label lblPGbeskrivelse = new Label("Beskrivelse:");
+        this.add(lblPGbeskrivelse, 0, 11);
+
+        txfPGbeskrivelse = new TextField();
+        this.add(txfPGbeskrivelse, 0, 12);
+
+        Button btnOpretProduktGruppe = new Button("Opret produktgruppe");
+        this.add(btnOpretProduktGruppe, 0, 13);
+        GridPane.setHalignment(btnOpretProduktGruppe, HPos.LEFT);
+        btnOpretProduktGruppe.setOnAction(event -> opretProduktgruppeAction());
+
         btnOpretProdukt = new Button("Opret Produkt");
         this.add(btnOpretProdukt, 6, 6);
         GridPane.setHalignment(btnOpretProdukt, HPos.LEFT);
@@ -97,6 +120,7 @@ public class SortimentPane extends GridPane {
         lvwProduktGrupper.getSelectionModel().selectedItemProperty().addListener(listener1);
 
     }
+    Controller controller1 = new Controller();
     public void selectedProduktGruppeChanged(){
         Produktgruppe produktgruppe = lvwProduktGrupper.getSelectionModel().getSelectedItem();
         lvwProdukter.getItems().setAll(produktgruppe.getProdukter());
@@ -139,5 +163,14 @@ public class SortimentPane extends GridPane {
         txfKlipPris.clear();
         txfNavn.clear();
         this.selectedProduktGruppeChanged();
+    }
+
+    public void opretProduktgruppeAction(){
+        String navn = txfPGnavn.getText();
+        String beskrivelse = txfPGbeskrivelse.getText();
+        controller1.createProduktGruppe(navn, beskrivelse);
+        lvwProduktGrupper.getItems().setAll(controller1.getProduktGrupper());
+        txfPGnavn.clear();
+        txfPGbeskrivelse.clear();
     }
 }

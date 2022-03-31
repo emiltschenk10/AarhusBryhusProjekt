@@ -1,6 +1,8 @@
 package gui;
 
 import application.controller.Controller;
+import application.model.Salg;
+import application.model.Udlejning;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
@@ -59,6 +61,11 @@ public class StartWindow extends Application {
         SortimentPane sortimentPane = new SortimentPane();
         tabSortiment.setContent(sortimentPane);
 
+        Tab tabPrisliste = new Tab("Prislister");
+        tabPane.getTabs().add(tabPrisliste);
+
+        PrislistePane prislistePane = new PrislistePane();
+        tabPrisliste.setContent(prislistePane);
         Tab tabStatistik = new Tab("Statistik");
         tabPane.getTabs().add(tabStatistik);
 

@@ -21,10 +21,11 @@ public class UdlejningsPane extends GridPane {
     private final TextField txfAntal, txfRabat, txfSamletPris;
     private final CheckBox chkRabat;
     private final ToggleGroup rabat;
-    private Udlejning udlejning;
+    private Udlejning udlejning = new Udlejning();
     private RadioButton r1,r2,r3;
     private Controller controller;
     private DatePicker datePickerAfleveringsDato, datePickerUdleveringsDato;
+    //private Udlejning udlejning;
 
 
     public UdlejningsPane() {
@@ -35,6 +36,9 @@ public class UdlejningsPane extends GridPane {
         Controller controller = new Controller();
 
 
+        Prisliste prisliste = controller.getAllePrislister().get(2);
+
+        udlejning.setPrisliste(prisliste);
 
         Label lblPriser = new Label("Udlejningspriser:");
         this.add(lblPriser, 0, 1);
@@ -43,7 +47,6 @@ public class UdlejningsPane extends GridPane {
         this.add(lvwPriser, 0, 2, 1, 5);
         lvwPriser.setPrefWidth(200);
         lvwPriser.setPrefHeight(200);
-        Prisliste prisliste = controller.getAllePrislister().get(2);
         ArrayList<ProduktListview> produktListviews = new ArrayList<>();
         for (Produkt produkt : prisliste.getProduktpriser().keySet()) {
             produktListviews.add(new ProduktListview(produkt,prisliste.getProduktpriser().get(produkt)));
@@ -165,23 +168,9 @@ public class UdlejningsPane extends GridPane {
     // -----------------------------------------------------------------------------------------------------------------
 
 
-    public void selectedPrislisteChanged() {
-        this.updateControls();
-    }
 
 
-    public void updateControls() {
-        Prisliste prisliste = controller.getAllePrislister().get(2);
 
-        //skal sættes et andet sted
-        //this.salg.setPrisliste(prisliste);
-        //lvwPriser.getItems().setAll(prisliste.getProduktpriser());
-        ArrayList<ProduktListview> produktListviews = new ArrayList<>();
-        for (Produkt produkt : prisliste.getProduktpriser().keySet()) {
-            produktListviews.add(new ProduktListview(produkt,prisliste.getProduktpriser().get(produkt)));
-        }
-        lvwPriser.getItems().setAll(produktListviews);
-    }
 
     public void chkboxrabatAction(){
         if(chkRabat.isSelected()){
@@ -197,26 +186,28 @@ public class UdlejningsPane extends GridPane {
 
     public void tilføjTilKurvAction(){
         //TODO
+        //this.udlejning = new Udlejning(datePickerAfleveringsDato, datePickerUdleveringsDato., null, controller.getAllePrislister().get(2));
         Controller controller = new Controller();
+
         Produkt produkt = lvwPriser.getSelectionModel().getSelectedItem().getProdukt();
         int antal = Integer.parseInt(txfAntal.getText().trim());
         double pris = lvwPriser.getSelectionModel().getSelectedItem().getPris();
-       // Ordrelinje ordrelinje = Controller.createOrdrelinjeSalg(produkt,antal ,pris, salg);
+        Ordrelinje ordrelinje = Controller.createOrdrelinjeUdlejning(produkt, antal, pris, udlejning);
         if(chkRabat.isSelected() && rabat.getSelectedToggle() != null){
             if(rabat.getSelectedToggle()==r1 && !txfRabat.getText().equals("")){
                 ProcentDiscount discount = new ProcentDiscount("");
                 discount.setProcent(Double.parseDouble(txfRabat.getText()));
-              //  ordrelinje.setDiscount(discount);
+                ordrelinje.setDiscount(discount);
             }else if(rabat.getSelectedToggle()==r2 && !txfRabat.getText().equals("")){
                 AftaltDiscount discount = new AftaltDiscount("");
                 discount.setPris(Double.parseDouble(txfRabat.getText()));
-               // ordrelinje.setDiscount(discount);
+                ordrelinje.setDiscount(discount);
             }else{
                 Discount discount = new KlipDiscount("");
-              //  ordrelinje.setDiscount(discount);
+                ordrelinje.setDiscount(discount);
             }
         }
-       // lvwIndkøbskurv.getItems().setAll(controller.getOrdrelinjer(salg));
+        //lvwIndkøbskurv.getItems().setAll(controller.getOrdrelinjer(salg));
         txfAntal.clear();
         lvwPriser.getSelectionModel().clearSelection();
        // txfSamletPris.setText(""+salg.beregnPris());

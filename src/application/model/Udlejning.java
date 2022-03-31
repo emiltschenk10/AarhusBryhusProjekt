@@ -24,6 +24,10 @@ public class Udlejning {
         this.prisliste = prisliste;
     }
 
+    public Udlejning(){
+
+    }
+
     public void udlejningsNr(){
         udlejningNext++;
         this.udlejningsNr = udlejningNext;
