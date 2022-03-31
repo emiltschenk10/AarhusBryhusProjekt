@@ -24,7 +24,7 @@ public class StatistikPane extends GridPane {
     private final ComboBox<Arrangement> cbArragement;
 
 
-    private Label lblDagsIntjeneste, lblProduktgruppe, lblProdukt, lblArragement, lblDato;
+    private Label lblDagsIntjeneste, lblProduktgruppe, lblProdukt, lblArragement, lblDato, lblAntalProdukterSolgt;
 
 
     public StatistikPane() {
@@ -61,6 +61,10 @@ public class StatistikPane extends GridPane {
         this.add(lblDato, 4, 6);
         GridPane.setValignment(lblDato, VPos.BOTTOM);
 
+        lblAntalProdukterSolgt = new Label("Antal solgt: ");
+        this.add(lblAntalProdukterSolgt, 5, 3);
+        GridPane.setValignment(lblAntalProdukterSolgt, VPos.BOTTOM);
+
 
         cbProduktGruppe = new ComboBox<>();
         this.add(cbProduktGruppe, 5, 3);
@@ -82,6 +86,7 @@ public class StatistikPane extends GridPane {
         GridPane.setValignment(cbArragement, VPos.TOP);
         GridPane.setHalignment(cbArragement, HPos.RIGHT);
         cbArragement.setMaxWidth(180);
+        cbArragement.setOnAction(event -> this.selectedProduktArragement());
 
         Button btnSalgForDato = new Button("Indtjeneste for dato: ");
         this.add(btnSalgForDato, 3, 2);
@@ -104,8 +109,9 @@ public class StatistikPane extends GridPane {
     public void antalSolgteProdukt(){
         Controller controller = new Controller();
 
-        String indtjeneste = (controller.salgForDato(datePickerSalgForDag.getValue()) + " Kr.");
-        lblDagsIntjeneste.setText("Indtjeneste for dag: " + controller.salgForDato(datePickerSalgForDag.getValue()) + " Kr.");
+        String antal = controller.salgForProduktogProduktgruppe(cbProduktGruppe.getValue(),cbProdukt.getValue(),datePickerSalgForDag2.getValue(),cbArragement.getValue()) + "";
+
+        lblAntalProdukterSolgt.setText(antal);
     }
 
     public void selectedProduktgruppeProdukt(){
@@ -115,11 +121,10 @@ public class StatistikPane extends GridPane {
 
     }
 
-   /**public void selectedPrislisteArragement(){
+   public void selectedProduktArragement(){
         Controller controller = new Controller();
-        controller.getAllePrislister();
-
-        cbArragement.getItems().setAll(controller.getAllePrislister());
-    }**/
+       Arrangement arragement = cbArragement.getSelectionModel().getSelectedItem();
+        cbArragement.getItems().setAll(controller.);
+    }
 
 }
