@@ -49,6 +49,7 @@ public class StartWindow extends Application {
 
 
 
+
         Tab tabUdlejning = new Tab("Udlejning");
         tabPane.getTabs().add(tabUdlejning);
 

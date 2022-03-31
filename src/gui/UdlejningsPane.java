@@ -22,8 +22,8 @@ public class UdlejningsPane extends GridPane {
     private final CheckBox chkRabat;
     private final ToggleGroup rabat;
     private Udlejning udlejning = new Udlejning();
-    private RadioButton r1,r2,r3;
-    private Controller controller;
+    private RadioButton r1,r2;
+    private Controller controller = new Controller();
     private DatePicker datePickerAfleveringsDato, datePickerUdleveringsDato;
     //private Udlejning udlejning;
 
@@ -76,22 +76,22 @@ public class UdlejningsPane extends GridPane {
         ArrayList<String> rabatter = new ArrayList<>();
         rabatter.add("Procent Rabat");
         rabatter.add("Aftalt tilbud");
-        rabatter.add("Klippekort");
+
 
         r1 = new RadioButton("Procent rabat");
         r2 = new RadioButton("Aftalt tilbud");
-        r3 = new RadioButton("Klippekort");
+
         r1.setAlignment(Pos.TOP_CENTER);
         r2.setAlignment(Pos.TOP_CENTER);
-        r3.setAlignment(Pos.TOP_CENTER);
+
         r1.setToggleGroup(rabat);
         r2.setToggleGroup(rabat);
-        r3.setToggleGroup(rabat);
+
 
         r1.setDisable(true);
         r2.setDisable(true);
-        r3.setDisable(true);
-        HBox hBox = new HBox(r1,r2,r3);
+
+        HBox hBox = new HBox(r1,r2);
         this.add(hBox,2,6,2,1);
 
 
@@ -160,8 +160,15 @@ public class UdlejningsPane extends GridPane {
             lvwPriser.getSelectionModel().select(0);
         }
 
-        // if (lvwUdflugter.getItems().size() > 0) {
-        //   lvwUdflugter.getSelectionModel().select(0);
+        Button btnKøb = new Button("Køb");
+        btnKøb.setOnAction(event ->købBtnAction());
+
+        Button btnCancel = new Button("Cancel");
+
+
+        HBox hBox1 = new HBox(btnCancel, btnKøb);
+        this.add(hBox1,5,8);
+        hBox1.setSpacing(10);
     }
 
 
@@ -176,18 +183,16 @@ public class UdlejningsPane extends GridPane {
         if(chkRabat.isSelected()){
             r1.setDisable(false);
             r2.setDisable(false);
-            r3.setDisable(false);
+
         }else{
             r1.setDisable(true);
             r2.setDisable(true);
-            r3.setDisable(true);
+
         }
     }
 
     public void tilføjTilKurvAction(){
         //TODO
-        //this.udlejning = new Udlejning(datePickerAfleveringsDato, datePickerUdleveringsDato., null, controller.getAllePrislister().get(2));
-        Controller controller = new Controller();
 
         Produkt produkt = lvwPriser.getSelectionModel().getSelectedItem().getProdukt();
         int antal = Integer.parseInt(txfAntal.getText().trim());
@@ -198,19 +203,26 @@ public class UdlejningsPane extends GridPane {
                 ProcentDiscount discount = new ProcentDiscount("");
                 discount.setProcent(Double.parseDouble(txfRabat.getText()));
                 ordrelinje.setDiscount(discount);
-            }else if(rabat.getSelectedToggle()==r2 && !txfRabat.getText().equals("")){
+            }else if (rabat.getSelectedToggle()==r2 && !txfRabat.getText().equals("")){
                 AftaltDiscount discount = new AftaltDiscount("");
                 discount.setPris(Double.parseDouble(txfRabat.getText()));
                 ordrelinje.setDiscount(discount);
-            }else{
-                Discount discount = new KlipDiscount("");
-                ordrelinje.setDiscount(discount);
             }
+
         }
-        //lvwIndkøbskurv.getItems().setAll(controller.getOrdrelinjer(salg));
+        lvwIndkøbskurv.getItems().setAll(Controller.getOrdrelinjePåUdlejning(udlejning));
         txfAntal.clear();
+        txfRabat.clear();
+        chkRabat.setSelected(false);
+        chkboxrabatAction();
+        rabat.selectToggle(null);
         lvwPriser.getSelectionModel().clearSelection();
        // txfSamletPris.setText(""+salg.beregnPris());
+    }
+
+    public void købBtnAction(){
+        KundeWindowUdlejning dia = new KundeWindowUdlejning("Betalingsvindue", udlejning);
+        dia.showAndWait();
     }
 }
 
