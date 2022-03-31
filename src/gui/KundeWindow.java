@@ -99,7 +99,7 @@ public class KundeWindow extends Stage {
 
         Button btnOk = new Button("OK");
         pane.add(btnOk,1,4);
-//        btnOk.setOnAction(event -> okAction());
+        btnOk.setOnAction(event -> btnOkAction());
 
         Button btnCancel = new Button("Cancel");
         pane.add(btnCancel,0,4);
@@ -140,8 +140,11 @@ public class KundeWindow extends Stage {
             Kunde kunde = controller.createKunde(txfName.getText(),Integer.parseInt(txfTlfNr.getText()),txfAdresse.getText());
             controller.salgForDato(afhentPicker.getValue());
             Controller.setKundePåSalg(kunde,salg);
+            Controller.setBetalingsformPåSalg(cbxBetalingsform.getSelectionModel().getSelectedItem(),salg);
         }else if(rbTidligereKunde.isSelected() && kundeListView.getSelectionModel().getSelectedItem()!=null){
             Controller.setKundePåSalg(kundeListView.getSelectionModel().getSelectedItem(),salg);
+            controller.salgForDato(afhentPicker.getValue());
+            Controller.setBetalingsformPåSalg(cbxBetalingsform.getSelectionModel().getSelectedItem(),salg);
         }
         this.hide();
     }
