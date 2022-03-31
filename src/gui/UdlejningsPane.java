@@ -102,19 +102,7 @@ public class UdlejningsPane extends GridPane {
         Label lblRabat = new Label("Angiv rabat:");
         this.add(lblRabat,2 , 6);
 
-        Label lblUdleveringsDato = new Label("Udlevering:");
-        this.add(lblUdleveringsDato, 2, 1);
 
-        datePickerUdleveringsDato = new DatePicker();
-        this.add(datePickerUdleveringsDato, 3, 1);
-
-
-
-        Label lblAflevering = new Label("Aflevering:");
-        this.add(lblAflevering, 2, 2);
-
-        datePickerAfleveringsDato = new DatePicker();
-        this.add(datePickerAfleveringsDato, 3, 2);
 
 
         Label lblKurv = new Label("Indkøbskurv:");
