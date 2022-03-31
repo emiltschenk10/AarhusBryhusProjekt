@@ -5,6 +5,7 @@ import application.model.Betalingsform;
 import application.model.Kunde;
 import application.model.Salg;
 import application.model.Udlejning;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -76,7 +77,9 @@ public class KundeWindowUdlejning extends Stage {
 
         txfTlfNr = new TextField();
 
-        Label lblAfhentning = new Label("Dato:");
+        Label lblAflevering = new Label("Aflevering:");
+
+        Label lblUdlevering = new Label("Udlevering:");
 
         afleveringsPicker = new DatePicker();
 
@@ -86,13 +89,15 @@ public class KundeWindowUdlejning extends Stage {
         cbxBetalingsform.getItems().setAll(storage.getBetalingsformer());
 
 
-        VBox vBox = new VBox(lblName,lblAdresse,lblTlfNr,lblAfhentning);
+        VBox vBox = new VBox(lblName,lblAdresse,lblTlfNr,lblAflevering, lblUdlevering);
         pane.add(vBox,0,1);
         vBox.setSpacing(20);
+        vBox.setPrefWidth(65);
 
         VBox vBox1 = new VBox(txfName,txfAdresse,txfTlfNr,afleveringsPicker,udleveringspicker, cbxBetalingsform);
         pane.add(vBox1,1,1);
         vBox1.setSpacing(10);
+        GridPane.setHalignment(vBox1, HPos.RIGHT);
 
         kundeListView = new ListView<>();
         pane.add(kundeListView,2,1);
@@ -162,4 +167,6 @@ public class KundeWindowUdlejning extends Stage {
         }
         this.hide();
     }
+
+
 }
