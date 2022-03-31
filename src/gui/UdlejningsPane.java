@@ -23,8 +23,7 @@ public class UdlejningsPane extends GridPane {
     private final ToggleGroup rabat;
     private RadioButton r1,r2;
     private Controller controller = new Controller();
-    private Udlejning udlejning = controller.createUdlejningUdenParm();
-    private DatePicker datePickerAfleveringsDato, datePickerUdleveringsDato;
+    private Udlejning udlejning;
     //private Udlejning udlejning;
 
 
@@ -35,7 +34,7 @@ public class UdlejningsPane extends GridPane {
         this.setGridLinesVisible(false);
         Controller controller = new Controller();
 
-
+        this.udlejning = new Udlejning();
         Prisliste prisliste = controller.getAllePrislister().get(2);
 
         udlejning.setPrisliste(prisliste);
