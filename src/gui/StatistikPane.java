@@ -23,6 +23,8 @@ public class StatistikPane extends GridPane {
     private final ComboBox<Produktgruppe> cbProduktGruppe;
     private final ComboBox<Arrangement> cbArragement;
 
+    private final Button btnSalgForDato2;
+
 
     private Label lblDagsIntjeneste, lblProduktgruppe, lblProdukt, lblArragement, lblDato, lblAntalProdukterSolgt;
 
@@ -40,6 +42,8 @@ public class StatistikPane extends GridPane {
 
         datePickerSalgForDag2 = new DatePicker();
         this.add(datePickerSalgForDag2, 5, 6);
+        datePickerSalgForDag2.setDisable(true);
+        datePickerSalgForDag2.setOnAction(event -> enableBtn());
 
         lblDagsIntjeneste = new Label("Indtjeneste for dato: ");
         this.add(lblDagsIntjeneste, 3, 3);
@@ -80,6 +84,7 @@ public class StatistikPane extends GridPane {
         GridPane.setHalignment(cbProdukt, HPos.RIGHT);
         cbProdukt.setMaxWidth(180);
         cbProdukt.setDisable(true);
+        cbProdukt.setOnAction(event -> enableDate());
 
 
         cbArragement = new ComboBox<>();
@@ -94,9 +99,10 @@ public class StatistikPane extends GridPane {
         GridPane.setValignment(btnSalgForDato, VPos.TOP);
         btnSalgForDato.setOnAction(event -> this.salgForDato());
 
-        Button btnSalgForDato2 = new Button("Antal solgte af produkt: ");
+        btnSalgForDato2 = new Button("Antal solgte af produkt: ");
         this.add(btnSalgForDato2, 5, 2);
         GridPane.setValignment(btnSalgForDato2, VPos.TOP);
+        btnSalgForDato2.setDisable(true);
         btnSalgForDato2.setOnAction(event -> this.antalSolgteProdukt());
     }
 
@@ -121,5 +127,13 @@ public class StatistikPane extends GridPane {
         cbProdukt.getItems().setAll(produktgruppe.getProdukter());
         cbProdukt.setDisable(false);
 
+    }
+
+    public void enableBtn(){
+        btnSalgForDato2.setDisable(false);
+    }
+
+    public void enableDate(){
+        datePickerSalgForDag2.setDisable(false);
     }
 }
