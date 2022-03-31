@@ -19,6 +19,10 @@ public class Salg {
 
     private ArrayList<Ordrelinje> ordrelinjer = new ArrayList<>();
 
+    private int salgsNr;
+
+    private  static  int salgNext = 0;
+
 
     public Salg() {
         this.dato = LocalDateTime.now();
@@ -29,6 +33,11 @@ public class Salg {
         this.dato = dato;
         this.betalt = betalt;
         this.prisliste = prisliste;
+    }
+
+    public void salgsNr(){
+        salgNext++;
+        this.salgsNr = salgNext;
     }
 
 

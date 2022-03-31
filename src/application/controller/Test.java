@@ -58,9 +58,9 @@ public class Test {
         Udlejning u3 = controller.createUdlejning(LocalDate.of(2021,2,2),LocalDateTime.of(2021,1,2,2,22),k1,pr1);
         Ordrelinje o10 = Controller.createOrdrelinjeUdlejning(p1,3,100,u3);
         Ordrelinje o11 = Controller.createOrdrelinjeUdlejning(p1,3,100,u3);
-        Ordrelinje o12 = Controller.createOrdrelinjeUdlejning(p1,3,100,u3);
+        Ordrelinje o12 = Controller.createOrdrelinjeUdlejning(p1,10,100,u3);
 
 
-        System.out.println(controller.antalIkkeAfleveredeProdukter());
+        System.out.println(controller.antalIkkeAfleveredeProdukterPrUdlejning());
     }
 }

@@ -26,7 +26,7 @@ public class Udlejning {
 
     public void udlejningsNr(){
         udlejningNext++;
-        udlejningsNr = udlejningNext;
+        this.udlejningsNr = udlejningNext;
     }
 
     public Ordrelinje createOrdrelinje(Produkt produkt,int antal, double pris){

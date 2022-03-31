@@ -34,20 +34,22 @@ public class Controller {
 
     public Salg createSalgUdenParm(){
         Salg salg = new Salg();
+        salg.salgsNr();
         storage.addSalg(salg);
         return salg;
     }
 
     public Salg createSalgMedParm(LocalDateTime dato, boolean betalt, Prisliste prisliste){
         Salg salg = new Salg(dato, betalt, prisliste);
+        salg.salgsNr();
         storage.addSalg(salg);
         return salg;
     }
 
     public Udlejning createUdlejning(LocalDate afleveringsdato, LocalDateTime udlejningdato, Kunde kunde, Prisliste prisliste){
         Udlejning udlejning = new Udlejning(afleveringsdato, udlejningdato, kunde, prisliste);
-        storage.addUdlejning(udlejning);
         udlejning.udlejningsNr();
+        storage.addUdlejning(udlejning);
         return udlejning;
     }
 
@@ -163,18 +165,20 @@ public class Controller {
         return totalSolgte;
     }
 
-    public Map<Udlejning,Integer> antalIkkeAfleveredeProdukter(){
+    public Map<Udlejning,Integer> antalIkkeAfleveredeProdukterPrUdlejning(){
+        int totalMangel;
         HashMap<Udlejning, Integer> map = new HashMap<>();
-
         for (Udlejning u: storage.getUdlejnings()) {
+            totalMangel = 0;
             if(LocalDate.now().isAfter(u.getAfleveringsDato())){
                 for (Ordrelinje o : u.getOrdrelinjer()) {
-                    map.put(u,o.getAntal());
-                }
+                    totalMangel += o.getAntal();
+                    map.put(u,totalMangel);
 
+
+                }
             }
         }
-
         return map;
     }
 
