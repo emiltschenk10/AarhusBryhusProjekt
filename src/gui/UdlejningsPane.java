@@ -21,9 +21,9 @@ public class UdlejningsPane extends GridPane {
     private final TextField txfAntal, txfRabat, txfSamletPris;
     private final CheckBox chkRabat;
     private final ToggleGroup rabat;
-    private Udlejning udlejning = new Udlejning();
     private RadioButton r1,r2;
     private Controller controller = new Controller();
+    private Udlejning udlejning = controller.createUdlejningUdenParm();
     private DatePicker datePickerAfleveringsDato, datePickerUdleveringsDato;
     //private Udlejning udlejning;
 

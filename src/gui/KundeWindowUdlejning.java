@@ -157,12 +157,14 @@ public class KundeWindowUdlejning extends Stage {
         Controller controller = new Controller();
         if(rbNyKunde.isSelected()){
             Kunde kunde = controller.createKunde(txfName.getText(),Integer.parseInt(txfTlfNr.getText()),txfAdresse.getText());
-            //controller.salgForDato(afhentPicker.getValue());
+            Controller.setAfleveringsDato(udlejning, afleveringsPicker.getValue());
+            Controller.setUdleveringsDato(udlejning, udleveringspicker.getValue());
             Controller.setKundePåUdlejning(kunde,udlejning);
             Controller.setBetalingsformPåUdlejning(cbxBetalingsform.getSelectionModel().getSelectedItem(),udlejning);
         }else if(rbTidligereKunde.isSelected() && kundeListView.getSelectionModel().getSelectedItem()!=null){
             Controller.setKundePåUdlejning(kundeListView.getSelectionModel().getSelectedItem(),udlejning);
-            //controller.salgForDato(afhentPicker.getValue());
+            Controller.setAfleveringsDato(udlejning, afleveringsPicker.getValue());
+            Controller.setUdleveringsDato(udlejning, udleveringspicker.getValue());
             Controller.setBetalingsformPåUdlejning(cbxBetalingsform.getSelectionModel().getSelectedItem(),udlejning);
         }
         this.hide();

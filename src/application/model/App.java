@@ -20,7 +20,7 @@ public class App {
         fredagsbar.addProdukt(p3,575);
         Kunde kunde = new Kunde("Lars",213123123,"ASDasd");
         Salg s1 = new Salg(LocalDateTime.now(),false,fredagsbar);
-        Udlejning u1 = new Udlejning(LocalDate.now(),LocalDateTime.now(),kunde,fredagsbar);
+        Udlejning u1 = new Udlejning(LocalDate.now(),LocalDate.now(),kunde,fredagsbar);
         Ordrelinje o1 = new Ordrelinje(p1,4,fredagsbar.getProduktpriser().get(p1));
         Ordrelinje o2 = new Ordrelinje(p2,3,fredagsbar.getProduktpriser().get(p2));
         Ordrelinje o3 = new Ordrelinje(p3,1,fredagsbar.getProduktpriser().get(p3));
