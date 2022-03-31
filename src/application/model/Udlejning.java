@@ -40,6 +40,14 @@ public class Udlejning {
         return o;
     }
 
+    public boolean isBetalt(){
+        return betalt;
+    }
+
+    public boolean isUdestående(){
+        return udestående;
+    }
+
     public LocalDate getAfleveringsDato() {
         return afleveringsDato;
     }
@@ -71,6 +79,8 @@ public class Udlejning {
     public void setBetalingsform(Betalingsform betalingsform) {
         this.betalingsform = betalingsform;
     }
+
+    public void setBetalt(Boolean betalt){this.betalt = betalt;}
 
     public void addOrdrelinje(Ordrelinje ordrelinje){
         if(!ordrelinjes.contains(ordrelinje)){

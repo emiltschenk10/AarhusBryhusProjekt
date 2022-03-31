@@ -136,6 +136,16 @@ public class Controller {
         return nySalg;
     }
 
+    public ArrayList<Udlejning> getAktuelleUdlejninger(){
+        ArrayList<Udlejning> nyUdlejninger = new ArrayList<>();
+        for(Udlejning udlejning:storage.getUdlejnings()){
+            if(!udlejning.isBetalt() || udlejning.getAfleveringsDato().isAfter(LocalDate.now()) || udlejning.isUdestående()){
+                nyUdlejninger.add(udlejning);
+            }
+        }
+        return nyUdlejninger;
+    }
+
 
     //Statestik
 
