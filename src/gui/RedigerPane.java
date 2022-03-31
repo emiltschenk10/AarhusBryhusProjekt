@@ -30,10 +30,10 @@ public class RedigerPane extends GridPane {
 
         salgListView = new ListView<>();
         this.add(salgListView,0,2,1,1);
-        salgListView.setPrefHeight(200);
-        salgListView.setPrefWidth(200);
+        salgListView.setPrefHeight(300);
+        salgListView.setPrefWidth(300);
         //TODO Vi skal lave en metode til kun at vise salg der ikke er betalt
-//        salgListView.getItems().setAll()
+        salgListView.getItems().setAll(controller.getAktuelleSalg());
 
     }
 

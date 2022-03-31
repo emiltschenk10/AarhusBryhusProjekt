@@ -126,6 +126,15 @@ public class Controller {
 
     public ArrayList<Produkt> getProduktGruppensProdukter(Produktgruppe produktgruppe){return produktgruppe.getProdukter();}
 
+    public ArrayList<Salg> getAktuelleSalg(){
+        ArrayList<Salg> nySalg = new ArrayList<>();
+        for(Salg salg:storage.getSalgs()){
+            if(!salg.isBetalt() || salg.getDato().isAfter(LocalDateTime.now())){
+                nySalg.add(salg);
+            }
+        }
+        return nySalg;
+    }
 
 
     //Statestik
@@ -204,9 +213,9 @@ public class Controller {
 
 
 
-       Salg s1 = controller.createSalgMedParm(LocalDateTime.now(),true,pr1);
-       Salg s2 = controller.createSalgMedParm(LocalDateTime.now(),true,pr1);
-       Salg s3 = controller.createSalgMedParm(LocalDateTime.now(),true,pr1);
+       Salg s1 = controller.createSalgMedParm(LocalDateTime.now(),false,pr1);
+       Salg s2 = controller.createSalgMedParm(LocalDateTime.now(),false,pr1);
+       Salg s3 = controller.createSalgMedParm(LocalDateTime.now(),false,pr1);
 
        Ordrelinje o1 = Controller.createOrdrelinjeSalg(p1,2,70,s1);
        Ordrelinje o2 = Controller.createOrdrelinjeSalg(p1,2,70,s2);

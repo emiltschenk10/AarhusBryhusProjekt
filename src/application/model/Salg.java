@@ -2,6 +2,8 @@ package application.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -56,6 +58,10 @@ public class Salg {
         return prisliste;
     }
 
+    public boolean isBetalt(){
+        return betalt;
+    }
+
     public void setPrisliste(Prisliste prisliste) {
         this.prisliste = prisliste;
     }
@@ -106,4 +112,13 @@ public class Salg {
         return ordrelinje;
     }
 
+    public String toString(){
+        String result = "";
+        if(kunde!=null){
+            result = "Salgs Nr: " + salgsNr + "  Kunde: " + kunde.getNavn() + "  Dato: " + dato + "  Betalt: " + betalt;
+        }else{
+            result = "Salgs Nr: " + salgsNr + "  Dato: " + dato.toLocalDate() + "  Betalt: " + betalt;
+        }
+        return result;
+    }
 }
