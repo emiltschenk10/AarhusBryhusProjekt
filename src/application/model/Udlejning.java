@@ -13,6 +13,8 @@ public class Udlejning {
     private Prisliste prisliste;
     private Betalingsform betalingsform;
     private ArrayList<Ordrelinje> ordrelinjes = new ArrayList<>();
+    private int udlejningsNr;
+    private  static  int udlejningNext = 0;
 
 
     public Udlejning(LocalDate afleveringsDato, LocalDateTime udleveringsDato, Kunde kunde,Prisliste prisliste){
@@ -20,6 +22,11 @@ public class Udlejning {
         this.udleveringsDato = udleveringsDato;
         this.kunde = kunde;
         this.prisliste = prisliste;
+    }
+
+    public void udlejningsNr(){
+        udlejningNext++;
+        this.udlejningsNr = udlejningNext;
     }
 
     public Ordrelinje createOrdrelinje(Produkt produkt,int antal, double pris){
@@ -31,6 +38,10 @@ public class Udlejning {
 
     public LocalDate getAfleveringsDato() {
         return afleveringsDato;
+    }
+
+    public ArrayList<Ordrelinje> getOrdrelinjer() {
+        return ordrelinjes;
     }
 
     public void setAfleveringsDato(LocalDate afleveringsDato) {
@@ -72,5 +83,9 @@ public class Udlejning {
         return sum;
     }
 
+    @Override
+    public String toString() {
+        return "Udlejningsnr " + udlejningsNr;
 
+    }
 }
