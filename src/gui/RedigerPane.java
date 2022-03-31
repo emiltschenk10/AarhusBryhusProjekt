@@ -86,7 +86,7 @@ public class RedigerPane extends GridPane {
             chxSalgBetalt.setDisable(false);
         }
         this.salgNr = salg.getSalgsNr();
-        datePicker.setValue(salg.getDato().toLocalDate());
+        datePicker.setValue(salg.getDato());
     }
 
 //    public void btnGemAction(){
