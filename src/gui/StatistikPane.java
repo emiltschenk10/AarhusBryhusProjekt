@@ -62,7 +62,7 @@ public class StatistikPane extends GridPane {
         GridPane.setValignment(lblDato, VPos.BOTTOM);
 
         lblAntalProdukterSolgt = new Label("Antal solgt: ");
-        this.add(lblAntalProdukterSolgt, 5, 3);
+        this.add(lblAntalProdukterSolgt, 6, 2);
         GridPane.setValignment(lblAntalProdukterSolgt, VPos.BOTTOM);
 
 
@@ -79,6 +79,7 @@ public class StatistikPane extends GridPane {
         GridPane.setValignment(cbProdukt, VPos.TOP);
         GridPane.setHalignment(cbProdukt, HPos.RIGHT);
         cbProdukt.setMaxWidth(180);
+        cbProdukt.setDisable(true);
 
 
         cbArragement = new ComboBox<>();
@@ -86,7 +87,7 @@ public class StatistikPane extends GridPane {
         GridPane.setValignment(cbArragement, VPos.TOP);
         GridPane.setHalignment(cbArragement, HPos.RIGHT);
         cbArragement.setMaxWidth(180);
-        cbArragement.setOnAction(event -> this.selectedProduktArragement());
+        cbArragement.getItems().setAll(controller.getArrangementer());
 
         Button btnSalgForDato = new Button("Indtjeneste for dato: ");
         this.add(btnSalgForDato, 3, 2);
@@ -109,22 +110,16 @@ public class StatistikPane extends GridPane {
     public void antalSolgteProdukt(){
         Controller controller = new Controller();
 
-        String antal = controller.salgForProduktogProduktgruppe(cbProduktGruppe.getValue(),cbProdukt.getValue(),datePickerSalgForDag2.getValue(),cbArragement.getValue()) + "";
+        String antal = controller.salgForProduktogProduktgruppe(cbProduktGruppe.getValue(),cbProdukt.getValue(),datePickerSalgForDag2.getValue(),cbArragement.getValue())+ "";
 
-        lblAntalProdukterSolgt.setText(antal);
+        lblAntalProdukterSolgt.setText("Antal solgt: " + antal);
     }
 
     public void selectedProduktgruppeProdukt(){
         Controller controller = new Controller();
         Produktgruppe produktgruppe = cbProduktGruppe.getSelectionModel().getSelectedItem();
         cbProdukt.getItems().setAll(produktgruppe.getProdukter());
+        cbProdukt.setDisable(false);
 
     }
-
-   public void selectedProduktArragement(){
-        Controller controller = new Controller();
-       Arrangement arragement = cbArragement.getSelectionModel().getSelectedItem();
-        cbArragement.getItems().setAll(controller.);
-    }
-
 }
