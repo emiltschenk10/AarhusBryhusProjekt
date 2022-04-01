@@ -2,6 +2,7 @@ package gui;
 
 import application.controller.Controller;
 import application.model.*;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -18,6 +19,7 @@ public class UdlejningsPane extends GridPane {
     private final TextField txfAntal, txfRabat, txfRestPris, txfPantPris;
     private final CheckBox chkRabat;
     private final ToggleGroup rabat;
+    private final Button btnKøb, btnCancel, btnTilføjTilKurv, btnOpretUdlejning;
     private RadioButton r1,r2;
     private Controller controller = new Controller();
     private Udlejning udlejning;
@@ -48,6 +50,7 @@ public class UdlejningsPane extends GridPane {
             produktListviews.add(new ProduktListview(produkt,prisliste.getProduktpriser().get(produkt)));
         }
         lvwPriser.getItems().setAll(produktListviews);
+        lvwPriser.setDisable(true);
         //lvwPriser.getItems().setAll(Controller.getKonferencer());
 
 
@@ -61,10 +64,12 @@ public class UdlejningsPane extends GridPane {
         this.add(txfAntal, 2, 4);
         GridPane.setValignment(txfAntal, VPos.TOP);
         txfAntal.setMaxWidth(40);
+        txfAntal.setDisable(true);
 
 
         chkRabat = new CheckBox("Rabat");
         this.add(chkRabat, 2, 5);
+        chkRabat.setDisable(true);
 
         chkRabat.setOnAction(event -> chkboxrabatAction());
 
@@ -94,6 +99,7 @@ public class UdlejningsPane extends GridPane {
         txfRabat = new TextField();
         this.add(txfRabat, 3, 6);
         txfRabat.setMaxWidth(40);
+        txfRabat.setDisable(true);
 
         Label lblRabat = new Label("Angiv rabat:");
         this.add(lblRabat,2 , 6);
@@ -108,6 +114,7 @@ public class UdlejningsPane extends GridPane {
         this.add(lvwIndkøbskurv, 5, 2, 1, 5);
         lvwIndkøbskurv.setPrefWidth(200);
         lvwIndkøbskurv.setPrefHeight(200);
+        lvwIndkøbskurv.setDisable(true);
 
 
         Label lblRestPris = new Label("Rest pris:");
@@ -115,31 +122,43 @@ public class UdlejningsPane extends GridPane {
         txfRestPris = new TextField();
         this.add(txfRestPris, 5, 8);
         txfRestPris.setEditable(false);
+        txfRestPris.setDisable(true);
 
         Label lblPantPris = new Label("Pant pris:");
         this.add(lblPantPris, 4, 7);
 
         txfPantPris = new TextField();
         this.add(txfPantPris, 5, 7);
+        txfPantPris.setDisable(true);
+        txfPantPris.setEditable(false);
 /*
         ChangeListener<Prisliste> listener1 = (ov, gammelPrisListe, nyPrisListe) -> this.selectedPrislisteChanged();
         prislisteComboBox.getSelectionModel().selectedItemProperty().addListener(listener1);
 */
 
 
-        Button btnTilføjTilKurv = new Button("Tilføj til kurv");
+        btnTilføjTilKurv = new Button("Tilføj til kurv");
         this.add(btnTilføjTilKurv, 3, 7);
         GridPane.setValignment(btnTilføjTilKurv, VPos.TOP);
         btnTilføjTilKurv.setOnAction(event -> this.tilføjTilKurvAction());
+        btnTilføjTilKurv.setDisable(true);
 
         if (lvwPriser.getItems().size() > 0) {
             lvwPriser.getSelectionModel().select(0);
         }
 
-        Button btnKøb = new Button("Køb");
+        btnKøb = new Button("Køb");
         btnKøb.setOnAction(event ->købBtnAction());
+        btnKøb.setDisable(true);
 
-        Button btnCancel = new Button("Cancel");
+        btnCancel = new Button("Cancel");
+        btnCancel.setDisable(true);
+        btnCancel.setOnAction(event -> this.cancelAction());
+
+        btnOpretUdlejning = new Button("Opret Udlejning");
+        this.add(btnOpretUdlejning, 0, 1);
+        GridPane.setHalignment(btnOpretUdlejning, HPos.RIGHT);
+        btnOpretUdlejning.setOnAction(event -> this.opretUdlejningsAction());
 
 
         HBox hBox1 = new HBox(btnCancel, btnKøb);
@@ -149,6 +168,20 @@ public class UdlejningsPane extends GridPane {
 
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    public void opretUdlejningsAction(){
+        this.udlejning = controller.createUdlejningUdenParm();
+        lvwPriser.setDisable(false);
+        lvwIndkøbskurv.setDisable(false);
+        txfRestPris.setDisable(false);
+        txfPantPris.setDisable(false);
+        txfAntal.setDisable(false);
+        btnKøb.setDisable(false);
+        btnCancel.setDisable(false);
+        btnTilføjTilKurv.setDisable(false);
+        btnOpretUdlejning.setDisable(true);
+    }
+
 
     public void chkboxrabatAction(){
         if(chkRabat.isSelected()){
@@ -196,6 +229,18 @@ public class UdlejningsPane extends GridPane {
     public void købBtnAction(){
         KundeWindowUdlejning dia = new KundeWindowUdlejning("Betalingsvindue", udlejning);
         dia.showAndWait();
+    }
+
+    public void cancelAction(){
+        lvwPriser.setDisable(true);
+        lvwIndkøbskurv.setDisable(true);
+        txfRestPris.setDisable(true);
+        txfPantPris.setDisable(true);
+        txfAntal.setDisable(true);
+        btnKøb.setDisable(true);
+        btnCancel.setDisable(true);
+        btnTilføjTilKurv.setDisable(true);
+        btnOpretUdlejning.setDisable(false);
     }
 }
 
