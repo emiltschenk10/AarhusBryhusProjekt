@@ -22,6 +22,7 @@ public class KonferencePane extends GridPane {
     private final ToggleGroup rabat;
     private Salg salg;
     private RadioButton r1,r2,r3;
+    private Controller controller = new Controller();
 
 
     public KonferencePane() {
@@ -33,7 +34,8 @@ public class KonferencePane extends GridPane {
 
         prislisteComboBox = new ComboBox<>();
         this.add(prislisteComboBox, 0, 0);
-        prislisteComboBox.getItems().setAll(controller.getAllePrislister());
+        prislisteComboBox.setOnMouseClicked(event -> this.visPrisliste());
+
 
 
         Label lblPriser = new Label("Priser:");
@@ -174,6 +176,10 @@ public class KonferencePane extends GridPane {
             produktListviews.add(new ProduktListview(produkt,prisliste.getProduktpriser().get(produkt)));
         }
         lvwPriser.getItems().setAll(produktListviews);
+    }
+
+    public void visPrisliste(){
+        prislisteComboBox.getItems().setAll(controller.getAllePrislister());
     }
 
     public void chkboxrabatAction(){
