@@ -91,6 +91,10 @@ public class Salg {
         this.betalingsform = betalingsform;
     }
 
+    public Betalingsform getBetalingsform() {
+        return betalingsform;
+    }
+
     public void addOrdrelinje(Ordrelinje ordrelinje){
         if (!ordrelinjer.contains(ordrelinje)){
             ordrelinjer.add(ordrelinje);
