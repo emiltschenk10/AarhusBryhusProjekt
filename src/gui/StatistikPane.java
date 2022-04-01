@@ -151,7 +151,7 @@ public class StatistikPane extends GridPane {
     }
 
     public void antalklipIPeriode(){
-      String antal = String.valueOf(controller.antalSolgteKlip(datePickerKlip1.getValue(),datePickerKlip2.getValue()));
+      String antal = controller.antalSolgteKlip(datePickerKlip1.getValue(),datePickerKlip2.getValue()) + "";
       lblKlipDate2.setText("Antal: " + antal);
     }
 
