@@ -30,7 +30,7 @@ public class StatistikPane extends GridPane {
     private final Button btnSalgForDato2, btnKlipDate;
 
 
-    private Label lblDagsIntjeneste, lblProduktgruppe, lblProdukt, lblArragement, lblDato, lblAntalProdukterSolgt, lblKlipDate1,lblKlipDate2;
+    private Label lblDagsIntjeneste, lblProduktgruppe, lblProdukt, lblArragement, lblDato, lblAntalProdukterSolgt, lblKlipDate1,lblKlipDate2,lblKlipDate3;
 
     private Controller controller = new Controller();
 
@@ -84,9 +84,13 @@ public class StatistikPane extends GridPane {
         this.add(lblKlipDate1,4,7);
         GridPane.setValignment(lblKlipDate1, VPos.BOTTOM);
 
-        lblKlipDate2 = new Label("Antal: ");
+        lblKlipDate2 = new Label("Antal brugte klippekort: ");
         this.add(lblKlipDate2,5,8);
         GridPane.setValignment(lblKlipDate2, VPos.BOTTOM);
+
+        lblKlipDate3 = new Label("Antal solgte klippekort: ");
+        this.add(lblKlipDate3,6,8);
+        GridPane.setValignment(lblKlipDate3, VPos.BOTTOM);
 
         btnKlipDate = new Button("Klip brugt i perioden: ");
         this.add(btnKlipDate, 4, 8);
@@ -133,7 +137,7 @@ public class StatistikPane extends GridPane {
     public void salgForDato(){
 
         String indtjeneste = (controller.salgForDato(datePickerSalgForDag.getValue()) + " Kr.");
-        lblDagsIntjeneste.setText("Indtjeneste for dato: " + controller.salgForDato(datePickerSalgForDag.getValue()) + " Kr.");
+        lblDagsIntjeneste.setText("Indtjeneste for dato: " + indtjeneste);
     }
 
     public void antalSolgteProdukt(){
@@ -151,8 +155,11 @@ public class StatistikPane extends GridPane {
     }
 
     public void antalklipIPeriode(){
-      String antal = controller.antalSolgteKlip(datePickerKlip1.getValue(),datePickerKlip2.getValue()) + "";
-      lblKlipDate2.setText("Antal: " + antal);
+      String antal = controller.antalBrugteKlip(datePickerKlip1.getValue(),datePickerKlip2.getValue()) + "";
+      lblKlipDate2.setText("Antal brugte klippekort: " + antal);
+
+      String antal2 = controller.antalSolgteKlip(datePickerKlip1.getValue(),datePickerKlip2.getValue()) + ""
+;      lblKlipDate3.setText("Antal solgte klippekort: " + antal2);
     }
 
     public void enableBtn(){
