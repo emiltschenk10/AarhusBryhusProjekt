@@ -265,7 +265,7 @@ public class Controller {
 
         for (Salg s : storage.getSalgs()) {
             if (s.getDato().isAfter(dato1) || s.getDato().equals(dato1) && s.getDato().isBefore(dato2) || s.getDato().isEqual(dato2)) {
-                if (s.getBetalingsform().getNavn().equals("Mobilepay")) {
+                if (s.getBetalingsform() != null && s.getBetalingsform().getNavn().equals("Klippekort")) {
                     antal++;
                 }
             }
