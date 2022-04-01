@@ -46,7 +46,7 @@ public class PrislistePane extends GridPane {
         txfNavn = new TextField();
         this.add(txfNavn, 0, 9);
 
-        Button btnOpretPrisliste = new Button("Opret Prisliste:");
+        Button btnOpretPrisliste = new Button("Opret Prisliste");
         this.add(btnOpretPrisliste, 0, 10);
         btnOpretPrisliste.setOnAction(event -> this.opretPrislisteAction());
 
@@ -74,11 +74,6 @@ public class PrislistePane extends GridPane {
         btnTilføj.setOnAction(event -> this.tilføjAction());
 
 
-        Button btnRediger = new Button("Rediger produkt");
-        this.add(btnRediger, 4, 1);
-        GridPane.setHalignment(btnRediger, HPos.LEFT);
-        //btnRediger.setOnAction(event -> this.redigerAction());
-
 
         ChangeListener<Prisliste> listener1 = (ov, gammelPrisListe, nyPrisListe) -> this.selectedPrislisteChanged();
         lvwPrislister.getSelectionModel().selectedItemProperty().addListener(listener1);
@@ -101,6 +96,7 @@ public class PrislistePane extends GridPane {
         String navn = txfNavn.getText();
         controller.createPrisliste(navn);
         lvwPrislister.getItems().setAll(controller.getAllePrislister());
+        txfNavn.clear();
     }
 
     public void tilføjAction(){
