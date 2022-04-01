@@ -298,9 +298,13 @@ public class Controller {
         Salg s2 = controller.createSalgMedParm(LocalDate.now(), false, pr1);
         Salg s3 = controller.createSalgMedParm(LocalDate.now(), false, pr1);
 
+        Udlejning u1 = controller.createUdlejning(LocalDate.now(),LocalDate.now().plusDays(5),null,pr1);
+
         Ordrelinje o1 = Controller.createOrdrelinjeSalg(p1, 2, 70, s1);
         Ordrelinje o2 = Controller.createOrdrelinjeSalg(p1, 2, 70, s2);
         Ordrelinje o3 = Controller.createOrdrelinjeSalg(p1, 2, 70, s3);
+        Ordrelinje o4 = Controller.createOrdrelinjeUdlejning(p1,4,70,u1);
+
 
         controller.createKunde("Kvickly", 121312312, "dyrt.dk");
         controller.createKunde("Fakta", 22223333, "BudgetKvickly.dk");

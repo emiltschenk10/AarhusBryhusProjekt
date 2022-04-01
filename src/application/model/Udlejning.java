@@ -44,6 +44,8 @@ public class Udlejning {
         return betalt;
     }
 
+    public int getUdlejningsNr(){return udlejningsNr;}
+
     public boolean isUdestående(){
         return udestående;
     }

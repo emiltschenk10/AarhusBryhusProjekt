@@ -32,6 +32,7 @@ public class StartWindow extends Application {
 
     // -----------------------------------------------------------------------------------------------------------------
 
+    private RedigerPane redigerPane;
     private void initContent(BorderPane pane) {
         TabPane tabPane = new TabPane();
         this.initTapPane(tabPane);
@@ -73,11 +74,19 @@ public class StartWindow extends Application {
 
         RedigerPane redigerPane = new RedigerPane();
         tabRediger.setContent(redigerPane);
+        this.redigerPane = redigerPane;
 
         Tab tabStatistik = new Tab("Statistik");
         tabPane.getTabs().add(tabStatistik);
 
         StatistikPane statistikPane = new StatistikPane();
         tabStatistik.setContent(statistikPane);
+
+        ChangeListener<Tab> listener = (ov,gammelTab,nyTab) -> this.selectedTabChanged();
+        tabPane.getSelectionModel().selectedItemProperty().addListener(listener);
+    }
+
+    private void selectedTabChanged(){
+        redigerPane.updateLists();
     }
 }
