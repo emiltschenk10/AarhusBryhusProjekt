@@ -55,6 +55,10 @@ public class Ordrelinje {
         }
     }
 
+    public double beregnUdlejningsPris(){
+        return pris * antal;
+    }
+
     public String toString(){
         return antal + " " + produkt + " " + getPris();
     }

@@ -110,6 +110,14 @@ public class Udlejning {
         return sum;
     }
 
+    public double beregnRestPris(){
+        double sum = 0;
+        for (Ordrelinje o : ordrelinjes){
+            sum += o.beregnUdlejningsPris();
+        }
+        return sum;
+    }
+
     @Override
     public String toString() {
         return "Udlejningsnr " + udlejningsNr;
