@@ -97,6 +97,10 @@ public class Udlejning {
 
     public void setBetalt(Boolean betalt){this.betalt = betalt;}
 
+    public void setUdestående(Boolean udestående){
+        this.udestående=udestående;
+    }
+
     public void addOrdrelinje(Ordrelinje ordrelinje){
         if(!ordrelinjes.contains(ordrelinje)){
             ordrelinjes.add(ordrelinje);

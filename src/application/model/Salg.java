@@ -37,6 +37,10 @@ public class Salg {
         this.prisliste = prisliste;
     }
 
+    public void setBetalt(Boolean betalt){
+        this.betalt = betalt;
+    }
+
     public void salgsNr(){
         salgNext++;
         this.salgsNr = salgNext;

@@ -122,6 +122,18 @@ public class Controller {
         salg.setBetalingsform(betalingsform);
     }
 
+    public static void setSalgSomBetalt(Salg salg,Boolean betalt){
+        salg.setBetalt(betalt);
+    }
+
+    public static void setUdlejningSomBetalt(Udlejning udlejning,Boolean betalt){
+        udlejning.setBetalt(betalt);
+    }
+
+    public static void setUdlejningSomUdestående(Udlejning udlejning, Boolean udestående){
+        udlejning.setUdestående(udestående);
+    }
+
     public static void setSalgsDato(Salg salg, LocalDate dato) {
         salg.setSalgsDato(dato);
     }
