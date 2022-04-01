@@ -45,7 +45,7 @@ public class RedigerPane extends GridPane {
         udlejningListView = new ListView<>();
         this.add(udlejningListView,1,2);
         udlejningListView.setPrefHeight(200);
-        udlejningListView.setPrefWidth(300);
+        udlejningListView.setPrefWidth(600);
         udlejningListView.getItems().setAll(controller.getAktuelleUdlejninger());
         ChangeListener<Udlejning> listener1 = (ov, gammelUdlejning, nyUdlejning) -> this.selectedUdlejningChanged();
         udlejningListView.getSelectionModel().selectedItemProperty().addListener(listener1);
@@ -98,6 +98,7 @@ public class RedigerPane extends GridPane {
 
         btnGem = new Button("Gem");
         btnGem.setDisable(true);
+        btnGem.setOnAction(event -> btnGemAction());
 
 
         HBox hBox3 = new HBox(btnRediger,btnGem);
@@ -129,9 +130,9 @@ public class RedigerPane extends GridPane {
         Salg salg = salgListView.getSelectionModel().getSelectedItem();
         datePicker.setDisable(false);
         btnGem.setDisable(false);
-        if(!salg.isBetalt()){
-            chxSalgBetalt.setDisable(false);
-        }
+        chxSalgBetalt.setDisable(false);
+        btnGem2.setDisable(true);
+        chxSalgBetalt.setSelected(salg.isBetalt());
         this.salgNr = salg.getSalgsNr();
         datePicker.setValue(salg.getDato());
     }
@@ -140,10 +141,12 @@ public class RedigerPane extends GridPane {
         Salg salg = salgListView.getSelectionModel().getSelectedItem();
         if(salg.getSalgsNr() ==salgNr){
             Controller.setSalgsDato(salg,datePicker.getValue());
-            if(chxSalgBetalt.isSelected()){
-                //TODO lav en set salg som betalt i controlleren
-            }
+            Controller.setSalgSomBetalt(salg, chxSalgBetalt.isSelected());
         }
+        datePicker.setDisable(true);
+        btnGem.setDisable(true);
+        chxSalgBetalt.setDisable(true);
+        salgListView.getItems().setAll(controller.getAktuelleSalg());
     }
 
     public void btnRediger2Action(){
@@ -151,12 +154,12 @@ public class RedigerPane extends GridPane {
         udleveringsDatePick.setDisable(false);
         afleveringsDatePick.setDisable(false);
         btnGem2.setDisable(false);
-        if(!udlejning.isBetalt()){
-            chxUdlejBetalt.setDisable(false);
-        }else if(udlejning.isUdestående()){
-            chxUdestående.setDisable(false);
-            chxUdestående.setSelected(true);
-        }
+        btnGem.setDisable(true);
+        chxUdlejBetalt.setDisable(false);
+        chxUdlejBetalt.setSelected(udlejning.isBetalt());
+        chxUdestående.setDisable(false);
+        chxUdestående.setSelected(udlejning.isUdestående());
+
         this.udlejningsNr = udlejning.getUdlejningsNr();
         udleveringsDatePick.setValue(udlejning.getUdleveringsDato());
         afleveringsDatePick.setValue(udlejning.getAfleveringsDato());
@@ -167,8 +170,15 @@ public class RedigerPane extends GridPane {
         if(udlejningsNr == udlejning.getUdlejningsNr()){
             Controller.setUdleveringsDato(udlejning,udleveringsDatePick.getValue());
             Controller.setAfleveringsDato(udlejning,afleveringsDatePick.getValue());
-            //TODO Betalt og udestående
+
+            Controller.setUdlejningSomBetalt(udlejning,chxUdlejBetalt.isSelected());
+            Controller.setUdlejningSomUdestående(udlejning,chxUdestående.isSelected());
         }
+        udleveringsDatePick.setDisable(true);
+        afleveringsDatePick.setDisable(true);
+        btnGem2.setDisable(true);
+        chxUdlejBetalt.setDisable(true);
+        chxUdestående.setDisable(true);
     }
 
     public void updateLists(){
