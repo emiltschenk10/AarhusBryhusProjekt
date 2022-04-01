@@ -16,6 +16,7 @@ public class RedigerPane extends GridPane {
     DatePicker datePicker,udleveringsDatePick,afleveringsDatePick;
     Button btnRediger,btnGem,btnRediger2,btnGem2;
     private int salgNr;
+    private int udlejningsNr;
     private Controller controller = new Controller();
 
     public RedigerPane() {
@@ -57,9 +58,11 @@ public class RedigerPane extends GridPane {
 
         chxUdlejBetalt = new CheckBox("Betalt");
         this.add(chxUdlejBetalt,1,3);
+        chxUdlejBetalt.setDisable(true);
 
         chxUdestående = new CheckBox("Udestående");
         this.add(chxUdestående,1,4);
+        chxUdestående.setDisable(true);
 
         Label lblDato = new Label("Dato:");
 
@@ -103,6 +106,7 @@ public class RedigerPane extends GridPane {
 
         btnRediger2 = new Button("Rediger Udlejning");
         btnRediger2.setDisable(true);
+        btnRediger2.setOnAction(event -> btnRediger2Action());
 
         btnGem2 = new Button("Gem");
         btnGem2.setDisable(true);
@@ -114,12 +118,11 @@ public class RedigerPane extends GridPane {
     }
 
     public void selectedSalgChanged(){
-        btnRediger.setDisable(false);
+        btnRediger.setDisable(false);;
     }
 
     public void selectedUdlejningChanged(){
         btnRediger2.setDisable(false);
-//        salgListView.setSelectionModel(null);
     }
 
     public void btnRedigerAction(){
@@ -150,9 +153,26 @@ public class RedigerPane extends GridPane {
         btnGem2.setDisable(false);
         if(!udlejning.isBetalt()){
             chxUdlejBetalt.setDisable(false);
+        }else if(udlejning.isUdestående()){
+            chxUdestående.setDisable(false);
+            chxUdestående.setSelected(true);
         }
+        this.udlejningsNr = udlejning.getUdlejningsNr();
+        udleveringsDatePick.setValue(udlejning.getUdleveringsDato());
+        afleveringsDatePick.setValue(udlejning.getAfleveringsDato());
+    }
 
+    public void btnGem2Action(){
+        Udlejning udlejning = udlejningListView.getSelectionModel().getSelectedItem();
+        if(udlejningsNr == udlejning.getUdlejningsNr()){
+            Controller.setUdleveringsDato(udlejning,udleveringsDatePick.getValue());
+            Controller.setAfleveringsDato(udlejning,afleveringsDatePick.getValue());
+            //TODO Betalt og udestående
+        }
+    }
 
-
+    public void updateLists(){
+        salgListView.getItems().setAll(controller.getAktuelleSalg());
+        udlejningListView.getItems().setAll(controller.getAktuelleUdlejninger());
     }
 }
