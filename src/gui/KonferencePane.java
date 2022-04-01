@@ -114,22 +114,8 @@ public class KonferencePane extends GridPane {
         prislisteComboBox.getSelectionModel().selectedItemProperty().addListener(listener1);
 
 
-        // ChangeListener<Udflugt> listener2 = (ov, gammelUdflugt, nyUdflugt) -> this.selectedUdflugtChanged();
-        // lvwUdflugter.getSelectionModel().selectedItemProperty().addListener(listener2);
 
-/*
-        Button btnOpretKonference = new Button("Opret konference");
-        this.add(btnOpretKonference, 0, 0);
-        GridPane.setHalignment(btnOpretKonference, HPos.RIGHT);
-        //btnOpretKonference.setOnAction(event -> this.opretKonferenceAction());
-*/
-        /*
-        Button btnOpretUdflugt = new Button("Opret udflugt");
-        this.add(btnOpretUdflugt, 0, 8);
-        GridPane.setHalignment(btnOpretUdflugt, HPos.RIGHT);
-        //btnOpretUdflugt.setOnAction(event -> this.opretUdflugtAction());
 
-*/
 
         Button btnKøb = new Button("Køb");
         btnKøb.setOnAction(event ->købBtnAction());
@@ -165,9 +151,11 @@ public class KonferencePane extends GridPane {
 
     public void updateControls() {
         Prisliste prisliste = prislisteComboBox.getSelectionModel().getSelectedItem();
-
+        if(this.salg != null){
+            //TODO lav en remove salg metode i controller, husk at få salget til at være null til sidst.
+        }
         //skal sættes et andet sted
-        this.salg = new Salg();
+        this.salg = controller.createSalgUdenParm();
         this.salg.setPrisliste(prisliste);
         //lvwPriser.getItems().setAll(prisliste.getProduktpriser());
         ArrayList<ProduktListview> produktListviews = new ArrayList<>();
@@ -226,75 +214,3 @@ public class KonferencePane extends GridPane {
     }
 
 }
-
-
-/*
-    private void opretKonferenceAction() {
-        KonferenceWindow dia = new KonferenceWindow("Oprat konference");
-        dia.showAndWait();
-
-        // Wait for the modal dialog to close
-
-        lvwPriser.getItems().setAll(Controller.getKonferencer());
-        int index = lvwPriser.getItems().size() - 1;
-        lvwPriser.getSelectionModel().select(index);
-    }
-
-    private void opdaterKonferenceAction() {
-        Konference konference = lvwPriser.getSelectionModel().getSelectedItem();
-        if (konference != null) {
-
-            KonferenceWindow dia = new KonferenceWindow("Opdater konference", konference);
-            dia.showAndWait();
-
-            // Wait for the modal dialog to close
-
-            int selectIndex = lvwPriser.getSelectionModel().getSelectedIndex();
-            lvwPriser.getItems().setAll(Controller.getKonferencer());
-            lvwPriser.getSelectionModel().select(selectIndex);
-        }
-    }
-
-    private void opretUdflugtAction() {
-        Konference konference = lvwPriser.getSelectionModel().getSelectedItem();
-        if (konference != null) {
-
-            UdflugtWindow dia1 = new UdflugtWindow("Opret udflugt");
-            dia1.showAndWait();
-
-            // Wait for the modal dialog to close
-
-            int selectIndex = lvwUdflugter.getSelectionModel().getSelectedIndex();
-            lvwUdflugter.getItems().setAll(konference.getUdflugter());
-            lvwUdflugter.getSelectionModel().select(selectIndex);
-        }
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-
-
-    private void selectedUdflugtChanged() {
-        this.updateUdflugtControls();
-    }
-
-
-    public void updateUdflugtControls() {
-
-        Konference konference = lvwPriser.getSelectionModel().getSelectedItem();
-        Udflugt udflugt = lvwUdflugter.getSelectionModel().getSelectedItem();
-        if (udflugt != null) {
-            StringBuilder sb2 = new StringBuilder();
-            for (Ledsager l : udflugt.getLedsagere()) {
-                sb2.append(l.getNavn() + "\n");
-            }
-            txaLedsagere.setText(sb2.toString());
-
-        } else {
-            txaLedsagere.clear();
-        }
-    }
-
-}
-
- */
