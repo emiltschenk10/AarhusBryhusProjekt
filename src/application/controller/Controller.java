@@ -305,9 +305,12 @@ public class Controller {
         controller.createKunde("Kvickly", 121312312, "dyrt.dk");
         controller.createKunde("Fakta", 22223333, "BudgetKvickly.dk");
 
-        controller.createBetalingsform("Mobilepay", "Online");
-        controller.createBetalingsform("Mastercard", "Creditkort");
-        controller.createBetalingsform("Bitcoin", "Crypto");
+       Betalingsform b1 = controller.createBetalingsform("Mobilepay", "Online");
+       Betalingsform b2 = controller.createBetalingsform("Mastercard", "Creditkort");
+       Betalingsform b3 = controller.createBetalingsform("Bitcoin", "Crypto");
+
+        s1.setBetalingsform(b1);
+        s2.setBetalingsform(b1);
     }
 
     public static void init() {
