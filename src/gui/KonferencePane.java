@@ -187,7 +187,7 @@ public class KonferencePane extends GridPane {
         Produkt produkt = lvwPriser.getSelectionModel().getSelectedItem().getProdukt();
         int antal = Integer.parseInt(txfAntal.getText().trim());
         double pris = lvwPriser.getSelectionModel().getSelectedItem().getPris();
-        Ordrelinje ordrelinje = Controller.createOrdrelinjeSalg(produkt,antal ,pris, salg);
+        Ordrelinje ordrelinje = Controller.createOrdrelinjeSalg(produkt,antal, salg);
         if(chkRabat.isSelected() && rabat.getSelectedToggle() != null){
             if(rabat.getSelectedToggle()==r1 && !txfRabat.getText().equals("")){
                 ProcentDiscount discount = new ProcentDiscount("");

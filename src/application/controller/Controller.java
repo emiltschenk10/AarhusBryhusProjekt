@@ -86,13 +86,13 @@ public class Controller {
         return produkt;
     }
 
-    public static Ordrelinje createOrdrelinjeSalg(Produkt produkt, int antal, double pris, Salg salg) {
+    public static Ordrelinje createOrdrelinjeSalg(Produkt produkt, int antal, Salg salg) {
         Ordrelinje ordrelinje = salg.createOrdrelinje(produkt, antal);
         return ordrelinje;
     }
 
-    public static Ordrelinje createOrdrelinjeUdlejning(Produkt produkt, int antal, double pris, Udlejning udlejning) {
-        Ordrelinje ordrelinje = udlejning.createOrdrelinje(produkt, antal, pris);
+    public static Ordrelinje createOrdrelinjeUdlejning(Produkt produkt, int antal, Udlejning udlejning) {
+        Ordrelinje ordrelinje = udlejning.createOrdrelinje(produkt, antal);
         return ordrelinje;
     }
 
@@ -270,6 +270,23 @@ public class Controller {
         return map;
     }
 
+    public StringBuilder getUdeståendeProdukterPåUdlejning(Udlejning udlejning){
+        StringBuilder sb = new StringBuilder();
+        for (Ordrelinje o : udlejning.getOrdrelinjer()){
+            sb.append(o.getProdukt() + " Antal: " + o.getAntal() +  "\n");
+        }
+        return sb;
+    }
+
+    public StringBuilder getAlleUdeståendeProdukter(){
+        StringBuilder sb = new StringBuilder();
+        for (Udlejning u : getAktuelleUdlejninger()){
+            sb.append(getUdeståendeProdukterPåUdlejning(u));
+        }
+        return sb;
+    }
+
+
     public int antalBrugteKlip(LocalDate dato1, LocalDate dato2) {
         int antal = 0;
 
@@ -333,11 +350,11 @@ public class Controller {
 
         Udlejning u1 = controller.createUdlejning(LocalDate.now(),LocalDate.now().plusDays(5),null,pr1);
 
-        Ordrelinje o1 = Controller.createOrdrelinjeSalg(p2, 2, 70, s1);
-        Ordrelinje o2 = Controller.createOrdrelinjeSalg(p1, 2, 70, s2);
-        Ordrelinje o3 = Controller.createOrdrelinjeSalg(p1, 2, 70, s3);
-        Ordrelinje o4 = Controller.createOrdrelinjeUdlejning(p1,4,70,u1);
-        Ordrelinje o5 = Controller.createOrdrelinjeSalg(p4,5,70,s4);
+        Ordrelinje o1 = Controller.createOrdrelinjeSalg(p2, 2, s1);
+        Ordrelinje o2 = Controller.createOrdrelinjeSalg(p1, 2, s2);
+        Ordrelinje o3 = Controller.createOrdrelinjeSalg(p1, 2, s3);
+        Ordrelinje o4 = Controller.createOrdrelinjeUdlejning(p1,4, u1);
+        Ordrelinje o5 = Controller.createOrdrelinjeSalg(p4,5, s4);
 
 
         controller.createKunde("Kvickly", 121312312, "dyrt.dk");

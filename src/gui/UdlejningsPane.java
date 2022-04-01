@@ -33,11 +33,13 @@ public class UdlejningsPane extends GridPane {
         this.setGridLinesVisible(false);
         Controller controller = new Controller();
 
+        /*
         this.udlejning = new Udlejning();
         Prisliste prisliste = controller.getAllePrislister().get(2);
 
         udlejning.setPrisliste(prisliste);
-
+*/
+        Prisliste prisliste = controller.getAllePrislister().get(2);
         Label lblPriser = new Label("Udlejningspriser:");
         this.add(lblPriser, 0, 1);
 
@@ -171,6 +173,8 @@ public class UdlejningsPane extends GridPane {
 
     public void opretUdlejningsAction(){
         this.udlejning = controller.createUdlejningUdenParm();
+        Prisliste prisliste = controller.getAllePrislister().get(2);
+        udlejning.setPrisliste(prisliste);
         lvwPriser.setDisable(false);
         lvwIndkøbskurv.setDisable(false);
         txfRestPris.setDisable(false);
@@ -201,7 +205,7 @@ public class UdlejningsPane extends GridPane {
         Produkt produkt = lvwPriser.getSelectionModel().getSelectedItem().getProdukt();
         int antal = Integer.parseInt(txfAntal.getText().trim());
         double pris = lvwPriser.getSelectionModel().getSelectedItem().getPris();
-        Ordrelinje ordrelinje = Controller.createOrdrelinjeUdlejning(produkt, antal, pris, udlejning);
+        Ordrelinje ordrelinje = Controller.createOrdrelinjeUdlejning(produkt, antal, udlejning);
         txfPantPris.setText("" + udlejning.beregnPris());
         txfRestPris.setText(""+udlejning.beregnRestPris());
         if(chkRabat.isSelected() && rabat.getSelectedToggle() != null){

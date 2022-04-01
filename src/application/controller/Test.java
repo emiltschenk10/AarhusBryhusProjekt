@@ -29,9 +29,9 @@ public class Test {
         Salg s1 = controller.createSalgMedParm(LocalDate.now(),true,pr1);
         Salg s2 = controller.createSalgMedParm(LocalDate.now(),true,pr1);
         Salg s3 = controller.createSalgMedParm(LocalDate.now(),true,pr1);
-        Ordrelinje o1 = Controller.createOrdrelinjeSalg(p1,2,70,s1);
-        Ordrelinje o2 = Controller.createOrdrelinjeSalg(p1,2,70,s2);
-        Ordrelinje o3 = Controller.createOrdrelinjeSalg(p1,2,70,s3);
+        Ordrelinje o1 = Controller.createOrdrelinjeSalg(p1,2, s1);
+        Ordrelinje o2 = Controller.createOrdrelinjeSalg(p1,2, s2);
+        Ordrelinje o3 = Controller.createOrdrelinjeSalg(p1,2, s3);
 
         System.out.println(s1.beregnPris());
 
@@ -45,20 +45,20 @@ public class Test {
 
 
        Udlejning u1 = controller.createUdlejning(LocalDate.of(2021,2,2),LocalDate.of(2021,1,2),k1,pr1);
-        Ordrelinje o4 = Controller.createOrdrelinjeUdlejning(p1,3,100,u1);
-        Ordrelinje o5 = Controller.createOrdrelinjeUdlejning(p1,3,100,u1);
-        Ordrelinje o6 = Controller.createOrdrelinjeUdlejning(p1,3,100,u1);
+        Ordrelinje o4 = Controller.createOrdrelinjeUdlejning(p1,3, u1);
+        Ordrelinje o5 = Controller.createOrdrelinjeUdlejning(p1,3, u1);
+        Ordrelinje o6 = Controller.createOrdrelinjeUdlejning(p1,3, u1);
 
         Udlejning u2 = controller.createUdlejning(LocalDate.of(2021,2,2),LocalDate.of(2021,1,2),k1,pr1);
-        Ordrelinje o7 = Controller.createOrdrelinjeUdlejning(p1,3,100,u2);
-        Ordrelinje o8 = Controller.createOrdrelinjeUdlejning(p1,3,100,u2);
-        Ordrelinje o9 = Controller.createOrdrelinjeUdlejning(p1,3,100,u2);
+        Ordrelinje o7 = Controller.createOrdrelinjeUdlejning(p1,3, u2);
+        Ordrelinje o8 = Controller.createOrdrelinjeUdlejning(p1,3, u2);
+        Ordrelinje o9 = Controller.createOrdrelinjeUdlejning(p1,3, u2);
 
 
         Udlejning u3 = controller.createUdlejning(LocalDate.of(2021,2,2),LocalDate.of(2021,1,2),k1,pr1);
-        Ordrelinje o10 = Controller.createOrdrelinjeUdlejning(p1,3,100,u3);
-        Ordrelinje o11 = Controller.createOrdrelinjeUdlejning(p1,3,100,u3);
-        Ordrelinje o12 = Controller.createOrdrelinjeUdlejning(p1,10,100,u3);
+        Ordrelinje o10 = Controller.createOrdrelinjeUdlejning(p1,3, u3);
+        Ordrelinje o11 = Controller.createOrdrelinjeUdlejning(p1,3, u3);
+        Ordrelinje o12 = Controller.createOrdrelinjeUdlejning(p1,10,u3);
 
 
         System.out.println(controller.antalIkkeAfleveredeProdukterPrUdlejning());

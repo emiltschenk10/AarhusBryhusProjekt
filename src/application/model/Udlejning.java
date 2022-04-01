@@ -33,7 +33,7 @@ public class Udlejning {
         this.udlejningsNr = udlejningNext;
     }
 
-    public Ordrelinje createOrdrelinje(Produkt produkt,int antal, double pris){
+    public Ordrelinje createOrdrelinje(Produkt produkt,int antal){
         Ordrelinje o = new Ordrelinje(produkt,antal,prisliste.getProduktpriser().get(produkt));
         o.setUdlejning(this);
         this.addOrdrelinje(o);

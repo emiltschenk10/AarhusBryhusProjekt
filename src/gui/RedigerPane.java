@@ -3,10 +3,12 @@ package gui;
 import application.controller.Controller;
 import application.model.*;
 import javafx.beans.value.ChangeListener;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class RedigerPane extends GridPane {
 
@@ -15,6 +17,7 @@ public class RedigerPane extends GridPane {
     CheckBox chxSalgBetalt,chxUdestående,chxUdlejBetalt;
     DatePicker datePicker,udleveringsDatePick,afleveringsDatePick;
     Button btnRediger,btnGem,btnRediger2,btnGem2;
+    private TextArea txaUdestående;
     private int salgNr;
     private int udlejningsNr;
     private Controller controller = new Controller();
@@ -43,7 +46,7 @@ public class RedigerPane extends GridPane {
         this.add(lblUdlejninger,1,1);
 
         udlejningListView = new ListView<>();
-        this.add(udlejningListView,1,2);
+        this.add(udlejningListView,1,2, 2, 1);
         udlejningListView.setPrefHeight(200);
         udlejningListView.setPrefWidth(600);
         udlejningListView.getItems().setAll(controller.getAktuelleUdlejninger());
@@ -105,6 +108,7 @@ public class RedigerPane extends GridPane {
         this.add(hBox3,0,5);
         hBox3.setSpacing(10);
 
+
         btnRediger2 = new Button("Rediger Udlejning");
         btnRediger2.setDisable(true);
         btnRediger2.setOnAction(event -> btnRediger2Action());
@@ -116,6 +120,21 @@ public class RedigerPane extends GridPane {
         this.add(hBox4,1,7);
         hBox4.setSpacing(10);
 
+        Label lblUdestående = new Label("Udestående:");
+        this.add(lblUdestående, 2, 4);
+
+        txaUdestående = new TextArea();
+        this.add(txaUdestående, 2, 5);
+        txaUdestående.setEditable(false);
+
+        Button btnSeUdestående = new Button("Se alle udestående produkter");
+        this.add(btnSeUdestående, 2, 4);
+        GridPane.setHalignment(btnSeUdestående, HPos.RIGHT);
+        btnSeUdestående.setOnAction(event -> this.udeståendeAction());
+
+        VBox vBox = new VBox(hBox1, hBox2, hBox4);
+        this.add(vBox, 1, 5);
+        vBox.setSpacing(10);
     }
 
     public void selectedSalgChanged(){
@@ -123,7 +142,12 @@ public class RedigerPane extends GridPane {
     }
 
     public void selectedUdlejningChanged(){
+        Udlejning udlejning = udlejningListView.getSelectionModel().getSelectedItem();
         btnRediger2.setDisable(false);
+        if (udlejning != null) {
+
+            txaUdestående.setText(controller.getUdeståendeProdukterPåUdlejning(udlejning).toString());
+        }
     }
 
     public void btnRedigerAction(){
@@ -184,5 +208,9 @@ public class RedigerPane extends GridPane {
     public void updateLists(){
         salgListView.getItems().setAll(controller.getAktuelleSalg());
         udlejningListView.getItems().setAll(controller.getAktuelleUdlejninger());
+    }
+
+    public void udeståendeAction(){
+        txaUdestående.setText(controller.getAlleUdeståendeProdukter().toString());
     }
 }
