@@ -13,21 +13,26 @@ import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+
+import java.time.LocalDate;
 
 
 public class StatistikPane extends GridPane {
 
-    private DatePicker datePickerSalgForDag, datePickerSalgForDag2;;
+    private DatePicker datePickerSalgForDag, datePickerSalgForDag2, datePickerKlip1, datePickerKlip2;;
 
     private final ComboBox<Produkt> cbProdukt;
     private final ComboBox<Produktgruppe> cbProduktGruppe;
     private final ComboBox<Arrangement> cbArragement;
 
-    private final Button btnSalgForDato2;
+    private final Button btnSalgForDato2, btnKlipDate;
 
 
-    private Label lblDagsIntjeneste, lblProduktgruppe, lblProdukt, lblArragement, lblDato, lblAntalProdukterSolgt;
+    private Label lblDagsIntjeneste, lblProduktgruppe, lblProdukt, lblArragement, lblDato, lblAntalProdukterSolgt, lblKlipDate1,lblKlipDate2;
 
+    private Controller controller = new Controller();
 
     public StatistikPane() {
         this.setPadding(new Insets(20));
@@ -44,6 +49,12 @@ public class StatistikPane extends GridPane {
         this.add(datePickerSalgForDag2, 5, 6);
         datePickerSalgForDag2.setDisable(true);
         datePickerSalgForDag2.setOnAction(event -> enableBtn());
+
+        datePickerKlip1  = new DatePicker();
+        this.add(datePickerKlip1,5,7);
+
+        datePickerKlip2  = new DatePicker();
+        this.add(datePickerKlip2,6,7);
 
         lblDagsIntjeneste = new Label("Indtjeneste for dato: ");
         this.add(lblDagsIntjeneste, 3, 3);
@@ -68,6 +79,19 @@ public class StatistikPane extends GridPane {
         lblAntalProdukterSolgt = new Label("Antal solgt: ");
         this.add(lblAntalProdukterSolgt, 6, 2);
         GridPane.setValignment(lblAntalProdukterSolgt, VPos.BOTTOM);
+
+        lblKlipDate1 = new Label("Klip brugt mellem: ");
+        this.add(lblKlipDate1,4,7);
+        GridPane.setValignment(lblKlipDate1, VPos.BOTTOM);
+
+        lblKlipDate2 = new Label("Antal: ");
+        this.add(lblKlipDate2,5,8);
+        GridPane.setValignment(lblKlipDate2, VPos.BOTTOM);
+
+        btnKlipDate = new Button("Klip brugt i perioden: ");
+        this.add(btnKlipDate, 4, 8);
+        GridPane.setValignment(btnKlipDate, VPos.TOP);
+        btnKlipDate.setOnAction(event -> antalklipIPeriode());
 
 
         cbProduktGruppe = new ComboBox<>();
@@ -107,14 +131,12 @@ public class StatistikPane extends GridPane {
     }
 
     public void salgForDato(){
-        Controller controller = new Controller();
 
         String indtjeneste = (controller.salgForDato(datePickerSalgForDag.getValue()) + " Kr.");
         lblDagsIntjeneste.setText("Indtjeneste for dato: " + controller.salgForDato(datePickerSalgForDag.getValue()) + " Kr.");
     }
 
     public void antalSolgteProdukt(){
-        Controller controller = new Controller();
 
         String antal = controller.salgForProduktogProduktgruppe(cbProduktGruppe.getValue(),cbProdukt.getValue(),datePickerSalgForDag2.getValue(),cbArragement.getValue())+ "";
 
@@ -122,11 +144,15 @@ public class StatistikPane extends GridPane {
     }
 
     public void selectedProduktgruppeProdukt(){
-        Controller controller = new Controller();
         Produktgruppe produktgruppe = cbProduktGruppe.getSelectionModel().getSelectedItem();
         cbProdukt.getItems().setAll(produktgruppe.getProdukter());
         cbProdukt.setDisable(false);
 
+    }
+
+    public void antalklipIPeriode(){
+      String antal = String.valueOf(controller.antalSolgteKlip(datePickerKlip1.getValue(),datePickerKlip2.getValue()));
+      lblKlipDate2.setText("Antal: " + antal);
     }
 
     public void enableBtn(){
