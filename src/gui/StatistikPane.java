@@ -84,7 +84,7 @@ public class StatistikPane extends GridPane {
         this.add(lblKlipDate1,4,7);
         GridPane.setValignment(lblKlipDate1, VPos.BOTTOM);
 
-        lblKlipDate2 = new Label("Antal brugte klippekort: ");
+        lblKlipDate2 = new Label("Antal brugte klip: ");
         this.add(lblKlipDate2,5,8);
         GridPane.setValignment(lblKlipDate2, VPos.BOTTOM);
 
@@ -92,7 +92,7 @@ public class StatistikPane extends GridPane {
         this.add(lblKlipDate3,6,8);
         GridPane.setValignment(lblKlipDate3, VPos.BOTTOM);
 
-        btnKlipDate = new Button("Klip brugt i perioden: ");
+        btnKlipDate = new Button("Klip statistik for periode: ");
         this.add(btnKlipDate, 4, 8);
         GridPane.setValignment(btnKlipDate, VPos.TOP);
         btnKlipDate.setOnAction(event -> antalklipIPeriode());
@@ -156,7 +156,7 @@ public class StatistikPane extends GridPane {
 
     public void antalklipIPeriode(){
       String antal = controller.antalBrugteKlip(datePickerKlip1.getValue(),datePickerKlip2.getValue()) + "";
-      lblKlipDate2.setText("Antal brugte klippekort: " + antal);
+      lblKlipDate2.setText("Antal brugte klip: " + antal);
 
       String antal2 = controller.antalSolgteKlip(datePickerKlip1.getValue(),datePickerKlip2.getValue()) + ""
 ;      lblKlipDate3.setText("Antal solgte klippekort: " + antal2);
