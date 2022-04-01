@@ -176,6 +176,26 @@ public class Controller {
         return nyUdlejninger;
     }
 
+    public ArrayList<Produkt> alleProdukter(){
+        ArrayList<Produkt> alleProdukter = new ArrayList<>();
+        for (int i = 0; i < storage.getProduktGrupper().size(); i++) {
+            Produktgruppe produktgruppe = storage.getProduktGrupper().get(i);
+            alleProdukter.addAll(produktgruppe.getProdukter());
+        }
+        return alleProdukter;
+    }
+
+    public ArrayList<Produkt> TilgængeligeProdukterTilPrisliste(Prisliste prisliste){
+        ArrayList<Produkt> alleProdukter = new ArrayList<>(alleProdukter());
+        ArrayList<Produkt> tilgængeligeProdukter = new ArrayList<>();
+        for (Produkt p : alleProdukter()){
+            if (!prisliste.getProduktpriser().containsKey(p)){
+                tilgængeligeProdukter.add(p);
+            }
+        }
+        return tilgængeligeProdukter;
+    }
+
 
     //Statestik
 

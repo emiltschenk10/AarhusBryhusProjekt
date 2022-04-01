@@ -17,12 +17,10 @@ public class PrislistePane extends GridPane {
 
     private final ListView<Prisliste> lvwPrislister;
     private final ListView<ProduktListview> lvwProdukter;
-    private final TextField txfNavn;
-    private Udlejning udlejning;
+    private final TextField txfNavn, txfPris;
     private RadioButton r1, r2, r3;
     private Controller controller = new Controller();
-    private DatePicker datePickerAfleveringsDato, datePickerUdleveringsDato;
-    private Button btnGem, btnOpretProdukt;
+    private ComboBox<Produkt> tilgængeligeProdukter;
 
 
     public PrislistePane() {
@@ -59,6 +57,22 @@ public class PrislistePane extends GridPane {
         lvwProdukter.setPrefWidth(200);
         lvwProdukter.setPrefHeight(200);
 
+        Label lblTilføjTilPrisliste = new Label("Tilføj til prisliste:");
+        this.add(lblTilføjTilPrisliste, 3, 8);
+
+        tilgængeligeProdukter = new ComboBox<>();
+        this.add(tilgængeligeProdukter, 3, 9);
+
+        Label lblPris = new Label("Pris:");
+        this.add(lblPris, 3, 10);
+
+        txfPris = new TextField();
+        this.add(txfPris, 3, 11);
+
+        Button btnTilføj = new Button("Tilføj produkt");
+        this.add(btnTilføj, 3, 12);
+        btnTilføj.setOnAction(event -> this.tilføjAction());
+
 
         Button btnRediger = new Button("Rediger produkt");
         this.add(btnRediger, 4, 1);
@@ -79,6 +93,7 @@ public class PrislistePane extends GridPane {
                 produktListviews.add(new ProduktListview(produkt, prisliste.getProduktpriser().get(produkt)));
             }
             lvwProdukter.getItems().setAll(produktListviews);
+            tilgængeligeProdukter.getItems().setAll(controller.TilgængeligeProdukterTilPrisliste(prisliste));
         }
     }
 
@@ -86,5 +101,14 @@ public class PrislistePane extends GridPane {
         String navn = txfNavn.getText();
         controller.createPrisliste(navn);
         lvwPrislister.getItems().setAll(controller.getAllePrislister());
+    }
+
+    public void tilføjAction(){
+        Prisliste prisliste = lvwPrislister.getSelectionModel().getSelectedItem();
+        Produkt produkt = tilgængeligeProdukter.getSelectionModel().getSelectedItem();
+        double pris = Double.parseDouble(txfPris.getText());
+        prisliste.addProdukt(produkt, pris);
+        txfPris.clear();
+        selectedPrislisteChanged();
     }
 }
