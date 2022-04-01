@@ -30,7 +30,6 @@ public class KonferencePane extends GridPane {
         this.setHgap(10);
         this.setVgap(10);
         this.setGridLinesVisible(false);
-        Controller controller = new Controller();
 
         prislisteComboBox = new ComboBox<>();
         this.add(prislisteComboBox, 0, 0);
