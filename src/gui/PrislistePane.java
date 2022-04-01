@@ -21,6 +21,7 @@ public class PrislistePane extends GridPane {
     private RadioButton r1, r2, r3;
     private Controller controller = new Controller();
     private ComboBox<Produkt> tilgængeligeProdukter;
+    private Button btnFjern;
 
 
     public PrislistePane() {
@@ -73,10 +74,18 @@ public class PrislistePane extends GridPane {
         this.add(btnTilføj, 3, 12);
         btnTilføj.setOnAction(event -> this.tilføjAction());
 
+        btnFjern = new Button("Fjern produkt");
+        this.add(btnFjern, 6, 5);
+        btnFjern.setDisable(true);
+        btnFjern.setOnAction(event -> this.fjernAction());
+
 
 
         ChangeListener<Prisliste> listener1 = (ov, gammelPrisListe, nyPrisListe) -> this.selectedPrislisteChanged();
         lvwPrislister.getSelectionModel().selectedItemProperty().addListener(listener1);
+
+        ChangeListener<ProduktListview> listener2 = (ov, gammelProdukt, nyProdukt) -> this.selectedProduktChanged();
+        lvwProdukter.getSelectionModel().selectedItemProperty().addListener(listener2);
     }
 
 
@@ -105,6 +114,18 @@ public class PrislistePane extends GridPane {
         double pris = Double.parseDouble(txfPris.getText());
         prisliste.addProdukt(produkt, pris);
         txfPris.clear();
+        selectedPrislisteChanged();
+    }
+
+    public void selectedProduktChanged(){
+        ProduktListview produktListview = lvwProdukter.getSelectionModel().getSelectedItem();
+        btnFjern.setDisable(false);
+    }
+
+    public void fjernAction(){
+        Produkt produkt = lvwProdukter.getSelectionModel().getSelectedItem().getProdukt();
+        Prisliste prisliste = lvwPrislister.getSelectionModel().getSelectedItem();
+        prisliste.removeProdukt(produkt);
         selectedPrislisteChanged();
     }
 }
