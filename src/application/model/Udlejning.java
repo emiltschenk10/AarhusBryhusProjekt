@@ -126,7 +126,12 @@ public class Udlejning {
 
     @Override
     public String toString() {
-        return "Udlejningsnr " + udlejningsNr;
-
+        String result = "";
+        if(kunde != null) {
+            result = "Udlejnings Nr: " + udlejningsNr + "  Kunde: " + kunde.getNavn() + "  Udleveringsdato: " + udleveringsDato + "  Afleveringsdato: " + afleveringsDato + "  Betalt: " + betalt + "  Udestående: " + udestående;
+        }else{
+            result = "Udlejnings Nr: " + udlejningsNr + "  Udleveringsdato: " + udleveringsDato + "  Afleveringsdato: " + afleveringsDato + "  Betalt: " + betalt + "  Udestående: " + udestående;
+        }
+        return result;
     }
 }
