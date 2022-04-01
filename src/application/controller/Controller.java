@@ -272,13 +272,29 @@ public class Controller {
         return map;
     }
 
-    public int antalSolgteKlip(LocalDate dato1, LocalDate dato2) {
+    public int antalBrugteKlip(LocalDate dato1, LocalDate dato2) {
         int antal = 0;
 
         for (Salg s : storage.getSalgs()) {
             if (s.getDato().isAfter(dato1) || s.getDato().equals(dato1) && s.getDato().isBefore(dato2) || s.getDato().isEqual(dato2)) {
                 if (s.getBetalingsform() != null && s.getBetalingsform().getNavn().equals("Klippekort")) {
                     antal++;
+                }
+            }
+
+        }
+        return antal;
+    }
+
+    public int antalSolgteKlip(LocalDate dato1, LocalDate dato2) {
+        int antal = 0;
+
+        for (Salg s : storage.getSalgs()) {
+            if (s.getDato().isAfter(dato1) || s.getDato().equals(dato1) && s.getDato().isBefore(dato2) || s.getDato().isEqual(dato2)) {
+                for (Ordrelinje o: s.getOrdrelinjer()) {
+                    if (o.getProdukt().getNavn().equals("Klippekort")){
+                        antal++;
+                    }
                 }
             }
 
