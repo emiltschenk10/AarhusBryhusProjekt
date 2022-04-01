@@ -2,8 +2,6 @@ package gui;
 
 import application.controller.Controller;
 import application.model.*;
-import javafx.beans.value.ChangeListener;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -12,13 +10,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class UdlejningsPane extends GridPane {
 
     private final ListView<ProduktListview> lvwPriser;
     private final ListView<Ordrelinje> lvwIndkøbskurv;
-    private final TextField txfAntal, txfRabat, txfSamletPris;
+    private final TextField txfAntal, txfRabat, txfRestPris, txfPantPris;
     private final CheckBox chkRabat;
     private final ToggleGroup rabat;
     private RadioButton r1,r2;
@@ -113,31 +110,23 @@ public class UdlejningsPane extends GridPane {
         lvwIndkøbskurv.setPrefHeight(200);
 
 
-        Label lblSamletPris = new Label("Samlet pris:");
-        this.add(lblSamletPris, 4, 7);
-        txfSamletPris = new TextField();
-        this.add(txfSamletPris, 5, 7);
-        txfSamletPris.setEditable(false);
+        Label lblRestPris = new Label("Rest pris:");
+        this.add(lblRestPris, 4, 8);
+        txfRestPris = new TextField();
+        this.add(txfRestPris, 5, 8);
+        txfRestPris.setEditable(false);
+
+        Label lblPantPris = new Label("Pant pris:");
+        this.add(lblPantPris, 4, 7);
+
+        txfPantPris = new TextField();
+        this.add(txfPantPris, 5, 7);
 /*
         ChangeListener<Prisliste> listener1 = (ov, gammelPrisListe, nyPrisListe) -> this.selectedPrislisteChanged();
         prislisteComboBox.getSelectionModel().selectedItemProperty().addListener(listener1);
 */
 
-        // ChangeListener<Udflugt> listener2 = (ov, gammelUdflugt, nyUdflugt) -> this.selectedUdflugtChanged();
-        // lvwUdflugter.getSelectionModel().selectedItemProperty().addListener(listener2);
 
-/*
-        Button btnOpretKonference = new Button("Opret konference");
-        this.add(btnOpretKonference, 0, 0);
-        GridPane.setHalignment(btnOpretKonference, HPos.RIGHT);
-        //btnOpretKonference.setOnAction(event -> this.opretKonferenceAction());
-*/
-        /*
-        Button btnOpretUdflugt = new Button("Opret udflugt");
-        this.add(btnOpretUdflugt, 0, 8);
-        GridPane.setHalignment(btnOpretUdflugt, HPos.RIGHT);
-        //btnOpretUdflugt.setOnAction(event -> this.opretUdflugtAction());
-*/
         Button btnTilføjTilKurv = new Button("Tilføj til kurv");
         this.add(btnTilføjTilKurv, 3, 7);
         GridPane.setValignment(btnTilføjTilKurv, VPos.TOP);
@@ -154,17 +143,12 @@ public class UdlejningsPane extends GridPane {
 
 
         HBox hBox1 = new HBox(btnCancel, btnKøb);
-        this.add(hBox1,5,8);
+        this.add(hBox1,5,9);
         hBox1.setSpacing(10);
     }
 
 
     // -----------------------------------------------------------------------------------------------------------------
-
-
-
-
-
 
     public void chkboxrabatAction(){
         if(chkRabat.isSelected()){
@@ -185,6 +169,8 @@ public class UdlejningsPane extends GridPane {
         int antal = Integer.parseInt(txfAntal.getText().trim());
         double pris = lvwPriser.getSelectionModel().getSelectedItem().getPris();
         Ordrelinje ordrelinje = Controller.createOrdrelinjeUdlejning(produkt, antal, pris, udlejning);
+        txfPantPris.setText("" + udlejning.beregnPris());
+        txfRestPris.setText(""+udlejning.beregnRestPris());
         if(chkRabat.isSelected() && rabat.getSelectedToggle() != null){
             if(rabat.getSelectedToggle()==r1 && !txfRabat.getText().equals("")){
                 ProcentDiscount discount = new ProcentDiscount("");
