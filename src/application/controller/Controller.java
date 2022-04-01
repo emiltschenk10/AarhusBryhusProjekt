@@ -260,7 +260,7 @@ public class Controller {
         HashMap<Udlejning, Integer> map = new HashMap<>();
         for (Udlejning u : storage.getUdlejnings()) {
             totalMangel = 0;
-            if (LocalDate.now().isAfter(u.getAfleveringsDato())) {
+            if (u.isUdestående()) {
                 for (Ordrelinje o : u.getOrdrelinjer()) {
                     totalMangel += o.getAntal();
                     map.put(u, totalMangel);
