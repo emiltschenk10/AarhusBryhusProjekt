@@ -154,6 +154,21 @@ public class Controller {
         beregnPris(salg);
     }
 
+    //Remove Metoder --------------------------------------------------------------------------------
+
+    public void removeSalg(Salg salg){
+        salg.setBetalingsform(null);
+        salg.setKunde(null);
+        salg.setPrisliste(null);
+        storage.removeSalg(salg);
+        for(Ordrelinje ordrelinje : salg.getOrdrelinjer()){
+            salg.removeOrdrelinje(ordrelinje);
+        }
+    }
+
+
+
+
     //Get metoder
 
     public Prisliste getPrislisteFraSalg(Salg salg) {

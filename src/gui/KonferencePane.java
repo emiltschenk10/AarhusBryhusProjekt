@@ -33,9 +33,8 @@ public class KonferencePane extends GridPane {
 
         prislisteComboBox = new ComboBox<>();
         this.add(prislisteComboBox, 0, 0);
-        prislisteComboBox.setOnMouseClicked(event -> this.visPrisliste());
-
-
+//        prislisteComboBox.setOnMouseClicked(event -> this.visPrisliste());
+        prislisteComboBox.getItems().setAll(controller.getAllePrislister());
 
         Label lblPriser = new Label("Priser:");
         this.add(lblPriser, 0, 1);
@@ -153,6 +152,7 @@ public class KonferencePane extends GridPane {
         Prisliste prisliste = prislisteComboBox.getSelectionModel().getSelectedItem();
         if(this.salg != null){
             //TODO lav en remove salg metode i controller, husk at få salget til at være null til sidst.
+            controller.removeSalg(this.salg);
         }
         //skal sættes et andet sted
         this.salg = controller.createSalgUdenParm();
@@ -211,6 +211,7 @@ public class KonferencePane extends GridPane {
     public void købBtnAction(){
         KundeWindow dia = new KundeWindow("Betalingsvindue",salg);
         dia.showAndWait();
+        this.salg = null;
     }
 
 }
