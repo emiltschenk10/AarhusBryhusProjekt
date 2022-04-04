@@ -52,9 +52,8 @@ public class AlleSalgWindow extends Stage {
         pane.setVgap(50);
         pane.setGridLinesVisible(false);
 
-        lblSalg = new Label("Dagens salg");
-        lblSalg.setFont(Font.font("Verdana", FontWeight.BOLD,30))
-        ;
+        lblSalg = new Label("Alle salg");
+        lblSalg.setFont(Font.font("Verdana", FontWeight.BOLD,30));
         pane.add(lblSalg, 0,0);
 
         txfAlleSalg = new TextArea();

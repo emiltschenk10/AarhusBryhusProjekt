@@ -194,6 +194,14 @@ public class Controller {
         return produktgruppe.getProdukter();
     }
 
+    public StringBuilder getAlleSalg(){
+        StringBuilder salg = new StringBuilder();
+        for (Salg s: storage.getSalgs()) {
+            salg.append(s.toString()).append("\n");
+        }
+        return  salg;
+    }
+
     public ArrayList<Salg> getAktuelleSalg() {
         ArrayList<Salg> nySalg = new ArrayList<>();
         for (Salg salg : storage.getSalgs()) {

@@ -119,9 +119,9 @@ public class RedigerPane extends GridPane {
 
         btnAlleSalg = new Button("Alle salg");
         this.add(btnAlleSalg,0,1);
-        GridPane.setValignment(btnDagensSalg, VPos.TOP);
-        GridPane.setHalignment(btnDagensSalg,HPos.RIGHT);
-        btnDagensSalg.setOnAction(event -> alleSalg());
+        GridPane.setValignment(btnAlleSalg, VPos.TOP);
+        GridPane.setHalignment(btnAlleSalg,HPos.CENTER);
+        btnAlleSalg.setOnAction(event -> alleSalg());
         
 
 
@@ -240,7 +240,7 @@ public class RedigerPane extends GridPane {
 
     public void alleSalg(){
         AlleSalgWindow dsw = new AlleSalgWindow("Alle");
-        dsw.getTxfAlleSalg().setText();
+        dsw.getTxfAlleSalg().setText(controller.getAlleSalg().toString());
         dsw.showAndWait();
     }
 
