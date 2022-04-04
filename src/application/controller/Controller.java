@@ -117,6 +117,10 @@ public class Controller {
         salg.setKunde(kunde);
     }
 
+    public static void setPrislistePåSalg(Salg salg, Prisliste prisliste){
+        salg.setPrisliste(prisliste);
+    }
+
     public static void setBetalingsformPåSalg(Betalingsform betalingsform, Salg salg) {
         salg.setBetalingsform(betalingsform);
     }
