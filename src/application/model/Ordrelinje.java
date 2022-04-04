@@ -56,7 +56,12 @@ public class Ordrelinje {
     }
 
     public double beregnUdlejningsPris(){
-        return pris * antal;
+        if (discount != null){
+            return discount.getDiscount(pris) * antal;
+        }
+        else {
+            return pris * antal;
+        }
     }
 
     public String toString(){
