@@ -16,8 +16,8 @@ class ControllerTest {
 
     @BeforeEach
     void setUp(){
-        controller = new Controller();
-        storage = Storage.getInstance();
+        this.controller = new Controller();
+        this.storage = Storage.getInstance();
     }
 
     @Test
@@ -29,8 +29,9 @@ class ControllerTest {
 
     @Test
     void createPrisliste() {
+        int size = storage.getPrislister().size();
         Prisliste prisliste = controller.createPrisliste("Koncert");
-        assertEquals(1, storage.getPrislister().size());
+        assertEquals(size + 1, storage.getPrislister().size());
         assertTrue(storage.getPrislister().contains(prisliste));
     }
 
@@ -230,6 +231,7 @@ class ControllerTest {
 
     @Test
     void getProduktGrupper() {
+
     }
 
     @Test

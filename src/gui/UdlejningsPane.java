@@ -246,5 +246,7 @@ public class UdlejningsPane extends GridPane {
         btnTilføjTilKurv.setDisable(true);
         btnOpretUdlejning.setDisable(false);
     }
+
+
 }
 
