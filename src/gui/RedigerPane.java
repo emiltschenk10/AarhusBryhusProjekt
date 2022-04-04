@@ -5,6 +5,7 @@ import application.model.*;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -16,7 +17,7 @@ public class RedigerPane extends GridPane {
     ListView<Udlejning> udlejningListView;
     CheckBox chxSalgBetalt,chxUdestående,chxUdlejBetalt;
     DatePicker datePicker,udleveringsDatePick,afleveringsDatePick;
-    Button btnRediger,btnGem,btnRediger2,btnGem2;
+    Button btnRediger,btnGem,btnRediger2,btnGem2, btnDagensSalg, btnAlleSalg;
     private TextArea txaUdestående;
     private int salgNr;
     private int udlejningsNr;
@@ -107,6 +108,21 @@ public class RedigerPane extends GridPane {
         HBox hBox3 = new HBox(btnRediger,btnGem);
         this.add(hBox3,0,5);
         hBox3.setSpacing(10);
+
+        btnAlleSalg = new Button("Alle salg");
+        this.add(btnAlleSalg,0,1);
+        GridPane.setValignment(btnAlleSalg, VPos.TOP);
+        GridPane.setHalignment(btnAlleSalg,HPos.CENTER);
+        btnAlleSalg.setDisable(true);
+        btnAlleSalg.setOnAction(event -> alleSalg());
+
+        btnDagensSalg = new Button("Dagens salg");
+        this.add(btnDagensSalg,0,1);
+        GridPane.setValignment(btnDagensSalg, VPos.TOP);
+        GridPane.setHalignment(btnDagensSalg,HPos.RIGHT);
+        btnDagensSalg.setOnAction(event -> dagensSalg());
+        
+
 
 
         btnRediger2 = new Button("Rediger Udlejning");
@@ -213,4 +229,19 @@ public class RedigerPane extends GridPane {
     public void udeståendeAction(){
         txaUdestående.setText(controller.getAlleUdeståendeProdukter().toString());
     }
+
+    public void dagensSalg(){
+        salgListView.getItems().setAll(controller.salgForDagen());
+        btnAlleSalg.setDisable(false);
+        btnDagensSalg.setDisable(true);
+
+    }
+
+    public void alleSalg(){
+        salgListView.getItems().setAll(controller.getAktuelleSalg());
+        btnDagensSalg.setDisable(false);
+        btnAlleSalg.setDisable(true);
+
+    }
 }
+

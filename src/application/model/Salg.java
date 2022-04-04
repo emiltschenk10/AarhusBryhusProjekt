@@ -1,11 +1,7 @@
 package application.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoField;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Salg {
 
@@ -134,6 +130,15 @@ public class Salg {
             result = "Salgs Nr: " + salgsNr + "  Kunde: " + kunde.getNavn() + "  Dato: " + dato + "  Betalt: " + betalt;
         }else{
             result = "Salgs Nr: " + salgsNr + "  Dato: " + dato + "  Betalt: " + betalt;
+        }
+        return result;
+    }
+
+    public StringBuilder salgsInfoDag(){
+        StringBuilder result = new StringBuilder("");
+        for (Ordrelinje o:ordrelinjer) {
+            result.append("Produkt: " + o.getProdukt() + "Antal " + o.getAntal() + "Pris: " + o.getPris() + "Samlet pris: " + beregnPris() + "Betalingsform: " + getBetalingsform() + "\n");
+
         }
         return result;
     }

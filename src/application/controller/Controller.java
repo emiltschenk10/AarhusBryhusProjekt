@@ -3,6 +3,7 @@ package application.controller;
 import application.model.*;
 import storage.Storage;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -333,6 +334,20 @@ public class Controller {
         }
         return antal;
     }
+
+
+    public ArrayList<Salg> salgForDagen(){
+        ArrayList<Salg> salg = new ArrayList<>();
+        for (Salg s: storage.getSalgs()) {
+            if (s.getDato() == LocalDate.now()){
+                s.salgsInfoDag();
+            }
+        }
+
+        return salg;
+    }
+
+
 
     private static void initStorage() {
         Controller controller = new Controller();
