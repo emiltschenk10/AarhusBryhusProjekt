@@ -3,9 +3,7 @@ package gui;
 import application.controller.Controller;
 import application.model.Betalingsform;
 import application.model.Kunde;
-import application.model.Prisliste;
 import application.model.Salg;
-import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -107,9 +105,6 @@ public class KundeWindow extends Stage {
         pane.add(btnOk,1,4);
         btnOk.setOnAction(event -> btnOkAction());
 
-        Button btnCancel = new Button("Cancel");
-        pane.add(btnCancel,0,4);
-        btnCancel.setOnAction(event -> cancelAction());
 
 
 //        lblError = new Label();
@@ -128,7 +123,6 @@ public class KundeWindow extends Stage {
 //
 //    }
 
-    private void cancelAction(){this.hide();}
 
     private void showKunderAction(){
         kundeListView.getItems().setAll(storage.getKunder());
