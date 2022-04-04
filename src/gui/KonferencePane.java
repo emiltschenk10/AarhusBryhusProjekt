@@ -157,6 +157,8 @@ public class KonferencePane extends GridPane {
         //skal sættes et andet sted
         this.salg = controller.createSalgUdenParm();
         this.salg.setPrisliste(prisliste);
+
+        //TODO der kommer en nulpointer når man skal skifte prisliste
         //lvwPriser.getItems().setAll(prisliste.getProduktpriser());
         ArrayList<ProduktListview> produktListviews = new ArrayList<>();
         for (Produkt produkt : prisliste.getProduktpriser().keySet()) {

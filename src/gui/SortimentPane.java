@@ -123,7 +123,9 @@ public class SortimentPane extends GridPane {
     Controller controller1 = new Controller();
     public void selectedProduktGruppeChanged(){
         Produktgruppe produktgruppe = lvwProduktGrupper.getSelectionModel().getSelectedItem();
-        lvwProdukter.getItems().setAll(produktgruppe.getProdukter());
+        if (produktgruppe != null) {
+            lvwProdukter.getItems().setAll(produktgruppe.getProdukter());
+        }
     }
 
     public void opretAction(){
