@@ -3,9 +3,7 @@ package application.controller;
 import application.model.*;
 import storage.Storage;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -336,11 +334,11 @@ public class Controller {
     }
 
 
-    public ArrayList<Salg> salgForDagen(){
-        ArrayList<Salg> salg = new ArrayList<>();
+    public StringBuilder salgForDagen(){
+        StringBuilder salg = new StringBuilder();
         for (Salg s: storage.getSalgs()) {
-            if (s.getDato() == LocalDate.now()){
-                s.salgsInfoDag();
+            if (s.getDato().equals(LocalDate.now())){
+                salg.append(s.salgsInfoDag());
             }
         }
 
@@ -374,7 +372,7 @@ public class Controller {
 
         Salg s1 = controller.createSalgMedParm(LocalDate.now(), false, pr1);
         Salg s2 = controller.createSalgMedParm(LocalDate.now(), false, pr1);
-        Salg s3 = controller.createSalgMedParm(LocalDate.now(), false, pr1);
+        Salg s3 = controller.createSalgMedParm(LocalDate.of(2022,1,10), false, pr1);
         Salg s4 = controller.createSalgMedParm(LocalDate.now(), false, pr1);
 
 

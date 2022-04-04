@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import storage.Storage;
 
 public class RedigerPane extends GridPane {
 
@@ -22,6 +23,7 @@ public class RedigerPane extends GridPane {
     private int salgNr;
     private int udlejningsNr;
     private Controller controller = new Controller();
+
 
     public RedigerPane() {
         this.setPadding(new Insets(20));
@@ -109,18 +111,17 @@ public class RedigerPane extends GridPane {
         this.add(hBox3,0,5);
         hBox3.setSpacing(10);
 
-        btnAlleSalg = new Button("Alle salg");
-        this.add(btnAlleSalg,0,1);
-        GridPane.setValignment(btnAlleSalg, VPos.TOP);
-        GridPane.setHalignment(btnAlleSalg,HPos.CENTER);
-        btnAlleSalg.setDisable(true);
-        btnAlleSalg.setOnAction(event -> alleSalg());
-
         btnDagensSalg = new Button("Dagens salg");
         this.add(btnDagensSalg,0,1);
         GridPane.setValignment(btnDagensSalg, VPos.TOP);
         GridPane.setHalignment(btnDagensSalg,HPos.RIGHT);
         btnDagensSalg.setOnAction(event -> dagensSalg());
+
+        btnAlleSalg = new Button("Alle salg");
+        this.add(btnAlleSalg,0,1);
+        GridPane.setValignment(btnDagensSalg, VPos.TOP);
+        GridPane.setHalignment(btnDagensSalg,HPos.RIGHT);
+        btnDagensSalg.setOnAction(event -> alleSalg());
         
 
 
@@ -151,6 +152,7 @@ public class RedigerPane extends GridPane {
         VBox vBox = new VBox(hBox1, hBox2, hBox4);
         this.add(vBox, 1, 5);
         vBox.setSpacing(10);
+
     }
 
     public void selectedSalgChanged(){
@@ -231,17 +233,16 @@ public class RedigerPane extends GridPane {
     }
 
     public void dagensSalg(){
-        salgListView.getItems().setAll(controller.salgForDagen());
-        btnAlleSalg.setDisable(false);
-        btnDagensSalg.setDisable(true);
-
+        DagensSalgWindow dsw = new DagensSalgWindow("Dagens salg");
+        dsw.getTxfSalg().setText(controller.salgForDagen().toString());
+        dsw.showAndWait();
     }
 
     public void alleSalg(){
-        salgListView.getItems().setAll(controller.getAktuelleSalg());
-        btnDagensSalg.setDisable(false);
-        btnAlleSalg.setDisable(true);
-
+        AlleSalgWindow dsw = new AlleSalgWindow("Alle");
+        dsw.getTxfAlleSalg().setText();
+        dsw.showAndWait();
     }
+
 }
 

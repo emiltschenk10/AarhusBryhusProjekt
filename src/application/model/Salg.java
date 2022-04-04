@@ -137,7 +137,7 @@ public class Salg {
     public StringBuilder salgsInfoDag(){
         StringBuilder result = new StringBuilder("");
         for (Ordrelinje o:ordrelinjer) {
-            result.append("Produkt: " + o.getProdukt() + "Antal " + o.getAntal() + "Pris: " + o.getPris() + "Samlet pris: " + beregnPris() + "Betalingsform: " + getBetalingsform() + "\n");
+            result.append("Produkt: " + o.getProdukt() + " Antal: " + o.getAntal() + " Pris: " + o.getPris() + " Samlet pris: " + beregnPris() + " Betalingsform: " + getBetalingsform() + "\n");
 
         }
         return result;

@@ -62,5 +62,7 @@ public class Test {
 
 
         System.out.println(controller.antalIkkeAfleveredeProdukterPrUdlejning());
+
+        System.out.println(controller.salgForDagen());
     }
 }
