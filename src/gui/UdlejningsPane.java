@@ -268,9 +268,9 @@ public class UdlejningsPane extends GridPane {
         txfRestPris.clear();
         txfAntal.clear();
         txfRabat.setDisable(true);
-        this.udlejning = null;
         lvwIndkøbskurv.getItems().clear();
         chkRabat.setDisable(true);
+        controller.removeUdlejning(this.udlejning);
     }
 
 

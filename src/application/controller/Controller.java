@@ -170,6 +170,17 @@ public class Controller {
     }
 
 
+    public void removeUdlejning(Udlejning udlejning) {
+
+        storage.removeUdlejning(udlejning);
+        if (udlejning.getOrdrelinjer() != null) {
+            for (Ordrelinje o : udlejning.getOrdrelinjer()) {
+                udlejning.removeOrdrelinje(o);
+            }
+        }
+    }
+
+
 
 
     //Get metoder

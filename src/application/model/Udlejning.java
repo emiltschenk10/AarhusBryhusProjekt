@@ -112,6 +112,12 @@ public class Udlejning {
         }
     }
 
+    public void removeOrdrelinje(Ordrelinje ordrelinje){
+        if (!ordrelinjes.contains(ordrelinje)){
+            ordrelinjes.remove(ordrelinje);
+        }
+    }
+
     public double beregnPris(){
         double sum = 0.0;
         for (Ordrelinje o:ordrelinjes) {
