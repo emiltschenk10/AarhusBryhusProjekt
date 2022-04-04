@@ -213,6 +213,11 @@ public class KonferencePane extends GridPane {
     public void købBtnAction(){
         KundeWindow dia = new KundeWindow("Betalingsvindue",salg);
         dia.showAndWait();
+        lvwIndkøbskurv.getItems().clear();
+        txfSamletPris.clear();
+        txfAntal.clear();
+        txfRabat.clear();
+        chkRabat.setSelected(false);
         this.salg = null;
     }
 

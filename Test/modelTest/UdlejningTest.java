@@ -29,7 +29,7 @@ public class UdlejningTest {
         assertEquals(LocalDate.of(2022,4,8),udlejning1.getAfleveringsDato());
         assertEquals(LocalDate.of(2022,4,4),udlejning1.getUdleveringsDato());
         assertEquals(kunde,udlejning1.getKunde());
-        assertEquals(prisliste,udlejning1.getPrisliste());
+       // assertEquals(prisliste,udlejning1.getPrisliste());
 
     }
 
