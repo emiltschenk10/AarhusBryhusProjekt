@@ -1,9 +1,6 @@
 package application.controller;
 
-import application.model.Arrangement;
-import application.model.Prisliste;
-import application.model.Produktgruppe;
-import application.model.Salg;
+import application.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import storage.Storage;
@@ -61,35 +58,77 @@ class ControllerTest {
 
     @Test
     void createUdlejning() {
-
+        Prisliste prisliste = controller.createPrisliste("Fredagsbar");
+        Kunde kunde = controller.createKunde("Jørgen", 2133213213, "asdsd@gmail.com");
+        Udlejning udlejning = controller.createUdlejning(LocalDate.now().plusDays(2), LocalDate.now(), kunde, prisliste);
+        assertEquals(1,  storage.getUdlejnings().size());
+        assertTrue(storage.getUdlejnings().contains(udlejning));
     }
 
     @Test
     void createUdlejningUdenParm() {
+        Udlejning udlejning = controller.createUdlejningUdenParm();
+        assertEquals(1, storage.getUdlejnings().size());
+        assertTrue(storage.getUdlejnings().contains(udlejning));
     }
 
     @Test
     void createKunde() {
+        Kunde kunde = controller.createKunde("Hanss", 213213213, "adsd@gmail.com");
+        assertEquals(1,  storage.getKunder().size());
+        assertTrue(storage.getKunder().contains(kunde));
     }
 
     @Test
     void setKundePåUdlejning() {
+        Kunde kunde = controller.createKunde("Hanss", 213213213, "adsd@gmail.com");
+        Udlejning udlejning = controller.createUdlejningUdenParm();
+        Controller.setKundePåUdlejning(kunde, udlejning);
+        assertEquals(kunde, udlejning.getKunde());
+        assertTrue(kunde.getUdlejningArrayList().contains(udlejning));
     }
 
     @Test
     void createBetalingsform() {
+        Betalingsform betalingsform = controller.createBetalingsform("Kontant", "kontanter");
+        assertEquals(1, storage.getBetalingsformer().size());
+        assertTrue(storage.getBetalingsformer().contains(betalingsform));
+
     }
 
     @Test
     void setBetalingsformPåUdlejning() {
+        Betalingsform betalingsform = controller.createBetalingsform("Kontant", "Kontanter");
+        Kunde kunde = controller.createKunde("Hanss", 213213213, "adsd@gmail.com");
+        Prisliste prisliste = controller.createPrisliste("Fredagsbar");
+        Udlejning udlejning = controller.createUdlejningUdenParm();
+        Udlejning udlejning2 = controller.createUdlejning(LocalDate.now().plusDays(2), LocalDate.now(), kunde ,prisliste);
+        udlejning.setBetalingsform(betalingsform);
+        udlejning2.setBetalingsform(betalingsform);
+        assertEquals(betalingsform, udlejning.getBetalingsform());
+        assertEquals(betalingsform, udlejning2.getBetalingsform());
     }
 
     @Test
     void createProdukt() {
+        Produktgruppe produktgruppe = controller.createProduktGruppe("Fadøl", "sadsa");
+        Produkt produkt = Controller.createProdukt("Classic", "asd", 1, 1, produktgruppe);
+        assertEquals(1, produktgruppe.getProdukter().size());
+        assertTrue(produktgruppe.getProdukter().contains(produkt));
     }
 
     @Test
     void createOrdrelinjeSalg() {
+        Prisliste prisliste = controller.createPrisliste("Fredagsbar");
+        //Salg salg = controller.createSalgMedParm(LocalDate.now(), false, prisliste);
+        Salg salg = controller.createSalgUdenParm();
+        Produktgruppe produktgruppe = controller.createProduktGruppe("Fadøl", "asdsd");
+        Produkt produkt = Controller.createProdukt("Classic", "sdsad", 1, 0, produktgruppe);
+        Controller.addProduktTilPrisliste(produkt, 40, prisliste);
+        salg.setPrisliste(prisliste);
+        Ordrelinje ordrelinje = Controller.createOrdrelinjeSalg(produkt, 4, salg);
+        assertEquals(1, controller.getOrdrelinjer(salg).size());
+        assertTrue(controller.getOrdrelinjer(salg).contains(ordrelinje));
     }
 
     @Test

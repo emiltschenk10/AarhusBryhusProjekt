@@ -60,6 +60,10 @@ public class Kunde {
         }
     }
 
+    public ArrayList<Udlejning> getUdlejningArrayList() {
+        return new ArrayList<>(udlejningArrayList);
+    }
+
     public String toString(){
         return navn + "   " + tlfNummer + "   " + email;
     }
