@@ -46,6 +46,10 @@ public class Udlejning {
 
     public int getUdlejningsNr(){return udlejningsNr;}
 
+    public Kunde getKunde() {
+        return kunde;
+    }
+
     public boolean isUdestående(){
         return udestående;
     }
