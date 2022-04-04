@@ -120,19 +120,44 @@ class ControllerTest {
     @Test
     void createOrdrelinjeSalg() {
         Prisliste prisliste = controller.createPrisliste("Fredagsbar");
-        //Salg salg = controller.createSalgMedParm(LocalDate.now(), false, prisliste);
-        Salg salg = controller.createSalgUdenParm();
+        Salg salg = controller.createSalgMedParm(LocalDate.now(), false, prisliste);
+        Salg salg2 = controller.createSalgUdenParm();
         Produktgruppe produktgruppe = controller.createProduktGruppe("Fadøl", "asdsd");
         Produkt produkt = Controller.createProdukt("Classic", "sdsad", 1, 0, produktgruppe);
         Controller.addProduktTilPrisliste(produkt, 40, prisliste);
-        salg.setPrisliste(prisliste);
-        Ordrelinje ordrelinje = Controller.createOrdrelinjeSalg(produkt, 4, salg);
+        Controller.setPrislistePåSalg(salg2, prisliste);
+        Ordrelinje ordrelinje = Controller.createOrdrelinjeSalg(produkt, 5, salg);
+        Ordrelinje ordrelinje2 = Controller.createOrdrelinjeSalg(produkt, 4, salg2);
+
         assertEquals(1, controller.getOrdrelinjer(salg).size());
         assertTrue(controller.getOrdrelinjer(salg).contains(ordrelinje));
+
+        assertEquals(1, controller.getOrdrelinjer(salg2).size());
+        assertTrue(controller.getOrdrelinjer(salg2).contains(ordrelinje2));
+
     }
 
     @Test
     void createOrdrelinjeUdlejning() {
+        Kunde kunde = controller.createKunde("Hanss", 213213213, "adsd@gmail.com");
+        Prisliste prisliste = controller.createPrisliste("Udlejning");
+        Udlejning udlejning = controller.createUdlejning(LocalDate.now().plusDays(2), LocalDate.now(),kunde ,prisliste);
+        Udlejning udlejning2 = controller.createUdlejningUdenParm();
+        Produktgruppe produktgruppe = controller.createProduktGruppe("Fustage", "asd");
+        Produkt produkt = Controller.createProdukt("Klosterbryg", "asd", 0, 200, produktgruppe);
+        Controller.addProduktTilPrisliste(produkt, 575, prisliste);
+        //TODO LAV setPrislistePåUdlejning() i controller
+        udlejning2.setPrisliste(prisliste);
+        Ordrelinje ordrelinje = Controller.createOrdrelinjeUdlejning(produkt, 2, udlejning);
+        Ordrelinje ordrelinje2 = Controller.createOrdrelinjeUdlejning(produkt, 3, udlejning2);
+
+        assertEquals(1, Controller.getOrdrelinjePåUdlejning(udlejning).size());
+        assertTrue(Controller.getOrdrelinjePåUdlejning(udlejning).contains(ordrelinje));
+
+        assertEquals(1, Controller.getOrdrelinjePåUdlejning(udlejning2).size());
+        assertTrue(Controller.getOrdrelinjePåUdlejning(udlejning2).contains(ordrelinje2));
+
+
     }
 
     @Test
