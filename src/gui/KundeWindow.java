@@ -158,6 +158,10 @@ public class KundeWindow extends Stage {
         afhentPicker.setDisable(true);
     }
 
+    private void clearAll(){
+
+    }
+
     private void btnOkAction(){
         //TODO Vi skal have lavet en setKunde i controller til salg
         Controller controller = new Controller();
