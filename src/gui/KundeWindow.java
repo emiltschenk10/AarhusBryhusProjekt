@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import storage.Storage;
 
+import java.time.LocalDate;
+
 public class KundeWindow extends Stage {
 
     public KundeWindow(String title, Salg salg){
@@ -35,7 +37,7 @@ public class KundeWindow extends Stage {
 
     private TextField txfName,txfAdresse,txfTlfNr;
     private ListView<Kunde> kundeListView;
-    private RadioButton rbNyKunde,rbTidligereKunde;
+    private RadioButton rbNyKunde,rbTidligereKunde,rbBaren;
     private ToggleGroup group = new ToggleGroup();
     private DatePicker afhentPicker;
     private ComboBox<Betalingsform> cbxBetalingsform;
@@ -57,8 +59,13 @@ public class KundeWindow extends Stage {
         rbTidligereKunde.setToggleGroup(group);
         rbTidligereKunde.setOnAction(event -> showKunderAction());
 
+        rbBaren = new RadioButton("Baren");
+        rbBaren.setToggleGroup(group);
+        rbBaren.setOnAction(event -> barenRbAction());
 
-        HBox hBox = new HBox(rbNyKunde,rbTidligereKunde);
+
+
+        HBox hBox = new HBox(rbNyKunde,rbTidligereKunde,rbBaren);
         pane.add(hBox,1,0);
         hBox.setSpacing(5);
 
@@ -141,18 +148,33 @@ public class KundeWindow extends Stage {
         txfTlfNr.setEditable(true);
     }
 
+    private void barenRbAction(){
+        txfName.clear();
+        txfAdresse.clear();
+        txfTlfNr.clear();
+        txfName.setEditable(false);
+        txfAdresse.setEditable(false);
+        txfTlfNr.setEditable(false);
+        afhentPicker.setDisable(true);
+    }
+
     private void btnOkAction(){
         //TODO Vi skal have lavet en setKunde i controller til salg
         Controller controller = new Controller();
         if(rbNyKunde.isSelected()){
             Kunde kunde = controller.createKunde(txfName.getText(),Integer.parseInt(txfTlfNr.getText()),txfAdresse.getText());
-            controller.salgForDato(afhentPicker.getValue());
+            Controller.setSalgsDato(salg,afhentPicker.getValue());
             Controller.setKundePåSalg(kunde,salg);
             Controller.setBetalingsformPåSalg(cbxBetalingsform.getSelectionModel().getSelectedItem(),salg);
         }else if(rbTidligereKunde.isSelected() && kundeListView.getSelectionModel().getSelectedItem()!=null){
             Controller.setKundePåSalg(kundeListView.getSelectionModel().getSelectedItem(),salg);
-            controller.salgForDato(afhentPicker.getValue());
+            Controller.setSalgsDato(salg,afhentPicker.getValue());
             Controller.setBetalingsformPåSalg(cbxBetalingsform.getSelectionModel().getSelectedItem(),salg);
+        }else{
+            Controller.setKundePåSalg(null,salg);
+            Controller.setSalgsDato(salg, LocalDate.now());
+            Controller.setBetalingsformPåSalg(cbxBetalingsform.getSelectionModel().getSelectedItem(), salg);
+            Controller.setSalgSomBetalt(salg,true);
         }
         this.hide();
     }
