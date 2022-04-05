@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import storage.Storage;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -44,8 +45,9 @@ class ControllerTest {
 
     @Test
     void createSalgUdenParm() {
+        int size = storage.getSalgs().size();
         Salg salg = controller.createSalgUdenParm();
-        assertEquals(1, storage.getSalgs().size());
+        assertEquals(size + 1, storage.getSalgs().size());
         assertTrue(storage.getSalgs().contains(salg));
     }
 
@@ -59,10 +61,11 @@ class ControllerTest {
 
     @Test
     void createUdlejning() {
+        int size = storage.getUdlejnings().size();
         Prisliste prisliste = controller.createPrisliste("Fredagsbar");
         Kunde kunde = controller.createKunde("Jørgen", 2133213213, "asdsd@gmail.com");
         Udlejning udlejning = controller.createUdlejning(LocalDate.now().plusDays(2), LocalDate.now(), kunde, prisliste);
-        assertEquals(1,  storage.getUdlejnings().size());
+        assertEquals(size + 1,  storage.getUdlejnings().size());
         assertTrue(storage.getUdlejnings().contains(udlejning));
     }
 
@@ -75,8 +78,9 @@ class ControllerTest {
 
     @Test
     void createKunde() {
+        int size = storage.getKunder().size();
         Kunde kunde = controller.createKunde("Hanss", 213213213, "adsd@gmail.com");
-        assertEquals(1,  storage.getKunder().size());
+        assertEquals(size + 1,  storage.getKunder().size());
         assertTrue(storage.getKunder().contains(kunde));
     }
 
@@ -91,8 +95,9 @@ class ControllerTest {
 
     @Test
     void createBetalingsform() {
+        int size = storage.getBetalingsformer().size();
         Betalingsform betalingsform = controller.createBetalingsform("Kontant", "kontanter");
-        assertEquals(1, storage.getBetalingsformer().size());
+        assertEquals(size + 1, storage.getBetalingsformer().size());
         assertTrue(storage.getBetalingsformer().contains(betalingsform));
 
     }
@@ -163,10 +168,34 @@ class ControllerTest {
 
     @Test
     void getOrdrelinjePåUdlejning() {
+        Produktgruppe produktgruppe = controller.createProduktGruppe("Fadøl", "Øl");
+        Produkt produkt = Controller.createProdukt("Klosterbryg", "Lys øl", 1, 0, produktgruppe);
+        Prisliste prisliste = controller.createPrisliste("Fredagsbar");
+        Controller.addProduktTilPrisliste(produkt, 38, prisliste);
+        Udlejning udlejning = controller.createUdlejningUdenParm();
+        Controller.setPrislistePåUdlejning(udlejning, prisliste);
+        Ordrelinje result = Controller.createOrdrelinjeUdlejning(produkt, 4, udlejning);
+        Ordrelinje result2 = Controller.createOrdrelinjeUdlejning(produkt, 2, udlejning);
+        ArrayList<Ordrelinje> ordrelinjer = new ArrayList<>();
+        ordrelinjer.add(result);
+        ordrelinjer.add(result2);
+
+
+        assertEquals(ordrelinjer, Controller.getOrdrelinjePåUdlejning(udlejning));
+        assertTrue(Controller.getOrdrelinjePåUdlejning(udlejning).contains(result));
+        assertTrue(Controller.getOrdrelinjePåUdlejning(udlejning).contains(result2));
     }
 
     @Test
     void addProduktTilPrisliste() {
+        Produktgruppe produktgruppe = controller.createProduktGruppe("Fadøl", "Øl");
+        Produkt produkt3 = Controller.createProdukt("Klosterbryg", "Lys øl", 1, 0, produktgruppe);
+        Prisliste prisliste1 = controller.createPrisliste("Fredagsbar");
+        Controller.addProduktTilPrisliste(produkt3, 38, prisliste1);
+
+        //assertEquals(1, prisliste1.getProduktpriser().size());
+        assertTrue(prisliste1.getProduktpriser().containsKey(produkt3));
+
     }
 
     @Test
@@ -210,33 +239,9 @@ class ControllerTest {
     }
 
     @Test
-    void getArrangementer() {
-    }
-
-    @Test
     void beregnPris() {
     }
 
-    @Test
-    void getPrislisteFraSalg() {
-    }
-
-    @Test
-    void getAllePrislister() {
-    }
-
-    @Test
-    void getOrdrelinjer() {
-    }
-
-    @Test
-    void getProduktGrupper() {
-
-    }
-
-    @Test
-    void getProduktGruppensProdukter() {
-    }
 
     @Test
     void getAktuelleSalg() {

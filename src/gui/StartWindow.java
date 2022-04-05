@@ -82,6 +82,12 @@ public class StartWindow extends Application {
         StatistikPane statistikPane = new StatistikPane();
         tabStatistik.setContent(statistikPane);
 
+        Tab tabArrangement = new Tab("Arrangement");
+        tabPane.getTabs().add(tabArrangement);
+
+        ArrangementPane arrangementPane = new ArrangementPane();
+        tabArrangement.setContent(arrangementPane);
+
         ChangeListener<Tab> listener = (ov,gammelTab,nyTab) -> this.selectedTabChanged();
         tabPane.getSelectionModel().selectedItemProperty().addListener(listener);
     }

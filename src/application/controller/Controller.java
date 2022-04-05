@@ -80,6 +80,10 @@ public class Controller {
         udlejning.setBetalingsform(betalingsform);
     }
 
+    public static void setPrislistePåUdlejning(Udlejning udlejning, Prisliste prisliste){
+        udlejning.setPrisliste(prisliste);
+    }
+
     public static Produkt createProdukt(String navn, String beskrivelse, int klipPris, double pant, Produktgruppe produktgruppe) {
         Produkt produkt = produktgruppe.createProdukt(navn, beskrivelse, klipPris, pant);
         return produkt;
@@ -180,7 +184,9 @@ public class Controller {
         }
     }
 
-
+    public void removeArrangement(Arrangement arrangement){
+        storage.removeArrangement(arrangement);
+    }
 
 
     //Get metoder
