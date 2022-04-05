@@ -105,6 +105,7 @@ public class StatistikPane extends GridPane {
         cbProduktGruppe.setMaxWidth(180);
         cbProduktGruppe.getItems().setAll(controller.getProduktGrupper());
         cbProduktGruppe.setOnAction(event -> this.selectedProduktgruppeProdukt());
+        cbProduktGruppe.setOnMouseClicked(event -> cbProduktGruppe.getItems().setAll(controller.getProduktGrupper()));
 
         cbProdukt = new ComboBox<>();
         this.add(cbProdukt,5,4);
@@ -121,7 +122,7 @@ public class StatistikPane extends GridPane {
         GridPane.setHalignment(cbArragement, HPos.RIGHT);
         cbArragement.setMaxWidth(180);
         cbArragement.getItems().setAll(controller.getArrangementer());
-        cbArragement.getItems().add(null);
+        cbArragement.setOnMouseClicked(event ->  updateArragemet());
 
         Button btnSalgForDato = new Button("Indtjeneste for dato: ");
         this.add(btnSalgForDato, 3, 2);
@@ -169,5 +170,10 @@ public class StatistikPane extends GridPane {
 
     public void enableDate(){
         datePickerSalgForDag2.setDisable(false);
+    }
+
+    public  void  updateArragemet(){
+        cbArragement.getItems().setAll(controller.getArrangementer());
+        cbArragement.getItems().add(null);
     }
 }

@@ -286,7 +286,9 @@ public class Controller {
                             for (Produkt pp : produktgruppe.getProdukter()) {
                                 if (pp == produkt) {
                                     for (Ordrelinje o : s.getOrdrelinjer()) {
-                                        totalSolgte += o.getAntal();
+                                        if(produkt == o.getProdukt()){
+                                            totalSolgte += o.getAntal();
+                                        }
                                     }
                                 }
                             }
