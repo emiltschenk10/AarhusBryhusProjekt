@@ -3,6 +3,7 @@ package gui;
 import application.controller.Controller;
 import application.model.*;
 import javafx.beans.value.ChangeListener;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -12,7 +13,7 @@ import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
 
-public class KonferencePane extends GridPane {
+public class SalgsPane extends GridPane {
 
     private final ListView<ProduktListview> lvwPriser;
     private final ComboBox<Prisliste> prislisteComboBox;
@@ -23,9 +24,10 @@ public class KonferencePane extends GridPane {
     private Salg salg;
     private RadioButton r1,r2,r3;
     private Controller controller = new Controller();
+    private Button btnOpretSalg,btnTilføjTilKurv,btnKøb,btnAfbrydSalg;
 
 
-    public KonferencePane() {
+    public SalgsPane() {
         this.setPadding(new Insets(20));
         this.setHgap(10);
         this.setVgap(10);
@@ -55,10 +57,12 @@ public class KonferencePane extends GridPane {
         this.add(txfAntal, 2, 4);
         GridPane.setValignment(txfAntal, VPos.TOP);
         txfAntal.setMaxWidth(40);
+        txfAntal.setDisable(true);
 
 
         chkRabat = new CheckBox("Rabat");
         this.add(chkRabat, 2, 5);
+        chkRabat.setDisable(true);
 
         chkRabat.setOnAction(event -> chkboxrabatAction());
 
@@ -89,6 +93,7 @@ public class KonferencePane extends GridPane {
         txfRabat = new TextField();
         this.add(txfRabat, 3, 6);
         txfRabat.setMaxWidth(40);
+        txfRabat.setDisable(true);
 
         Label lblRabat = new Label("Angiv rabat:");
         this.add(lblRabat,2 , 6);
@@ -116,24 +121,34 @@ public class KonferencePane extends GridPane {
 
 
 
-        Button btnKøb = new Button("Køb");
+        btnKøb = new Button("Køb");
         btnKøb.setOnAction(event ->købBtnAction());
+        btnKøb.setDisable(true);
 
-        Button btnCancel = new Button("Cancel");
+        btnAfbrydSalg = new Button("Afbryd Salg");
+        btnAfbrydSalg.setDisable(true);
+        btnAfbrydSalg.setOnAction(event -> afbrydSalgAction());
 
 
-        HBox hBox1 = new HBox(btnCancel, btnKøb);
+        HBox hBox1 = new HBox(btnAfbrydSalg, btnKøb);
         this.add(hBox1,5,8);
         hBox1.setSpacing(10);
 
-        Button btnTilføjTilKurv = new Button("Tilføj til kurv");
+        btnTilføjTilKurv = new Button("Tilføj til kurv");
         this.add(btnTilføjTilKurv, 3, 6);
         GridPane.setValignment(btnTilføjTilKurv, VPos.BOTTOM);
         btnTilføjTilKurv.setOnAction(event -> this.tilføjTilKurvAction());
+        btnTilføjTilKurv.setDisable(true);
 
         if (lvwPriser.getItems().size() > 0) {
             lvwPriser.getSelectionModel().select(0);
         }
+
+        btnOpretSalg = new Button("Opret Salg");
+        this.add(btnOpretSalg, 0, 1);
+        GridPane.setHalignment(btnOpretSalg, HPos.RIGHT);
+        btnOpretSalg.setOnAction(event -> this.opretSalgAction());
+        btnOpretSalg.setDisable(true);
 
         // if (lvwUdflugter.getItems().size() > 0) {
         //   lvwUdflugter.getSelectionModel().select(0);
@@ -147,17 +162,35 @@ public class KonferencePane extends GridPane {
         this.updateControls();
     }
 
+    public void afbrydSalgAction(){
+        controller.removeSalg(this.salg);
+        txfAntal.setDisable(true);
+        chkRabat.setDisable(true);
+        txfRabat.setDisable(true);
+        btnOpretSalg.setDisable(false);
+        btnTilføjTilKurv.setDisable(true);
+        btnAfbrydSalg.setDisable(true);
+        prislisteComboBox.setDisable(false);
+        lvwIndkøbskurv.getItems().clear();
+        txfSamletPris.clear();
+    }
+
+    public void opretSalgAction(){
+        txfAntal.setDisable(false);
+        chkRabat.setDisable(false);
+        txfRabat.setDisable(false);
+        btnOpretSalg.setDisable(true);
+        btnTilføjTilKurv.setDisable(false);
+        btnAfbrydSalg.setDisable(false);
+        Prisliste prisliste = prislisteComboBox.getSelectionModel().getSelectedItem();
+        this.salg = controller.createSalgUdenParm();
+        this.salg.setPrisliste(prisliste);
+        prislisteComboBox.setDisable(true);
+    }
+
 
     public void updateControls() {
         Prisliste prisliste = prislisteComboBox.getSelectionModel().getSelectedItem();
-        if(this.salg != null){
-            //TODO lav en remove salg metode i controller, husk at få salget til at være null til sidst.
-            controller.removeSalg(this.salg);
-        }
-        //skal sættes et andet sted
-        this.salg = controller.createSalgUdenParm();
-        this.salg.setPrisliste(prisliste);
-
         //TODO der kommer en nulpointer når man skal skifte prisliste
         //lvwPriser.getItems().setAll(prisliste.getProduktpriser());
         ArrayList<ProduktListview> produktListviews = new ArrayList<>();
@@ -165,11 +198,9 @@ public class KonferencePane extends GridPane {
             produktListviews.add(new ProduktListview(produkt,prisliste.getProduktpriser().get(produkt)));
         }
         lvwPriser.getItems().setAll(produktListviews);
+        btnOpretSalg.setDisable(false);
     }
 
-    public void visPrisliste(){
-        prislisteComboBox.getItems().setAll(controller.getAllePrislister());
-    }
 
     public void chkboxrabatAction(){
         if(chkRabat.isSelected()){
@@ -208,6 +239,7 @@ public class KonferencePane extends GridPane {
         txfAntal.clear();
         lvwPriser.getSelectionModel().clearSelection();
         txfSamletPris.setText(""+salg.beregnPris());
+        btnKøb.setDisable(false);
     }
 
     public void købBtnAction(){
@@ -217,8 +249,15 @@ public class KonferencePane extends GridPane {
         txfSamletPris.clear();
         txfAntal.clear();
         txfRabat.clear();
-        chkRabat.setSelected(false);
-        this.salg = null;
+        btnOpretSalg.setDisable(false);
+        txfAntal.setDisable(true);
+        chkRabat.setDisable(true);
+        txfRabat.setDisable(true);
+        btnOpretSalg.setDisable(false);
+        btnTilføjTilKurv.setDisable(true);
+        btnAfbrydSalg.setDisable(true);
+        prislisteComboBox.setDisable(false);
+        btnKøb.setDisable(true);
     }
 
 }

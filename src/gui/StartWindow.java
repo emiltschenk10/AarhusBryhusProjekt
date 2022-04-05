@@ -1,8 +1,6 @@
 package gui;
 
 import application.controller.Controller;
-import application.model.Salg;
-import application.model.Udlejning;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.Scene;
@@ -45,8 +43,8 @@ public class StartWindow extends Application {
         Tab tabSalg = new Tab("Salg");
         tabPane.getTabs().add(tabSalg);
 
-        KonferencePane konferencePane = new KonferencePane();
-        tabSalg.setContent(konferencePane);
+        SalgsPane salgsPane = new SalgsPane();
+        tabSalg.setContent(salgsPane);
 
 
 
