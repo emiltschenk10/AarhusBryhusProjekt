@@ -25,4 +25,9 @@ public class Arrangement {
     public String getBeskrivelse() {
         return beskrivelse;
     }
+
+    @Override
+    public String toString() {
+        return navn;
+    }
 }

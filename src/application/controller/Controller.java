@@ -390,6 +390,8 @@ public class Controller {
         Controller.addProduktTilPrisliste(p2, 36.0, pr2);
         Controller.addProduktTilPrisliste(p3, 575, pr3);
         Controller.addProduktTilPrisliste(p4,650,pr1);
+
+        controller.createArrangement("Lols","Nice",100);
 //        Controller.addProduktTilPrisliste(p3, 575, pr2);
 
 

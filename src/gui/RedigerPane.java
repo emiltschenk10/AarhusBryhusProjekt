@@ -132,6 +132,7 @@ public class RedigerPane extends GridPane {
 
         btnGem2 = new Button("Gem");
         btnGem2.setDisable(true);
+        btnGem2.setOnAction(event -> btnGem2Action());
 
         HBox hBox4 = new HBox(btnRediger2,btnGem2);
         this.add(hBox4,1,7);
@@ -221,6 +222,7 @@ public class RedigerPane extends GridPane {
         btnGem2.setDisable(true);
         chxUdlejBetalt.setDisable(true);
         chxUdestående.setDisable(true);
+        udlejningListView.getItems().setAll(controller.getAktuelleUdlejninger());
     }
 
     public void updateLists(){

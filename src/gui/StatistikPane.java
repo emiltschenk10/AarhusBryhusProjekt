@@ -121,6 +121,7 @@ public class StatistikPane extends GridPane {
         GridPane.setHalignment(cbArragement, HPos.RIGHT);
         cbArragement.setMaxWidth(180);
         cbArragement.getItems().setAll(controller.getArrangementer());
+        cbArragement.getItems().add(null);
 
         Button btnSalgForDato = new Button("Indtjeneste for dato: ");
         this.add(btnSalgForDato, 3, 2);
