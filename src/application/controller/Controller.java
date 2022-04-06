@@ -57,8 +57,8 @@ public class Controller {
         return udlejning;
     }
 
-    public Kunde createKunde(String navn, int tlf, String email) {
-        Kunde kunde = new Kunde(navn, tlf, email);
+    public Kunde createKunde(String navn, int tlf, String adresse) {
+        Kunde kunde = new Kunde(navn, tlf, adresse);
         storage.addKunde(kunde);
         return kunde;
     }

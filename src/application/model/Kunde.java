@@ -8,25 +8,25 @@ public class Kunde {
 
     private int tlfNummer;
 
-    private String email;
+    private String adresse;
 
     private ArrayList<Salg> salgArrayList = new ArrayList<>();
 
     private ArrayList<Udlejning> udlejningArrayList = new ArrayList<>();
 
 
-    public Kunde(String navn, int tlfNummer, String email){
+    public Kunde(String navn, int tlfNummer, String adresse){
         this.navn = navn;
         this.tlfNummer = tlfNummer;
-        this.email = email;
+        this.adresse = adresse;
     }
 
     public String getNavn() {
         return navn;
     }
 
-    public String getEmail() {
-        return email;
+    public String getAdresse() {
+        return adresse;
     }
 
     public int getTlfNummer() {
@@ -70,6 +70,6 @@ public class Kunde {
     }
 
     public String toString(){
-        return navn + "   " + tlfNummer + "   " + email;
+        return navn + "   " + tlfNummer + "   " + adresse;
     }
 }

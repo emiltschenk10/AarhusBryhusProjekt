@@ -29,7 +29,7 @@ class SalgTest {
         fredagsbar.addProdukt(p1,38);
         fredagsbar.addProdukt(p2,70);
         fredagsbar.addProdukt(p3,575);
-        kunde = new Kunde("Kim",123456,"Vimmersvej@gmail.com");
+        kunde = new Kunde("Kim",123456,"Vimmersvej 54");
 
 //        Ordrelinje o1 = new Ordrelinje(p1,4,fredagsbar.getProduktpriser().get(p1));
 //        Ordrelinje o2 = new Ordrelinje(p2,3,fredagsbar.getProduktpriser().get(p2));
@@ -121,12 +121,21 @@ class SalgTest {
     @Test
     void setKunde() {
         Salg salg = new Salg();
-        Kunde  kunde = new Kunde()
+        salg.setKunde(kunde);
+        assertEquals(kunde, salg.getKunde());
 
+        Kunde kunde2 = new Kunde("Lars", 89076, "Skolegade");
+        salg.setKunde(kunde2);
+        assertEquals(kunde2, salg.getKunde());
+        assertFalse(kunde.getSalgArrayList().contains(salg));
     }
 
     @Test
     void setBetalingsform() {
+        Salg salg = new Salg();
+        Betalingsform Mastercard = new Betalingsform("Mastercard", "Kort");
+        salg.setBetalingsform(Mastercard);
+        assertEquals(Mastercard, salg.getBetalingsform());
     }
 
     @Test
