@@ -50,6 +50,11 @@ public class Udlejning {
         return kunde;
     }
 
+    public Prisliste getPrisliste() {
+        return prisliste;
+    }
+
+
     public boolean isUdestående(){
         return udestående;
     }
@@ -113,12 +118,12 @@ public class Udlejning {
     }
 
     public void removeOrdrelinje(Ordrelinje ordrelinje){
-        if (!ordrelinjes.contains(ordrelinje)){
+        if (ordrelinjes.contains(ordrelinje)){
             ordrelinjes.remove(ordrelinje);
         }
     }
 
-    public double beregnPris(){
+    public double beregnPantPris(){
         double sum = 0.0;
         for (Ordrelinje o:ordrelinjes) {
             sum += o.getPris();

@@ -89,8 +89,6 @@ public class ArrangementPane extends GridPane {
     }
 
 
-
-
     public void opretArrangementAction(){
         String navn = txfnavn.getText();
         String beskrivelse = txfbeskrivelse.getText();
