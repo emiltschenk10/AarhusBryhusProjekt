@@ -32,6 +32,8 @@ public class Ordrelinje {
         return udlejning;
     }
 
+    public Discount getDiscount(){return discount;}
+
     public void setSalg(Salg salg) {
         this.salg = salg;
     }
