@@ -83,6 +83,7 @@ public class KundeWindow extends Stage {
 
         txfTlfNr = new TextField();
 
+
         Label lblAfhentning = new Label("Dato:");
 
         afhentPicker = new DatePicker();

@@ -6,6 +6,7 @@ import storage.Storage;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Map;
 
 public class Controller {
@@ -26,9 +27,15 @@ public class Controller {
     }
 
     public Arrangement createArrangement(String navn, String beskrivelse, double pris) {
-        Arrangement arrangement = new Arrangement(navn, beskrivelse, pris);
-        storage.addArrangement(arrangement);
-        return arrangement;
+
+        if (pris <0){
+            throw new IllegalArgumentException("Pris må ikke være mindre end 0");
+        }else {
+            Arrangement arrangement = new Arrangement(navn, beskrivelse, pris);
+            storage.addArrangement(arrangement);
+            return arrangement;
+        }
+
     }
 
     public Salg createSalgUdenParm() {
@@ -88,13 +95,22 @@ public class Controller {
     }
 
     public static Ordrelinje createOrdrelinjeSalg(Produkt produkt, int antal, Salg salg) {
-        Ordrelinje ordrelinje = salg.createOrdrelinje(produkt, antal);
-        return ordrelinje;
+        if(antal <1){
+            throw new IllegalArgumentException("Antal må ikke være mindre end 1");
+        }else{
+            Ordrelinje ordrelinje = salg.createOrdrelinje(produkt, antal);
+            return ordrelinje;
+        }
     }
 
     public static Ordrelinje createOrdrelinjeUdlejning(Produkt produkt, int antal, Udlejning udlejning) {
-        Ordrelinje ordrelinje = udlejning.createOrdrelinje(produkt, antal);
-        return ordrelinje;
+        if(antal <1){
+            throw new IllegalArgumentException("Antal må ikke være mindre end 1");
+        }else{
+            Ordrelinje ordrelinje = udlejning.createOrdrelinje(produkt, antal);
+            return ordrelinje;
+        }
+
     }
 
     public static ArrayList<Ordrelinje> getOrdrelinjePåUdlejning(Udlejning udlejning) {
@@ -103,7 +119,11 @@ public class Controller {
 
     //Metoder til prisliste
     public static void addProduktTilPrisliste(Produkt produkt, double pris, Prisliste prisliste) {
-        prisliste.addProdukt(produkt, pris);
+        if(pris <1){
+            throw new IllegalArgumentException("Pris må ikke være mindre end 1");
+        }else {
+            prisliste.addProdukt(produkt, pris);
+        }
     }
 
     public static void addArragementTilPrisliste(Arrangement arrangement, Prisliste prisliste) {
@@ -111,10 +131,6 @@ public class Controller {
     }
 
     //Metoder til salg
-    public static void addOrdrelinjeTilSalg(Ordrelinje ordrelinje, Salg salg) {
-        salg.addOrdrelinje(ordrelinje);
-    }
-
     public static void setKundePåSalg(Kunde kunde, Salg salg) {
         salg.setKunde(kunde);
     }
