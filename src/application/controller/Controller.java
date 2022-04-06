@@ -3,6 +3,7 @@ package application.controller;
 import application.model.*;
 import storage.Storage;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,10 +52,14 @@ public class Controller {
     }
 
     public Udlejning createUdlejning(LocalDate afleveringsdato, LocalDate udlejningdato, Kunde kunde, Prisliste prisliste) {
-        Udlejning udlejning = new Udlejning(afleveringsdato, udlejningdato, kunde, prisliste);
-        udlejning.udlejningsNr();
-        storage.addUdlejning(udlejning);
-        return udlejning;
+        if (afleveringsdato.isAfter(udlejningdato)){
+            throw new DateTimeException("Afleveringsdato må ikke være efter udleveringsdato");
+        }else {
+            Udlejning udlejning = new Udlejning(afleveringsdato, udlejningdato, kunde, prisliste);
+            udlejning.udlejningsNr();
+            storage.addUdlejning(udlejning);
+            return udlejning;
+        }
     }
 
     public Udlejning createUdlejningUdenParm() {
@@ -90,8 +95,12 @@ public class Controller {
     }
 
     public static Produkt createProdukt(String navn, String beskrivelse, int klipPris, double pant, Produktgruppe produktgruppe) {
-        Produkt produkt = produktgruppe.createProdukt(navn, beskrivelse, klipPris, pant);
-        return produkt;
+        if(klipPris <0 || pant <0){
+            throw new IllegalArgumentException("Klipris og pant må ikke værem indre end 0");
+        }else {
+            Produkt produkt = produktgruppe.createProdukt(navn, beskrivelse, klipPris, pant);
+            return produkt;
+        }
     }
 
     public static Ordrelinje createOrdrelinjeSalg(Produkt produkt, int antal, Salg salg) {
