@@ -173,7 +173,7 @@ public class Controller {
     }
 
     public static void setUdleveringsDato(Udlejning udlejning, LocalDate date) {
-        if (date.isAfter(udlejning.getUdleveringsDato()))
+        if (date.isAfter(udlejning.getAfleveringsDato()))
         {
             throw new DateTimeException("Udleveringsdato skal være før afleveringsdato");
         }
@@ -188,7 +188,7 @@ public class Controller {
         salg.beregnPris();
     }
 
-    //Remove Metoder --------------------------------------------------------------------------------
+    //Remove Metoder
 
     public void removeSalg(Salg salg){
         salg.setBetalingsform(null);
