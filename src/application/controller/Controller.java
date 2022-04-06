@@ -180,8 +180,8 @@ public class Controller {
         udlejning.setUdleveringsDato(date);
     }
 
-    public void setDiscount(double discount){
-
+    public void setDiscount(Ordrelinje ordrelinje, Discount discount){
+    ordrelinje.setDiscount(discount);
     }
 
     public ArrayList<Arrangement> getArrangementer() {
