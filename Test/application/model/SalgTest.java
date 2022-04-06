@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import storage.Storage;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,6 +14,7 @@ class SalgTest {
 
     private Prisliste fredagsbar;
     private Kunde kunde;
+    private Produkt p1, p2, p3;
 
     @BeforeEach
     void setUp() {
@@ -21,9 +23,9 @@ class SalgTest {
         Produktgruppe produktgruppe = new Produktgruppe("Fadøl","Bajer");
         Produktgruppe produktgruppe1 = new Produktgruppe("Flaske","Pant");
         Produktgruppe produktgruppe2 = new Produktgruppe("Fustage","asdasd");
-        Produkt p1 = produktgruppe.createProdukt("Klosterbryg","Bajer",1,0);
-        Produkt p2 = produktgruppe1.createProdukt("Klosterbryg","Pant",2,1 );
-        Produkt p3 = produktgruppe2.createProdukt("Klosterbryg","asdasd",0, 200);
+        p1 = produktgruppe.createProdukt("Klosterbryg","Bajer",1,0);
+        p2 = produktgruppe1.createProdukt("Klosterbryg","Pant",2,1 );
+        p3 = produktgruppe2.createProdukt("Klosterbryg","asdasd",0, 200);
         fredagsbar = new Prisliste("Fredagsbar");
 
         fredagsbar.addProdukt(p1,38);
@@ -73,6 +75,14 @@ class SalgTest {
 
     @Test
     void getOrdrelinjer() {
+        Salg salg = new Salg(LocalDate.now(), false, fredagsbar);
+        Ordrelinje ordrelinje = salg.createOrdrelinje(p3, 4);
+        Ordrelinje ordrelinje2 = salg.createOrdrelinje(p2, 1);
+        ArrayList<Ordrelinje> expected = new ArrayList<>();
+        expected.add(ordrelinje);
+        expected.add(ordrelinje2);
+
+        assertEquals(expected, salg.getOrdrelinjer());
     }
 
     @Test
@@ -133,29 +143,44 @@ class SalgTest {
     @Test
     void setBetalingsform() {
         Salg salg = new Salg();
-        Betalingsform Mastercard = new Betalingsform("Mastercard", "Kort");
-        salg.setBetalingsform(Mastercard);
-        assertEquals(Mastercard, salg.getBetalingsform());
+        Betalingsform mastercard = new Betalingsform("Mastercard", "Kort");
+        salg.setBetalingsform(mastercard);
+        assertEquals(mastercard, salg.getBetalingsform());
     }
 
     @Test
     void getBetalingsform() {
+        Salg salg = new Salg();
+        Betalingsform voucher = new Betalingsform("Voucher", "Kupon");
+        salg.setBetalingsform(voucher);
+        assertEquals(voucher, salg.getBetalingsform());
     }
 
-    @Test
-    void addOrdrelinje() {
-    }
 
     @Test
     void removeOrdrelinje() {
+        Salg salg = new Salg(LocalDate.now(), false, fredagsbar);
+        Ordrelinje ordrelinje = salg.createOrdrelinje(p1, 4);
+        assertTrue(salg.getOrdrelinjer().contains(ordrelinje));
+
+        salg.removeOrdrelinje(ordrelinje);
+        assertEquals(0, salg.getOrdrelinjer().size());
+        assertFalse(salg.getOrdrelinjer().contains(ordrelinje));
     }
 
     @Test
     void beregnPris() {
+
     }
 
     @Test
     void createOrdrelinje() {
+        Salg salg = new Salg(LocalDate.now(), false, fredagsbar);
+        Ordrelinje ordrelinje = salg.createOrdrelinje(p1, 3);
+
+        assertEquals(salg, ordrelinje.getSalg());
+        assertTrue(salg.getOrdrelinjer().contains(ordrelinje));
+
     }
 
     @Test
