@@ -93,6 +93,10 @@ public class KundeWindowUdlejning extends Stage {
         cbxBetalingsform.getItems().setAll(storage.getBetalingsformer());
 
 
+        lblError = new Label();
+        pane.add(lblError, 0, 3, 2, 1);
+        lblError.setStyle("-fx-text-fill: red");
+
         VBox vBox = new VBox(lblName,lblAdresse,lblTlfNr,lblAflevering, lblUdlevering);
         pane.add(vBox,0,1);
         vBox.setSpacing(20);
@@ -121,9 +125,7 @@ public class KundeWindowUdlejning extends Stage {
         btnCancel.setOnAction(event -> cancelAction());
 
 
-        lblError = new Label();
-        pane.add(lblError, 0, 5,2,1);
-        lblError.setStyle("-fx-text-fill: red");
+
 
         //---------------------------------------------------------------------------------------------
     }
