@@ -56,7 +56,6 @@ public class Controller {
             storage.addUdlejning(udlejning);
             return udlejning;
         }
-    }
 
     public Udlejning createUdlejningUdenParm() {
         Udlejning udlejning = new Udlejning();
