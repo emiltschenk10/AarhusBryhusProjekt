@@ -17,6 +17,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import storage.Storage;
 
+import java.time.DateTimeException;
+import java.util.zip.DataFormatException;
+
 public class KundeWindowUdlejning extends Stage {
 
     public KundeWindowUdlejning(String title, Udlejning udlejning){
@@ -42,6 +45,7 @@ public class KundeWindowUdlejning extends Stage {
     private ComboBox<Betalingsform> cbxBetalingsform;
     private Storage storage = Storage.getInstance();
     private Udlejning udlejning;
+    private Label lblError;
 
     private void initContent(GridPane pane){
         pane.setPadding(new Insets(10));
@@ -117,9 +121,9 @@ public class KundeWindowUdlejning extends Stage {
         btnCancel.setOnAction(event -> cancelAction());
 
 
-//        lblError = new Label();
-//        pane.add(lblError, 0, 5,2,1);
-//        lblError.setStyle("-fx-text-fill: red");
+        lblError = new Label();
+        pane.add(lblError, 0, 5,2,1);
+        lblError.setStyle("-fx-text-fill: red");
 
         //---------------------------------------------------------------------------------------------
     }
@@ -155,19 +159,24 @@ public class KundeWindowUdlejning extends Stage {
     private void btnOkAction(){
         //TODO Vi skal have lavet en setKunde i controller til salg
         Controller controller = new Controller();
-        if(rbNyKunde.isSelected()){
-            Kunde kunde = controller.createKunde(txfName.getText(),Integer.parseInt(txfTlfNr.getText()),txfAdresse.getText());
-            Controller.setAfleveringsDato(udlejning, afleveringsPicker.getValue());
-            Controller.setUdleveringsDato(udlejning, udleveringspicker.getValue());
-            Controller.setKundePåUdlejning(kunde,udlejning);
-            Controller.setBetalingsformPåUdlejning(cbxBetalingsform.getSelectionModel().getSelectedItem(),udlejning);
-        }else if(rbTidligereKunde.isSelected() && kundeListView.getSelectionModel().getSelectedItem()!=null){
-            Controller.setKundePåUdlejning(kundeListView.getSelectionModel().getSelectedItem(),udlejning);
-            Controller.setAfleveringsDato(udlejning, afleveringsPicker.getValue());
-            Controller.setUdleveringsDato(udlejning, udleveringspicker.getValue());
-            Controller.setBetalingsformPåUdlejning(cbxBetalingsform.getSelectionModel().getSelectedItem(),udlejning);
+        try {
+
+            if (rbNyKunde.isSelected()) {
+                Kunde kunde = controller.createKunde(txfName.getText(), Integer.parseInt(txfTlfNr.getText()), txfAdresse.getText());
+                Controller.setAfleveringsDato(udlejning, afleveringsPicker.getValue());
+                Controller.setUdleveringsDato(udlejning, udleveringspicker.getValue());
+                Controller.setKundePåUdlejning(kunde, udlejning);
+                Controller.setBetalingsformPåUdlejning(cbxBetalingsform.getSelectionModel().getSelectedItem(), udlejning);
+            } else if (rbTidligereKunde.isSelected() && kundeListView.getSelectionModel().getSelectedItem() != null) {
+                Controller.setKundePåUdlejning(kundeListView.getSelectionModel().getSelectedItem(), udlejning);
+                Controller.setAfleveringsDato(udlejning, afleveringsPicker.getValue());
+                Controller.setUdleveringsDato(udlejning, udleveringspicker.getValue());
+                Controller.setBetalingsformPåUdlejning(cbxBetalingsform.getSelectionModel().getSelectedItem(), udlejning);
+            }
+            this.hide();
+        } catch (DateTimeException d){
+            lblError.setText("Afleveringsdatoen skal være efter udlevering");
         }
-        this.hide();
     }
 
 
