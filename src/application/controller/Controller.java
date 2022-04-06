@@ -180,6 +180,10 @@ public class Controller {
         udlejning.setUdleveringsDato(date);
     }
 
+    public void setDiscount(double discount){
+
+    }
+
     public ArrayList<Arrangement> getArrangementer() {
         return storage.getArrangementer();
     }
@@ -362,33 +366,43 @@ public class Controller {
     public int antalBrugteKlip(LocalDate dato1, LocalDate dato2) {
         int antal = 0;
 
-        for (Salg s : storage.getSalgs()) {
-            if (s.getDato().isAfter(dato1) || s.getDato().equals(dato1) && s.getDato().isBefore(dato2) || s.getDato().isEqual(dato2)) {
-                if (s.getBetalingsform() != null && s.getBetalingsform().getNavn().equals("Klippekort")) {
-                    for (Ordrelinje o: s.getOrdrelinjer()) {
-                       antal += o.getProdukt().getKlipPris() * o.getAntal();
+        if(dato1.isAfter(dato2)){
+            throw  new DateTimeException("dato1 skal være før dato 2");
+        }else{
+            for (Salg s : storage.getSalgs()) {
+                if (s.getDato().isAfter(dato1) || s.getDato().equals(dato1) && s.getDato().isBefore(dato2) || s.getDato().isEqual(dato2)) {
+                    if (s.getBetalingsform() != null && s.getBetalingsform().getNavn().equals("Klippekort")) {
+                        for (Ordrelinje o: s.getOrdrelinjer()) {
+                            antal += o.getProdukt().getKlipPris() * o.getAntal();
+                        }
                     }
                 }
-            }
 
+            }
+            return antal;
         }
-        return antal;
     }
 
     public int antalSolgteKlip(LocalDate dato1, LocalDate dato2) {
         int antal = 0;
 
-        for (Salg s : storage.getSalgs()) {
-            if (s.getDato().isAfter(dato1) || s.getDato().equals(dato1) && s.getDato().isBefore(dato2) || s.getDato().isEqual(dato2)) {
-                for (Ordrelinje o: s.getOrdrelinjer()) {
-                    if (o.getProdukt().getNavn().equals("Klippekort")){
-                        antal += o.getAntal();
+        if(dato1.isAfter(dato2)){
+            throw  new DateTimeException("dato1 skal være før dato 2");
+        }else {
+            for (Salg s : storage.getSalgs()) {
+                if (s.getDato().isAfter(dato1) || s.getDato().equals(dato1) && s.getDato().isBefore(dato2) || s.getDato().isEqual(dato2)) {
+                    for (Ordrelinje o: s.getOrdrelinjer()) {
+                        if (o.getProdukt().getNavn().equals("Klippekort")){
+                            antal += o.getAntal();
+                        }
                     }
                 }
-            }
 
+            }
+            return antal;
         }
-        return antal;
+
+
     }
 
 
