@@ -18,8 +18,7 @@ class SalgTest {
 
     @BeforeEach
     void setUp() {
-        Controller controller = new Controller();
-        Storage storage = Storage.getInstance();
+
         Produktgruppe produktgruppe = new Produktgruppe("Fadøl","Bajer");
         Produktgruppe produktgruppe1 = new Produktgruppe("Flaske","Pant");
         Produktgruppe produktgruppe2 = new Produktgruppe("Fustage","asdasd");
@@ -190,9 +189,26 @@ class SalgTest {
 
     @Test
     void testToString() {
+        Salg salg = new Salg(LocalDate.now(), false, fredagsbar);
+        int nr = salg.getSalgsNr();
+        String expected = "Salgs Nr: " + nr + "  Dato: " + LocalDate.now() + "  Betalt: " + false;
+
+        assertEquals(expected, salg.toString());
+        salg.setKunde(kunde);
+        expected = "Salgs Nr: " + nr + "  Kunde: " + kunde.getNavn() + "  Dato: " + LocalDate.now() + "  Betalt: " + false;
+        assertEquals(expected, salg.toString());
     }
 
     @Test
     void salgsInfoDag() {
+        Salg salg = new Salg(LocalDate.now(), false, fredagsbar);
+        Ordrelinje or1 = salg.createOrdrelinje(p1, 4);
+        Ordrelinje or2 = salg.createOrdrelinje(p2, 2);
+        StringBuilder expected = new StringBuilder();
+        expected.append("Produkt: " + or1.getProdukt() + " Antal: " + or1.getAntal() + " Pris: " + or1.getPris() + " Samlet pris: " + salg.beregnPris() + " Betalingsform: " + salg.getBetalingsform() + "\n");
+        expected.append("Produkt: " + or2.getProdukt() + " Antal: " + or2.getAntal() + " Pris: " + or2.getPris() + " Samlet pris: " + salg.beregnPris() + " Betalingsform: " + salg.getBetalingsform() + "\n");
+
+        assertEquals(expected.toString(), salg.salgsInfoDag().toString());
+
     }
 }
