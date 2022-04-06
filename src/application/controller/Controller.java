@@ -298,7 +298,7 @@ public class Controller {
         return totalSolgte;
     }
 
-    public Map<Udlejning, Integer> antalIkkeAfleveredeProdukterPrUdlejning() {
+    /**public Map<Udlejning, Integer> antalIkkeAfleveredeProdukterPrUdlejning() {
         int totalMangel;
         HashMap<Udlejning, Integer> map = new HashMap<>();
         for (Udlejning u : storage.getUdlejnings()) {
@@ -311,7 +311,7 @@ public class Controller {
             }
         }
         return map;
-    }
+    }**/
 
     public StringBuilder getUdeståendeProdukterPåUdlejning(Udlejning udlejning){
         StringBuilder sb = new StringBuilder();
