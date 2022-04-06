@@ -52,11 +52,7 @@ public class Controller {
     }
 
     public Udlejning createUdlejning(LocalDate afleveringsdato, LocalDate udlejningdato, Kunde kunde, Prisliste prisliste) {
-        if (afleveringsdato.isAfter(udlejningdato)){
-            throw new DateTimeException("Afleveringsdato må ikke være efter udleveringsdato");
-        }else {
             Udlejning udlejning = new Udlejning(afleveringsdato, udlejningdato, kunde, prisliste);
-            udlejning.udlejningsNr();
             storage.addUdlejning(udlejning);
             return udlejning;
         }
@@ -64,7 +60,6 @@ public class Controller {
 
     public Udlejning createUdlejningUdenParm() {
         Udlejning udlejning = new Udlejning();
-        udlejning.udlejningsNr();
         storage.addUdlejning(udlejning);
         return udlejning;
     }
@@ -169,10 +164,20 @@ public class Controller {
     }
 
     public static void setAfleveringsDato(Udlejning udlejning, LocalDate date) {
-        udlejning.setAfleveringsDato(date);
+        if (date.isBefore(LocalDate.now()))
+        {
+            throw new DateTimeException("Afleveringsdato skal være en dag, som ikke har været der");
+        } else{
+            udlejning.setAfleveringsDato(date);
+        }
+
     }
 
     public static void setUdleveringsDato(Udlejning udlejning, LocalDate date) {
+        if (date.isAfter(udlejning.getUdleveringsDato()))
+        {
+            throw new DateTimeException("Udleveringsdato skal være før afleveringsdato");
+        }
         udlejning.setUdleveringsDato(date);
     }
 
@@ -432,7 +437,7 @@ public class Controller {
         Salg s4 = controller.createSalgMedParm(LocalDate.now(), false, pr1);
 
 
-        Udlejning u1 = controller.createUdlejning(LocalDate.now(),LocalDate.now().plusDays(5),null,pr1);
+        Udlejning u1 = controller.createUdlejning(LocalDate.now().plusDays(5),LocalDate.now(),null,pr1);
 
         Ordrelinje o1 = Controller.createOrdrelinjeSalg(p2, 2, s1);
         Ordrelinje o2 = Controller.createOrdrelinjeSalg(p1, 2, s2);

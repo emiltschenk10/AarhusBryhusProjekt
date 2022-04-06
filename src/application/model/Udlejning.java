@@ -22,15 +22,12 @@ public class Udlejning {
         this.udleveringsDato = udleveringsDato;
         this.kunde = kunde;
         this.prisliste = prisliste;
+        udlejningNext++;
+        this.udlejningsNr = udlejningNext;
     }
 
     public Udlejning(){
 
-    }
-
-    public void udlejningsNr(){
-        udlejningNext++;
-        this.udlejningsNr = udlejningNext;
     }
 
     public Ordrelinje createOrdrelinje(Produkt produkt,int antal){
