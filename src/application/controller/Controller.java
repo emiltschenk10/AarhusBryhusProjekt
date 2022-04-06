@@ -163,13 +163,7 @@ public class Controller {
     }
 
     public static void setAfleveringsDato(Udlejning udlejning, LocalDate date) {
-        if (date.isBefore(LocalDate.now()))
-        {
-            throw new DateTimeException("Afleveringsdato skal være en dag, som ikke har været der");
-        } else{
             udlejning.setAfleveringsDato(date);
-        }
-
     }
 
     public static void setUdleveringsDato(Udlejning udlejning, LocalDate date) {
