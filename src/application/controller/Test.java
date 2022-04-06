@@ -61,7 +61,6 @@ public class Test {
         Ordrelinje o12 = Controller.createOrdrelinjeUdlejning(p1,10,u3);
 
 
-        System.out.println(controller.antalIkkeAfleveredeProdukterPrUdlejning());
 
         System.out.println(controller.salgForDagen());
     }
