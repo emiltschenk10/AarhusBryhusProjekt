@@ -164,17 +164,6 @@ public class Salg {
         return betalingsform;
     }
 
-    /**
-     * Tilføjer en ordrelinje til listen af ordrelinjer på salget.
-     *
-     * @param ordrelinje er den ordrelinje der tilføjes
-     */
-    public void addOrdrelinje(Ordrelinje ordrelinje){
-        if (!ordrelinjer.contains(ordrelinje)){
-            ordrelinjer.add(ordrelinje);
-            ordrelinje.setSalg(this);
-        }
-    }
 
     /**
      * Fjerner en ordrelinje fra listen over ordrelinjer på salget.
