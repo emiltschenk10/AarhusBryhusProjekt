@@ -44,12 +44,6 @@ class SalgTest {
 //        u1.addOrdrelinje(o3);
 //        ProcentDiscount procentDiscount = new ProcentDiscount("Procent");
 
-        HashMap<Produkt,Integer> map = new HashMap<>();
-        map.put(p1, 500);
-
-        for(Produkt produkt : map.keySet()){
-            produkt.getNavn();
-            map.get(produkt);
 
         }
 
@@ -57,6 +51,3 @@ class SalgTest {
 
 
     }
-
-
-}

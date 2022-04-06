@@ -12,7 +12,7 @@ public class Kunde {
 
     private ArrayList<Salg> salgArrayList = new ArrayList<>();
 
-    private ArrayList<Udlejning> udlejningArrayList = new ArrayList<Udlejning>();
+    private ArrayList<Udlejning> udlejningArrayList = new ArrayList<>();
 
 
     public Kunde(String navn, int tlfNummer, String email){
@@ -50,6 +50,7 @@ public class Kunde {
     public void removeUdlejning(Udlejning udlejning){
         if (udlejningArrayList.contains(udlejning)){
             udlejningArrayList.remove(udlejning);
+            udlejning.setKunde(null);
         }
     }
 
@@ -62,6 +63,10 @@ public class Kunde {
 
     public ArrayList<Udlejning> getUdlejningArrayList() {
         return new ArrayList<>(udlejningArrayList);
+    }
+
+    public ArrayList<Salg> getSalgArrayList() {
+        return new ArrayList<>(salgArrayList);
     }
 
     public String toString(){

@@ -220,7 +220,7 @@ public class UdlejningsPane extends GridPane {
             }
 
         }
-        txfPantPris.setText("" + udlejning.beregnPris());
+        txfPantPris.setText("" + udlejning.beregnPantPris());
         txfRestPris.setText(""+udlejning.beregnRestPris());
         lvwIndkøbskurv.getItems().setAll(Controller.getOrdrelinjePåUdlejning(udlejning));
         txfAntal.clear();

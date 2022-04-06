@@ -36,7 +36,7 @@ public class Produktgruppe {
         produkter.add(produkt);
         return produkt;
     }
-    public void removePerson(Produkt produkt) {
+    public void removeProdukt(Produkt produkt) {
         if (produkter.contains(produkt)) {
             produkter.remove(produkt);
         }

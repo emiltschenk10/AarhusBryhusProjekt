@@ -33,14 +33,12 @@ public class Controller {
 
     public Salg createSalgUdenParm() {
         Salg salg = new Salg();
-        salg.salgsNr();
         storage.addSalg(salg);
         return salg;
     }
 
     public Salg createSalgMedParm(LocalDate dato, boolean betalt, Prisliste prisliste) {
         Salg salg = new Salg(dato, betalt, prisliste);
-        salg.salgsNr();
         storage.addSalg(salg);
         return salg;
     }
@@ -158,7 +156,7 @@ public class Controller {
     }
 
     public static void beregnPris(Salg salg) {
-        beregnPris(salg);
+        salg.beregnPris();
     }
 
     //Remove Metoder --------------------------------------------------------------------------------

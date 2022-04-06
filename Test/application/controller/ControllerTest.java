@@ -23,8 +23,9 @@ class ControllerTest {
 
     @Test
     void createProduktGruppe() {
+        int size = controller.getProduktGrupper().size();
         Produktgruppe produktgruppe = controller.createProduktGruppe("Fadøl", "Øl");
-        assertEquals(1, storage.getProduktGrupper().size());
+        assertEquals(size + 1, controller.getProduktGrupper().size());
         assertTrue(storage.getProduktGrupper().contains(produktgruppe));
     }
 
@@ -38,8 +39,9 @@ class ControllerTest {
 
     @Test
     void createArrangement() {
+        int size = controller.getArrangementer().size();
         Arrangement arrangement = controller.createArrangement("Rundvisning", "guided tour", 100);
-        assertEquals(1, storage.getArrangementer().size());
+        assertEquals(size + 1, controller.getArrangementer().size());
         assertTrue(storage.getArrangementer().contains(arrangement));
     }
 
@@ -53,9 +55,10 @@ class ControllerTest {
 
     @Test
     void createSalgMedParm() {
+        int size = storage.getSalgs().size();
         Prisliste prisliste = controller.createPrisliste("Fredagsbar");
         Salg salg = controller.createSalgMedParm(LocalDate.now(), true, prisliste);
-        assertEquals(1, storage.getSalgs().size());
+        assertEquals(size + 1, storage.getSalgs().size());
         assertTrue(storage.getSalgs().contains(salg));
     }
 
@@ -200,42 +203,83 @@ class ControllerTest {
 
     @Test
     void addArragementTilPrisliste() {
+        Arrangement arrangement = controller.createArrangement("Rundvisning", "Guided tour", 100);
+        Prisliste prisliste = controller.createPrisliste("Butik");
+        Controller.addArragementTilPrisliste(arrangement, prisliste);
+        assertEquals(arrangement, prisliste.getArragementer().get(0));
+        assertTrue(prisliste.getArragementer().contains(arrangement));
+        assertTrue(storage.getArrangementer().contains(arrangement));
     }
 
     @Test
     void addOrdrelinjeTilSalg() {
+        //Skal måske fjernes da den ikke bruges
+
     }
 
     @Test
     void setKundePåSalg() {
+        Salg salg = controller.createSalgUdenParm();
+        Kunde k = controller.createKunde("Hans", 21231231, "Hans.p@gmail.com");
+        Controller.setKundePåSalg(k, salg);
+        assertEquals(k, salg.getKunde());
+        assertEquals(salg, k.getSalgArrayList().get(0));
+        assertTrue(k.getSalgArrayList().contains(salg));
     }
 
     @Test
     void setBetalingsformPåSalg() {
+        Salg salg = controller.createSalgUdenParm();
+        Betalingsform betalingsform = controller.createBetalingsform("Euro", "Udenlandsk valuta");
+        Controller.setBetalingsformPåSalg(betalingsform, salg);
+        assertEquals(betalingsform, salg.getBetalingsform());
     }
 
     @Test
     void setSalgSomBetalt() {
+        Prisliste prisliste = controller.createPrisliste("Fredagsbar");
+        Salg salg = controller.createSalgMedParm(LocalDate.now(), false, prisliste);
+        Controller.setSalgSomBetalt(salg, true);
+        assertTrue(salg.isBetalt());
     }
 
     @Test
     void setUdlejningSomBetalt() {
+        Kunde k = controller.createKunde("Hans", 213213323, "asd@gmail.com");
+        Prisliste p = controller.createPrisliste("Fredagsbar");
+        Udlejning udlejning = controller.createUdlejning(LocalDate.now(), LocalDate.now().minusDays(2), k, p);
+        Controller.setUdlejningSomBetalt(udlejning, true);
+        assertTrue(udlejning.isBetalt());
     }
 
     @Test
     void setUdlejningSomUdestående() {
+        Udlejning udlejning = new Udlejning();
+        Controller.setUdlejningSomUdestående(udlejning, true);
+        assertTrue(udlejning.isUdestående());
+        Controller.setUdlejningSomUdestående(udlejning, false);
+        assertFalse(udlejning.isUdestående());
     }
 
     @Test
     void setSalgsDato() {
+        Salg salg = controller.createSalgUdenParm();
+        Controller.setSalgsDato(salg, LocalDate.now());
+        assertEquals(LocalDate.now(), salg.getDato());
     }
 
     @Test
     void setAfleveringsDato() {
+        Udlejning udlejning = controller.createUdlejningUdenParm();
+        Controller.setAfleveringsDato(udlejning, LocalDate.now());
+        assertEquals(LocalDate.now(), udlejning.getAfleveringsDato());
     }
 
     @Test
     void setUdleveringsDato() {
+        Udlejning udlejning = controller.createUdlejningUdenParm();
+        Controller.setUdleveringsDato(udlejning, LocalDate.now());
+        assertEquals(LocalDate.now(), udlejning.getUdleveringsDato());
     }
 
     @Test
