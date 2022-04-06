@@ -47,14 +47,18 @@ public class Ordrelinje {
     }
 
     public double getPris(){
-
+        double result = 0;
         if(udlejning!=null){
-            return produkt.getPant()*antal;
+            result = produkt.getPant()*antal;
         }else if (discount!= null) {
-            return (discount.getDiscount(pris)+produkt.getPant()) * antal;
+            result = (discount.getDiscount(pris)+produkt.getPant()) * antal;
+            if(discount.getDiscount(pris)==0){
+                result = 0;
+            }
         }else{
-            return (pris+produkt.getPant())*antal;
+            result = (pris+produkt.getPant())*antal;
         }
+        return result;
     }
 
     public double beregnUdlejningsPris(){

@@ -56,6 +56,13 @@ class OrdrelinjeTest {
         procentDiscount.setProcent(50);
         ordrelinje.setDiscount(procentDiscount);
         assertEquals(42,ordrelinje.getPris());
+        AftaltDiscount aftaltDiscount = new AftaltDiscount("Aftalt");
+        aftaltDiscount.setPris(10);
+        ordrelinje.setDiscount(aftaltDiscount);
+        assertEquals(22,ordrelinje.getPris());
+        KlipDiscount klipDiscount = new KlipDiscount("Snip snip");
+        ordrelinje.setDiscount(klipDiscount);
+        assertEquals(0,ordrelinje.getPris());
 
     }
 
