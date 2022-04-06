@@ -170,6 +170,11 @@ class SalgTest {
 
     @Test
     void beregnPris() {
+        Salg salg = new Salg(LocalDate.now(),false,fredagsbar);
+        salg.createOrdrelinje(p1,1);
+        salg.createOrdrelinje(p2,1);
+        salg.createOrdrelinje(p3,1);
+        assertEquals(884,salg.beregnPris());
 
     }
 
