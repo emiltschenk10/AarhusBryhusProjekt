@@ -309,6 +309,15 @@ class ControllerTest {
 
     @Test
     void salgForProduktogProduktgruppe() {
+        Salg salg = controller.createSalgUdenParm();
+        Produktgruppe produktgruppe = controller.createProduktGruppe("Aftensmad","Det mad");
+        Produkt produkt = Controller.createProdukt("Mad","Det mad",2,2,produktgruppe);
+        Prisliste prisliste = new Prisliste("Mad");
+        prisliste.addProdukt(produkt,100);
+        Controller.setPrislistePåSalg(salg,prisliste);
+        Ordrelinje ordrelinje = Controller.createOrdrelinjeSalg(produkt,2,salg);
+
+        assertEquals(1,controller.salgForProduktogProduktgruppe(produktgruppe,produkt,salg.getDato(),null));
     }
 
     @Test
