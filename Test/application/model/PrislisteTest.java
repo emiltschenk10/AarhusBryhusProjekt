@@ -3,6 +3,7 @@ package application.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -59,7 +60,7 @@ class PrislisteTest {
     @Test
     void addArragement() {
         ArrayList<Arrangement> result = new ArrayList<>();
-        Arrangement arrangement = new Arrangement("Rundvisning", "Guided  tour", 100);
+        Arrangement arrangement = new Arrangement("Rundvisning", "Guided  tour", 100, LocalDate.now());
         result.add(arrangement);
         prisliste.addArragement(arrangement);
         assertEquals(result, prisliste.getArragementer());

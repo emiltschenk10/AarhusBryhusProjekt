@@ -1,5 +1,7 @@
 package application.model;
 
+import java.time.LocalDate;
+
 public class Arrangement {
 
     private String navn;
@@ -8,10 +10,13 @@ public class Arrangement {
 
     private double pris;
 
-    public Arrangement(String navn, String beskrivelse, double pris){
+    private LocalDate date;
+
+    public Arrangement(String navn, String beskrivelse, double pris, LocalDate date){
         this.navn = navn;
         this.beskrivelse = beskrivelse;
         this.pris = pris;
+        this.date = date;
     }
 
     public String getNavn() {
@@ -22,12 +27,16 @@ public class Arrangement {
         return pris;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
     public String getBeskrivelse() {
         return beskrivelse;
     }
 
     @Override
-    public String toString() {
-        return navn;
+    public String stringBuilder() {
+        return "Navn: " + navn + "\n" + "Beskrivelse:  " + beskrivelse + " \n" +  "Pris: " + pris;
     }
 }

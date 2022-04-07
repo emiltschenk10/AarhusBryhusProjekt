@@ -6,18 +6,26 @@ import application.model.Udlejning;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.VPos;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.skin.DatePickerSkin;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.util.Callback;
+
+import java.time.LocalDate;
+import java.time.MonthDay;
+import java.util.Calendar;
 
 public class ArrangementPane extends GridPane {
 
     private final ListView<Arrangement> lvwArrangementer;
     private final TextField txfnavn, txfbeskrivelse, txfPris;
-    private Udlejning udlejning;
-    private RadioButton r1, r2, r3;
     private Controller controller = new Controller();
-    private DatePicker datePickerAfleveringsDato, datePickerUdleveringsDato;
-    private Button btnGem, btnOpretProdukt;
+    private TextArea arrangementer = new TextArea();
+    private  DatePicker datePicker;
 
 
     public ArrangementPane() {
@@ -38,15 +46,26 @@ public class ArrangementPane extends GridPane {
         lvwArrangementer.getItems().setAll(controller.getArrangementer());
 
 
-
-
         Button btnFjern = new Button("Fjern");
-        this.add(btnFjern, 3, 4);
+        this.add(btnFjern, 3, 8);
         GridPane.setHalignment(btnFjern, HPos.LEFT);
         btnFjern.setOnAction(event -> this.fjernAction());
 
+        arrangementer = new TextArea();
+        this.add(arrangementer,5,2);
+        GridPane.setValignment(arrangementer, VPos.TOP);
+        arrangementer.setMaxWidth(300);
+        arrangementer.setEditable(false);
+        for (Arrangement a:controller.getArrangementer()) {
+            if (LocalDate.now().equals(a.getDate())){
+                arrangementer.setText(a.toString());
+            }
+        }
 
 
+
+        Label lblArragementerr = new Label("Vælg dato for at se arragementer");
+        this.add(lblArragementerr,4,1);
 
         Label lblOpretProduktgruppe = new Label("Opret et nyt arrangement:");
         this.add(lblOpretProduktgruppe, 0, 8);
@@ -78,7 +97,28 @@ public class ArrangementPane extends GridPane {
         btnOpretProduktGruppe.setOnAction(event -> opretArrangementAction());
 
 
+        datePicker = new DatePicker(LocalDate.now());
+        this.add(datePicker,4,2);
+        GridPane.setValignment(datePicker, VPos.BOTTOM);
+        datePicker.setDayCellFactory(dayCellFactory);
+        datePicker.setOnAction(event -> visArrangementerForDag());
     }
+
+    final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+        public DateCell call(final DatePicker datePicker) {
+            return new DateCell() {
+                @Override public void updateItem(LocalDate item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    for (Arrangement a: controller.getArrangementer()) {
+                        if (LocalDate.from(item).equals(a.getDate())) {
+                        setStyle("-fx-background-color:#38ee00;");
+                        }
+                    }
+                }
+            };
+        }
+    };
 
     public void fjernAction(){
         Arrangement arrangement = lvwArrangementer.getSelectionModel().getSelectedItem();
@@ -93,13 +133,24 @@ public class ArrangementPane extends GridPane {
         String navn = txfnavn.getText();
         String beskrivelse = txfbeskrivelse.getText();
         double pris = Double.parseDouble(txfPris.getText());
-        controller.createArrangement(navn, beskrivelse, pris);
+        LocalDate date = LocalDate.now();
+        controller.createArrangement(navn, beskrivelse, pris, date);
         lvwArrangementer.getItems().setAll(controller.getArrangementer());
       //  controller1.createProduktGruppe(navn, beskrivelse);
      //   lvwArrangementer.getItems().setAll(controller1.getProduktGrupper());
         txfnavn.clear();
         txfbeskrivelse.clear();
         txfPris.clear();
+    }
+
+    public void visArrangementerForDag() {
+        for (Arrangement a : controller.getArrangementer()) {
+            if (datePicker.getValue().equals(a.getDate())) {
+                arrangementer.setText(a.toString());
+            } else {
+                arrangementer.setText("Ingen arragementer denne dag");
+            }
+        }
     }
 }
 

@@ -27,12 +27,12 @@ public class Controller {
         return prisliste;
     }
 
-    public Arrangement createArrangement(String navn, String beskrivelse, double pris) {
+    public Arrangement createArrangement(String navn, String beskrivelse, double pris, LocalDate date) {
 
         if (pris < 0) {
             throw new IllegalArgumentException("Pris må ikke være mindre end 0");
         } else {
-            Arrangement arrangement = new Arrangement(navn, beskrivelse, pris);
+            Arrangement arrangement = new Arrangement(navn, beskrivelse, pris, date);
             storage.addArrangement(arrangement);
             return arrangement;
         }
@@ -421,7 +421,11 @@ public class Controller {
         Controller.addProduktTilPrisliste(p3, 575, pr3);
         Controller.addProduktTilPrisliste(p4, 650, pr1);
 
-        controller.createArrangement("Lols", "Nice", 100);
+        controller.createArrangement("Lols", "Nice", 100, LocalDate.now());
+
+        controller.createArrangement("Rundvisning", "Nice", 100, LocalDate.now().plusDays(5));
+
+        controller.createArrangement("Pizza og film", "Gratis", 0, LocalDate.now().plusDays(5));
 //        Controller.addProduktTilPrisliste(p3, 575, pr2);
 
 

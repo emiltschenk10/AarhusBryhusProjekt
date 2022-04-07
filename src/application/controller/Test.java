@@ -15,7 +15,7 @@ public class Test {
         Produkt p1 = Controller.createProdukt("Klosterbryg","Bajer",1,0, produktgruppe);
         Produkt p2 = Controller.createProdukt("Klosterbryg","Pant",2,1, produktgruppe1);
         Produkt p3 = Controller.createProdukt("Klosterbryg","asdasd",0, 200, produktgruppe2);
-        Arrangement a1 = controller.createArrangement("Fredagsbar","En fredagsbar", 0);
+        Arrangement a1 = controller.createArrangement("Fredagsbar","En fredagsbar", 0, LocalDate.now());
         Prisliste pr1 = controller.createPrisliste("Fredagsbar");
         Prisliste pr2 = controller.createPrisliste("Butik");
         Controller.addArragementTilPrisliste(a1,pr1);
