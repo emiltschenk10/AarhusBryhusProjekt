@@ -64,6 +64,7 @@ public class ArrangementPane extends GridPane {
 
 
 
+
         Label lblArragementerr = new Label("Vælg dato for at se arragementer");
         this.add(lblArragementerr,4,1);
 
@@ -146,7 +147,7 @@ public class ArrangementPane extends GridPane {
     public void visArrangementerForDag() {
         for (Arrangement a : controller.getArrangementer()) {
             if (datePicker.getValue().equals(a.getDate())) {
-                arrangementer.setText(a.toString());
+                arrangementer.setText(controller.arragementerForDag(a.getDate()).toString());
             } else {
                 arrangementer.setText("Ingen arragementer denne dag");
             }

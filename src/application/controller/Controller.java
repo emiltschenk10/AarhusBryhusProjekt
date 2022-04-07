@@ -399,6 +399,15 @@ public class Controller {
         return salg;
     }
 
+    public StringBuilder arragementerForDag(LocalDate date) {
+        StringBuilder arrangementer = new StringBuilder();
+        for (Arrangement a : storage.getArrangementer()) {
+            if(a.getDate().equals(date))
+            arrangementer.append(a);
+            }
+        return arrangementer;
+        }
+
 
     private static void initStorage() {
         Controller controller = new Controller();
@@ -421,7 +430,7 @@ public class Controller {
         Controller.addProduktTilPrisliste(p3, 575, pr3);
         Controller.addProduktTilPrisliste(p4, 650, pr1);
 
-        controller.createArrangement("Lols", "Nice", 100, LocalDate.now());
+        controller.createArrangement("Lols", "Nice", 100, LocalDate.of(2022,4,7));
 
         controller.createArrangement("Rundvisning", "Nice", 100, LocalDate.now().plusDays(5));
 

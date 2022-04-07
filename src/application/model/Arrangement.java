@@ -28,7 +28,7 @@ public class Arrangement {
     }
 
     public LocalDate getDate() {
-        return date;
+        return this.date;
     }
 
     public String getBeskrivelse() {
@@ -36,7 +36,7 @@ public class Arrangement {
     }
 
     @Override
-    public String stringBuilder() {
-        return "Navn: " + navn + "\n" + "Beskrivelse:  " + beskrivelse + " \n" +  "Pris: " + pris;
+    public String toString() {
+        return "Navn: " + navn + "\n" + "Beskrivelse:  " + beskrivelse + " \n" +  "Pris: " + pris + "\n" + "\n";
     }
 }

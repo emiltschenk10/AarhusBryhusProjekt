@@ -211,8 +211,8 @@ class SalgTest {
     @Test
     void salgSituation() {
         Salg salg= new Salg(LocalDate.now(), false, fredagsbar);
-        Arrangement arrangement = new Arrangement("Rundvisning", "Tour", 100);
-        Arrangement arrangement2 = new Arrangement("Fredagsbar", "Bar", 50);
+        Arrangement arrangement = new Arrangement("Rundvisning", "Tour", 100,LocalDate.now());
+        Arrangement arrangement2 = new Arrangement("Fredagsbar", "Bar", 50,LocalDate.now());
         fredagsbar.addArragement(arrangement);
 
         assertTrue(salg.salgSituation(LocalDate.now(), null));
