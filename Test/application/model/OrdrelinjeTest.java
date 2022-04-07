@@ -10,7 +10,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class OrdrelinjeTest {
 
     private Produkt produkt;
+    private Produkt produkt1;
     private Prisliste prisliste;
+
 
     @BeforeEach
     void setup(){
@@ -20,6 +22,10 @@ class OrdrelinjeTest {
         Prisliste prisliste = new Prisliste("Øl prisliste");
         prisliste.addProdukt(produkt,40);
         this.prisliste = prisliste;
+        Produktgruppe produktgruppe1 = new Produktgruppe("Fustage","Meget øl");
+        Produkt produkt1 = produktgruppe1.createProdukt("Pilsner","",0,200);
+        prisliste.addProdukt(produkt1,500);
+        this.produkt1 = produkt1;
     }
 
     @Test
@@ -62,16 +68,24 @@ class OrdrelinjeTest {
         ordrelinje.setDiscount(klipDiscount);
         assertEquals(0,ordrelinje.getPris());
 
+        Udlejning udlejning = new Udlejning(LocalDate.now().plusDays(2),LocalDate.now(),null,prisliste);
+        Ordrelinje ordrelinje1 = udlejning.createOrdrelinje(produkt1,2);
+        assertEquals(400,ordrelinje1.getPris());
+
     }
 
     @Test
     void beregnUdlejningsPris() {
-        Produktgruppe produktgruppe = new Produktgruppe("Fustage","Meget øl");
-        Produkt produkt1 = produktgruppe.createProdukt("Carlsberg","Noice",0,200);
         prisliste.addProdukt(produkt1,565);
         Udlejning udlejning = new Udlejning(LocalDate.now(),LocalDate.now().plusDays(2) ,null ,prisliste);
         Ordrelinje ordrelinje = udlejning.createOrdrelinje(produkt1,2);
         assertEquals(1130,ordrelinje.beregnUdlejningsPris());
+        ProcentDiscount procentDiscount = new ProcentDiscount(50);
+        ordrelinje.setDiscount(procentDiscount);
+        assertEquals(565,ordrelinje.beregnUdlejningsPris());
+        AftaltDiscount aftaltDiscount = new AftaltDiscount(500);
+        ordrelinje.setDiscount(aftaltDiscount);
+        assertEquals(1000,ordrelinje.beregnUdlejningsPris());
 
 
     }
