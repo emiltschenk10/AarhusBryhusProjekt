@@ -40,7 +40,7 @@ class ControllerTest {
     @Test
     void createArrangement() {
         int size = controller.getArrangementer().size();
-        Arrangement arrangement = controller.createArrangement("Rundvisning", "guided tour", 100);
+        Arrangement arrangement = controller.createArrangement("Rundvisning", "guided tour", 100, LocalDate.now());
         assertEquals(size + 1, controller.getArrangementer().size());
         assertTrue(storage.getArrangementer().contains(arrangement));
     }
@@ -203,7 +203,7 @@ class ControllerTest {
 
     @Test
     void addArragementTilPrisliste() {
-        Arrangement arrangement = controller.createArrangement("Rundvisning", "Guided tour", 100);
+        Arrangement arrangement = controller.createArrangement("Rundvisning", "Guided tour", 100, LocalDate.now());
         Prisliste prisliste = controller.createPrisliste("Butik");
         Controller.addArragementTilPrisliste(arrangement, prisliste);
         assertEquals(arrangement, prisliste.getArragementer().get(0));
