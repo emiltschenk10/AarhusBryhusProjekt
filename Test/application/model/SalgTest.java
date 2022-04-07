@@ -32,13 +32,6 @@ class SalgTest {
         fredagsbar.addProdukt(p3,575);
         kunde = new Kunde("Kim",123456,"Vimmersvej 54");
 
-//        Ordrelinje o1 = new Ordrelinje(p1,4,fredagsbar.getProduktpriser().get(p1));
-//        Ordrelinje o2 = new Ordrelinje(p2,3,fredagsbar.getProduktpriser().get(p2));
-//        Ordrelinje o3 = new Ordrelinje(p3,1,fredagsbar.getProduktpriser().get(p3));
-//        s1.addOrdrelinje(o1);
-//        s1.addOrdrelinje(o2);
-//        u1.addOrdrelinje(o3);
-//        ProcentDiscount procentDiscount = new ProcentDiscount("Procent");
     }
 
     @Test
@@ -86,6 +79,8 @@ class SalgTest {
 
     @Test
     void getSalgsNr() {
+        Salg salg = new Salg();
+        assertEquals(3, salg.getSalgsNr());
     }
 
     @Test
@@ -93,6 +88,7 @@ class SalgTest {
         Salg salg = new Salg();
         salg.setKunde(kunde);
         assertEquals(kunde, salg.getKunde());
+        assertTrue(kunde.getSalgArrayList().contains(salg));
     }
 
     @Test
@@ -210,5 +206,19 @@ class SalgTest {
 
         assertEquals(expected.toString(), salg.salgsInfoDag().toString());
 
+    }
+
+    @Test
+    void salgSituation() {
+        Salg salg= new Salg(LocalDate.now(), false, fredagsbar);
+        Arrangement arrangement = new Arrangement("Rundvisning", "Tour", 100);
+        Arrangement arrangement2 = new Arrangement("Fredagsbar", "Bar", 50);
+        fredagsbar.addArragement(arrangement);
+
+        assertTrue(salg.salgSituation(LocalDate.now(), null));
+
+
+        assertTrue(salg.salgSituation(LocalDate.now(), arrangement));
+        assertFalse(salg.salgSituation(LocalDate.now(), arrangement2));
     }
 }
