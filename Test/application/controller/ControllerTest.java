@@ -317,7 +317,7 @@ class ControllerTest {
         prisliste.addProdukt(produkt,100);
         Controller.setPrislistePåSalg(salg,prisliste);
         Ordrelinje ordrelinje = Controller.createOrdrelinjeSalg(produkt,2,salg);
-        Arrangement arrangement = controller.createArrangement("Fredagsbar", "Bar", 50);
+        Arrangement arrangement = controller.createArrangement("Fredagsbar", "Bar", 50, LocalDate.now());
         Controller.addArragementTilPrisliste(arrangement, prisliste);
 
         assertTrue(salg.getPrisliste().getArragementer().contains(arrangement));
