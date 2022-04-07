@@ -21,9 +21,8 @@ public class App {
         Ordrelinje o2 = s1.createOrdrelinje(p2,3);
         Ordrelinje o3 = u1.createOrdrelinje(p3,1);
 
-        ProcentDiscount procentDiscount = new ProcentDiscount("Procent");
+        ProcentDiscount procentDiscount = new ProcentDiscount(0.5);
 
-        procentDiscount.setProcent(0.5);
         o1.setDiscount(procentDiscount);
         System.out.println(s1.beregnPris());
         System.out.println(o1.getPris());

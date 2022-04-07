@@ -210,13 +210,11 @@ public class UdlejningsPane extends GridPane {
 
         if(chkRabat.isSelected() && rabat.getSelectedToggle() != null){
             if(rabat.getSelectedToggle()==r1 && !txfRabat.getText().equals("")){
-                ProcentDiscount discount = new ProcentDiscount("");
-                discount.setProcent(Double.parseDouble(txfRabat.getText()));
-                ordrelinje.setDiscount(discount);
+                ProcentDiscount discount = controller.createProcentDiscount(Double.parseDouble(txfRabat.getText()));
+                Controller.setDiscount(ordrelinje,discount);
             }else if (rabat.getSelectedToggle()==r2 && !txfRabat.getText().equals("")){
-                AftaltDiscount discount = new AftaltDiscount("");
-                discount.setPris(Double.parseDouble(txfRabat.getText()));
-                ordrelinje.setDiscount(discount);
+                AftaltDiscount discount = controller.createAftaltDiscount(Double.parseDouble(txfRabat.getText()));
+                Controller.setDiscount(ordrelinje,discount);
             }
 
         }

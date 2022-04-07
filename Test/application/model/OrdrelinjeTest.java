@@ -42,7 +42,7 @@ class OrdrelinjeTest {
     @Test
     void setDiscount() {
         Ordrelinje ordrelinje = new Ordrelinje(produkt,2,30);
-        ProcentDiscount procentDiscount = new ProcentDiscount("Wuuuh");
+        ProcentDiscount procentDiscount = new ProcentDiscount(30);
         ordrelinje.setDiscount(procentDiscount);
         assertEquals(procentDiscount,ordrelinje.getDiscount());
     }
@@ -51,16 +51,14 @@ class OrdrelinjeTest {
     void getPris() {
         Salg salg = new Salg(LocalDate.now(),true,prisliste);
         Ordrelinje ordrelinje = salg.createOrdrelinje(produkt,2);
-        ProcentDiscount procentDiscount = new ProcentDiscount("Disc");
+        ProcentDiscount procentDiscount = new ProcentDiscount(50);
         assertEquals(82,ordrelinje.getPris());
-        procentDiscount.setProcent(50);
         ordrelinje.setDiscount(procentDiscount);
         assertEquals(42,ordrelinje.getPris());
-        AftaltDiscount aftaltDiscount = new AftaltDiscount("Aftalt");
-        aftaltDiscount.setPris(10);
+        AftaltDiscount aftaltDiscount = new AftaltDiscount(10);
         ordrelinje.setDiscount(aftaltDiscount);
         assertEquals(22,ordrelinje.getPris());
-        KlipDiscount klipDiscount = new KlipDiscount("Snip snip");
+        KlipDiscount klipDiscount = new KlipDiscount();
         ordrelinje.setDiscount(klipDiscount);
         assertEquals(0,ordrelinje.getPris());
 

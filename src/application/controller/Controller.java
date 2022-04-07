@@ -68,9 +68,20 @@ public class Controller {
         storage.addKunde(kunde);
         return kunde;
     }
-
     public static void setKundePåUdlejning(Kunde kunde, Udlejning udlejning) {
         udlejning.setKunde(kunde);
+    }
+
+    public ProcentDiscount createProcentDiscount(double procent){
+        return new ProcentDiscount(procent);
+    }
+
+    public AftaltDiscount createAftaltDiscount(double pris){
+        return new AftaltDiscount(pris);
+    }
+
+    public KlipDiscount createKlipDiscount(){
+        return new KlipDiscount();
     }
 
 
@@ -176,7 +187,7 @@ public class Controller {
         }
     }
 
-    public void setDiscount(Ordrelinje ordrelinje, Discount discount) {
+    public static void setDiscount(Ordrelinje ordrelinje, Discount discount) {
         ordrelinje.setDiscount(discount);
     }
 
