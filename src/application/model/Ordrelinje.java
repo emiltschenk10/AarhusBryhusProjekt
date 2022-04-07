@@ -70,6 +70,13 @@ public class Ordrelinje {
         }
     }
 
+    public boolean produktOgProduktGruppe(Produkt produkt, Produktgruppe produktgruppe){
+        if(produkt == getProdukt() && produktgruppe == getProdukt().getProduktgruppe()){
+            return true;
+        } else
+            return false;
+    }
+
     public String toString(){
         return antal + " " + produkt + " " + getPris();
     }

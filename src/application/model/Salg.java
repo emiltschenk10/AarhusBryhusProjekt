@@ -204,6 +204,19 @@ public class Salg {
         return ordrelinje;
     }
 
+
+
+    public boolean salgSituation(LocalDate date, Arrangement arrangement) {
+        boolean b = false;
+        if (date.equals(getDato())) {
+            if (getPrisliste().getArragementer().contains(arrangement) || arrangement == null) {
+                b = true;
+            }
+        }
+       return b;
+    }
+
+
     /**
      * Returnerer informationer om salget.
      *

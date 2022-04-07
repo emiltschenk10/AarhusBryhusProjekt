@@ -29,9 +29,9 @@ public class Controller {
 
     public Arrangement createArrangement(String navn, String beskrivelse, double pris) {
 
-        if (pris <0){
+        if (pris < 0) {
             throw new IllegalArgumentException("Pris må ikke være mindre end 0");
-        }else {
+        } else {
             Arrangement arrangement = new Arrangement(navn, beskrivelse, pris);
             storage.addArrangement(arrangement);
             return arrangement;
@@ -52,10 +52,10 @@ public class Controller {
     }
 
     public Udlejning createUdlejning(LocalDate afleveringsdato, LocalDate udlejningdato, Kunde kunde, Prisliste prisliste) {
-            Udlejning udlejning = new Udlejning(afleveringsdato, udlejningdato, kunde, prisliste);
-            storage.addUdlejning(udlejning);
-            return udlejning;
-        }
+        Udlejning udlejning = new Udlejning(afleveringsdato, udlejningdato, kunde, prisliste);
+        storage.addUdlejning(udlejning);
+        return udlejning;
+    }
 
     public Udlejning createUdlejningUdenParm() {
         Udlejning udlejning = new Udlejning();
@@ -84,32 +84,32 @@ public class Controller {
         udlejning.setBetalingsform(betalingsform);
     }
 
-    public static void setPrislistePåUdlejning(Udlejning udlejning, Prisliste prisliste){
+    public static void setPrislistePåUdlejning(Udlejning udlejning, Prisliste prisliste) {
         udlejning.setPrisliste(prisliste);
     }
 
     public static Produkt createProdukt(String navn, String beskrivelse, int klipPris, double pant, Produktgruppe produktgruppe) {
-        if(klipPris <0 || pant <0){
+        if (klipPris < 0 || pant < 0) {
             throw new IllegalArgumentException("Klipris og pant må ikke værem indre end 0");
-        }else {
+        } else {
             Produkt produkt = produktgruppe.createProdukt(navn, beskrivelse, klipPris, pant);
             return produkt;
         }
     }
 
     public static Ordrelinje createOrdrelinjeSalg(Produkt produkt, int antal, Salg salg) {
-        if(antal <1){
+        if (antal < 1) {
             throw new IllegalArgumentException("Antal må ikke være mindre end 1");
-        }else{
+        } else {
             Ordrelinje ordrelinje = salg.createOrdrelinje(produkt, antal);
             return ordrelinje;
         }
     }
 
     public static Ordrelinje createOrdrelinjeUdlejning(Produkt produkt, int antal, Udlejning udlejning) {
-        if(antal <1){
+        if (antal < 1) {
             throw new IllegalArgumentException("Antal må ikke være mindre end 1");
-        }else{
+        } else {
             Ordrelinje ordrelinje = udlejning.createOrdrelinje(produkt, antal);
             return ordrelinje;
         }
@@ -122,9 +122,9 @@ public class Controller {
 
     //Metoder til prisliste
     public static void addProduktTilPrisliste(Produkt produkt, double pris, Prisliste prisliste) {
-        if(pris <1){
+        if (pris < 1) {
             throw new IllegalArgumentException("Pris må ikke være mindre end 1");
-        }else {
+        } else {
             prisliste.addProdukt(produkt, pris);
         }
     }
@@ -138,7 +138,7 @@ public class Controller {
         salg.setKunde(kunde);
     }
 
-    public static void setPrislistePåSalg(Salg salg, Prisliste prisliste){
+    public static void setPrislistePåSalg(Salg salg, Prisliste prisliste) {
         salg.setPrisliste(prisliste);
     }
 
@@ -146,15 +146,15 @@ public class Controller {
         salg.setBetalingsform(betalingsform);
     }
 
-    public static void setSalgSomBetalt(Salg salg,Boolean betalt){
+    public static void setSalgSomBetalt(Salg salg, Boolean betalt) {
         salg.setBetalt(betalt);
     }
 
-    public static void setUdlejningSomBetalt(Udlejning udlejning,Boolean betalt){
+    public static void setUdlejningSomBetalt(Udlejning udlejning, Boolean betalt) {
         udlejning.setBetalt(betalt);
     }
 
-    public static void setUdlejningSomUdestående(Udlejning udlejning, Boolean udestående){
+    public static void setUdlejningSomUdestående(Udlejning udlejning, Boolean udestående) {
         udlejning.setUdestående(udestående);
     }
 
@@ -163,19 +163,18 @@ public class Controller {
     }
 
     public static void setAfleveringsDato(Udlejning udlejning, LocalDate date) {
-            udlejning.setAfleveringsDato(date);
+        udlejning.setAfleveringsDato(date);
     }
 
     public static void setUdleveringsDato(Udlejning udlejning, LocalDate date) {
-        if (date.isAfter(udlejning.getAfleveringsDato()))
-        {
+        if (date.isAfter(udlejning.getAfleveringsDato())) {
             throw new DateTimeException("Udleveringsdato skal være før afleveringsdato");
         }
         udlejning.setUdleveringsDato(date);
     }
 
-    public void setDiscount(Ordrelinje ordrelinje, Discount discount){
-    ordrelinje.setDiscount(discount);
+    public void setDiscount(Ordrelinje ordrelinje, Discount discount) {
+        ordrelinje.setDiscount(discount);
     }
 
     public ArrayList<Arrangement> getArrangementer() {
@@ -188,12 +187,12 @@ public class Controller {
 
     //Remove Metoder
 
-    public void removeSalg(Salg salg){
+    public void removeSalg(Salg salg) {
         salg.setBetalingsform(null);
         salg.setKunde(null);
         salg.setPrisliste(null);
         storage.removeSalg(salg);
-        for(Ordrelinje ordrelinje : salg.getOrdrelinjer()){
+        for (Ordrelinje ordrelinje : salg.getOrdrelinjer()) {
             salg.removeOrdrelinje(ordrelinje);
         }
     }
@@ -209,7 +208,7 @@ public class Controller {
         }
     }
 
-    public void removeArrangement(Arrangement arrangement){
+    public void removeArrangement(Arrangement arrangement) {
         storage.removeArrangement(arrangement);
     }
 
@@ -236,12 +235,12 @@ public class Controller {
         return produktgruppe.getProdukter();
     }
 
-    public StringBuilder getAlleSalg(){
+    public StringBuilder getAlleSalg() {
         StringBuilder salg = new StringBuilder();
-        for (Salg s: storage.getSalgs()) {
+        for (Salg s : storage.getSalgs()) {
             salg.append(s.toString()).append("\n");
         }
-        return  salg;
+        return salg;
     }
 
     public ArrayList<Salg> getAktuelleSalg() {
@@ -300,24 +299,15 @@ public class Controller {
         return totalIndtjening;
     }
 
+
     public int salgForProduktogProduktgruppe(Produktgruppe produktgruppe, Produkt produkt, LocalDate dato, Arrangement arrangement) {
         int totalSolgte = 0;
 
         for (Salg s : storage.getSalgs()) {
-            if (dato.equals(s.getDato())) {
-                if (s.getPrisliste().getArragementer().contains(arrangement) || arrangement == null) {
-                    for (Produktgruppe p : storage.getProduktGrupper()) {
-                        if (p == produktgruppe) {
-                            for (Produkt pp : produktgruppe.getProdukter()) {
-                                if (pp == produkt) {
-                                    for (Ordrelinje o : s.getOrdrelinjer()) {
-                                        if(produkt == o.getProdukt()){
-                                            totalSolgte += o.getAntal();
-                                        }
-                                    }
-                                }
-                            }
-                        }
+            if (s.salgSituation(dato,arrangement)) {
+                for (Ordrelinje o : s.getOrdrelinjer()) {
+                    if (o.produktOgProduktGruppe(produkt, produktgruppe)) {
+                        totalSolgte += o.getAntal();
                     }
                 }
             }
@@ -325,32 +315,17 @@ public class Controller {
         return totalSolgte;
     }
 
-    /**public Map<Udlejning, Integer> antalIkkeAfleveredeProdukterPrUdlejning() {
-        int totalMangel;
-        HashMap<Udlejning, Integer> map = new HashMap<>();
-        for (Udlejning u : storage.getUdlejnings()) {
-            totalMangel = 0;
-            if (u.isUdestående()) {
-                for (Ordrelinje o : u.getOrdrelinjer()) {
-                    totalMangel += o.getAntal();
-                    map.put(u, totalMangel);
-                }
-            }
-        }
-        return map;
-    }**/
-
-    public StringBuilder getUdeståendeProdukterPåUdlejning(Udlejning udlejning){
+    public StringBuilder getUdeståendeProdukterPåUdlejning(Udlejning udlejning) {
         StringBuilder sb = new StringBuilder();
-        for (Ordrelinje o : udlejning.getOrdrelinjer()){
-            sb.append(o.getProdukt() + " Antal: " + o.getAntal() +  "\n");
+        for (Ordrelinje o : udlejning.getOrdrelinjer()) {
+            sb.append(o.getProdukt() + " Antal: " + o.getAntal() + "\n");
         }
         return sb;
     }
 
-    public StringBuilder getAlleUdeståendeProdukter(){
+    public StringBuilder getAlleUdeståendeProdukter() {
         StringBuilder sb = new StringBuilder();
-        for (Udlejning u : getAktuelleUdlejninger()){
+        for (Udlejning u : getAktuelleUdlejninger()) {
             sb.append(getUdeståendeProdukterPåUdlejning(u));
         }
         return sb;
@@ -360,13 +335,13 @@ public class Controller {
     public int antalBrugteKlip(LocalDate dato1, LocalDate dato2) {
         int antal = 0;
 
-        if(dato1.isAfter(dato2)){
-            throw  new DateTimeException("dato1 skal være før dato 2");
-        }else{
+        if (dato1.isAfter(dato2)) {
+            throw new DateTimeException("dato1 skal være før dato 2");
+        } else {
             for (Salg s : storage.getSalgs()) {
                 if (s.getDato().isAfter(dato1) || s.getDato().equals(dato1) && s.getDato().isBefore(dato2) || s.getDato().isEqual(dato2)) {
                     if (s.getBetalingsform() != null && s.getBetalingsform().getNavn().equals("Klippekort")) {
-                        for (Ordrelinje o: s.getOrdrelinjer()) {
+                        for (Ordrelinje o : s.getOrdrelinjer()) {
                             antal += o.getProdukt().getKlipPris() * o.getAntal();
                         }
                     }
@@ -380,13 +355,13 @@ public class Controller {
     public int antalSolgteKlip(LocalDate dato1, LocalDate dato2) {
         int antal = 0;
 
-        if(dato1.isAfter(dato2)){
-            throw  new DateTimeException("dato1 skal være før dato 2");
-        }else {
+        if (dato1.isAfter(dato2)) {
+            throw new DateTimeException("dato1 skal være før dato 2");
+        } else {
             for (Salg s : storage.getSalgs()) {
                 if (s.getDato().isAfter(dato1) || s.getDato().equals(dato1) && s.getDato().isBefore(dato2) || s.getDato().isEqual(dato2)) {
-                    for (Ordrelinje o: s.getOrdrelinjer()) {
-                        if (o.getProdukt().getNavn().equals("Klippekort")){
+                    for (Ordrelinje o : s.getOrdrelinjer()) {
+                        if (o.getProdukt().getNavn().equals("Klippekort")) {
                             antal += o.getAntal();
                         }
                     }
@@ -400,17 +375,15 @@ public class Controller {
     }
 
 
-    public StringBuilder salgForDagen(){
+    public StringBuilder salgForDagen() {
         StringBuilder salg = new StringBuilder();
-        for (Salg s: storage.getSalgs()) {
-            if (s.getDato().equals(LocalDate.now())){
+        for (Salg s : storage.getSalgs()) {
+            if (s.getDato().equals(LocalDate.now())) {
                 salg.append(s.salgsInfoDag());
             }
         }
-
         return salg;
     }
-
 
 
     private static void initStorage() {
@@ -418,11 +391,11 @@ public class Controller {
         Produktgruppe produktgruppe = controller.createProduktGruppe("Fadøl", "Bajer");
         Produktgruppe produktgruppe1 = controller.createProduktGruppe("Flaske", "Pant");
         Produktgruppe produktgruppe2 = controller.createProduktGruppe("Fustage", "asdasd");
-        Produktgruppe produktgruppe3 = controller.createProduktGruppe("Gavekort","Det gaver");
+        Produktgruppe produktgruppe3 = controller.createProduktGruppe("Gavekort", "Det gaver");
         Produkt p1 = Controller.createProdukt("Klosterbryg", "Bajer", 1, 0, produktgruppe);
         Produkt p2 = Controller.createProdukt("Klosterbryg", "Pant", 2, 1, produktgruppe1);
         Produkt p3 = Controller.createProdukt("Klosterbryg", "asdasd", 0, 200, produktgruppe2);
-        Produkt p4 = Controller.createProdukt("Klippekort","Nice",0,0,produktgruppe3);
+        Produkt p4 = Controller.createProdukt("Klippekort", "Nice", 0, 0, produktgruppe3);
         Prisliste pr1 = controller.createPrisliste("Fredagsbar");
         Prisliste pr2 = controller.createPrisliste("Butik");
         Prisliste pr3 = controller.createPrisliste("Udlejning");
@@ -432,34 +405,34 @@ public class Controller {
         Controller.addProduktTilPrisliste(p1, 38.0, pr2);
         Controller.addProduktTilPrisliste(p2, 36.0, pr2);
         Controller.addProduktTilPrisliste(p3, 575, pr3);
-        Controller.addProduktTilPrisliste(p4,650,pr1);
+        Controller.addProduktTilPrisliste(p4, 650, pr1);
 
-        controller.createArrangement("Lols","Nice",100);
+        controller.createArrangement("Lols", "Nice", 100);
 //        Controller.addProduktTilPrisliste(p3, 575, pr2);
 
 
         Salg s1 = controller.createSalgMedParm(LocalDate.now(), false, pr1);
         Salg s2 = controller.createSalgMedParm(LocalDate.now(), false, pr1);
-        Salg s3 = controller.createSalgMedParm(LocalDate.of(2022,1,10), false, pr1);
+        Salg s3 = controller.createSalgMedParm(LocalDate.of(2022, 1, 10), false, pr1);
         Salg s4 = controller.createSalgMedParm(LocalDate.now(), false, pr1);
 
 
-        Udlejning u1 = controller.createUdlejning(LocalDate.now().plusDays(5),LocalDate.now(),null,pr1);
+        Udlejning u1 = controller.createUdlejning(LocalDate.now().plusDays(5), LocalDate.now(), null, pr1);
 
         Ordrelinje o1 = Controller.createOrdrelinjeSalg(p2, 2, s1);
         Ordrelinje o2 = Controller.createOrdrelinjeSalg(p1, 2, s2);
         Ordrelinje o3 = Controller.createOrdrelinjeSalg(p1, 2, s3);
-        Ordrelinje o4 = Controller.createOrdrelinjeUdlejning(p1,4, u1);
-        Ordrelinje o5 = Controller.createOrdrelinjeSalg(p4,5, s4);
+        Ordrelinje o4 = Controller.createOrdrelinjeUdlejning(p1, 4, u1);
+        Ordrelinje o5 = Controller.createOrdrelinjeSalg(p4, 5, s4);
 
 
         controller.createKunde("Kvickly", 121312312, "dyrt.dk");
         controller.createKunde("Fakta", 22223333, "BudgetKvickly.dk");
 
-       Betalingsform b1 = controller.createBetalingsform("Mobilepay", "Online");
-       Betalingsform b2 = controller.createBetalingsform("Mastercard", "Creditkort");
-       Betalingsform b3 = controller.createBetalingsform("Bitcoin", "Crypto");
-       Betalingsform b4 = controller.createBetalingsform("Klippekort", "Gavekort");
+        Betalingsform b1 = controller.createBetalingsform("Mobilepay", "Online");
+        Betalingsform b2 = controller.createBetalingsform("Mastercard", "Creditkort");
+        Betalingsform b3 = controller.createBetalingsform("Bitcoin", "Crypto");
+        Betalingsform b4 = controller.createBetalingsform("Klippekort", "Gavekort");
 
         s1.setBetalingsform(b4);
         s2.setBetalingsform(b1);
