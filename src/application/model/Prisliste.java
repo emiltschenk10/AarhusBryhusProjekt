@@ -22,11 +22,11 @@ public class Prisliste {
     }
 
     public HashMap<Produkt, Double> getProduktpriser() {
-        return produktpriser;
+        return new HashMap<>(produktpriser);
     }
 
     public ArrayList<Arrangement> getArragementer() {
-        return arragementer;
+        return new ArrayList<>(arragementer);
     }
 
 

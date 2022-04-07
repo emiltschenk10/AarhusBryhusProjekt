@@ -309,16 +309,21 @@ class ControllerTest {
 
     @Test
     void salgForProduktogProduktgruppe() {
-        Salg salg = controller.createSalgUdenParm();
+
         Produktgruppe produktgruppe = controller.createProduktGruppe("Mad","Det mad");
         Produkt produkt = Controller.createProdukt("Aftensmad","Det mad",2,2,produktgruppe);
         Prisliste prisliste = new Prisliste("Madvarer");
+        Salg salg = controller.createSalgMedParm(LocalDate.now(), false, prisliste);
         prisliste.addProdukt(produkt,100);
         Controller.setPrislistePåSalg(salg,prisliste);
         Ordrelinje ordrelinje = Controller.createOrdrelinjeSalg(produkt,2,salg);
+        Arrangement arrangement = controller.createArrangement("Fredagsbar", "Bar", 50);
+        Controller.addArragementTilPrisliste(arrangement, prisliste);
 
+        assertTrue(salg.getPrisliste().getArragementer().contains(arrangement));
+        assertEquals(2,controller.salgForProduktogProduktgruppe(produktgruppe,produkt,salg.getDato(),arrangement));
+        assertEquals(0,controller.salgForProduktogProduktgruppe(produktgruppe,produkt,LocalDate.of(1100,11,11),arrangement));
         assertEquals(2,controller.salgForProduktogProduktgruppe(produktgruppe,produkt,salg.getDato(),null));
-        assertEquals(0,controller.salgForProduktogProduktgruppe(produktgruppe,produkt,LocalDate.of(1100,11,11),null));
     }
 
     @Test

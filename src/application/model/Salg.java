@@ -208,8 +208,8 @@ public class Salg {
 
     public boolean salgSituation(LocalDate date, Arrangement arrangement) {
         boolean b = false;
-        if (date.equals(getDato())) {
-            if (arrangement == null ||  getPrisliste().getArragementer().contains(arrangement)) {
+        if (date.equals(getDato()) && getPrisliste() != null) {
+            if (arrangement == null ||  this.getPrisliste().getArragementer().contains(arrangement)) {
                 b = true;
             }
         }
