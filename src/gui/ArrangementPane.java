@@ -144,14 +144,31 @@ public class ArrangementPane extends GridPane {
         txfPris.clear();
     }
 
-    public void visArrangementerForDag() {
+   /** public void visArrangementerForDag() {
         for (Arrangement a : controller.getArrangementer()) {
             if (datePicker.getValue().equals(a.getDate())) {
                 arrangementer.setText(controller.arragementerForDag(a.getDate()).toString());
+                break;
             } else {
                 arrangementer.setText("Ingen arragementer denne dag");
             }
         }
+    }**/
+
+    public void visArrangementerForDag(){
+        int i = 0;
+        boolean go = true;
+        String result = "Ingen arragementer denne dag";
+
+        while (go && i < controller.getArrangementer().size()){
+            if(datePicker.getValue().equals(controller.getArrangementer().get(i).getDate())){
+                result = controller.arragementerForDag(controller.getArrangementer().get(i).getDate()).toString();
+                go = false;
+            } else {
+                i++;
+            }
+        }
+        arrangementer.setText(result);
     }
 }
 
