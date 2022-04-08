@@ -50,6 +50,7 @@ public class KundeWindowUdlejning extends Stage {
         pane.setHgap(10);
         pane.setVgap(10);
         pane.setGridLinesVisible(false);
+        Controller controller = Controller.getInstance();
 
         rbNyKunde = new RadioButton("Ny kunde");
         rbNyKunde.setToggleGroup(group);
@@ -88,7 +89,7 @@ public class KundeWindowUdlejning extends Stage {
         udleveringspicker = new DatePicker();
 
         cbxBetalingsform = new ComboBox<>();
-        cbxBetalingsform.getItems().setAll(storage.getBetalingsformer());
+        cbxBetalingsform.getItems().setAll(controller.getBetalingsformer());
 
 
         lblError = new Label();
