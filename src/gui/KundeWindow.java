@@ -105,31 +105,15 @@ public class KundeWindow extends Stage {
         kundeListView.setPrefWidth(200);
         kundeListView.setPrefHeight(200);
 
-//        ChangeListener<Kunde> listener = (ov, gammelKundeliste, nyKundeliste) -> this.selectedKundeHasChanged();
-//        kundeListView.getSelectionModel().selectedItemProperty().addListener(listener);
-//
 
         Button btnOk = new Button("OK");
         pane.add(btnOk,1,4);
         btnOk.setOnAction(event -> btnOkAction());
 
 
-
-//        lblError = new Label();
-//        pane.add(lblError, 0, 5,2,1);
-//        lblError.setStyle("-fx-text-fill: red");
-
         //---------------------------------------------------------------------------------------------
     }
 
-//    public void selectedKundeHasChanged() {
-//        this.updateControls();
-//    }
-
-
-//    public void updateControls(){
-//
-//    }
 
 
     private void showKunderAction(){

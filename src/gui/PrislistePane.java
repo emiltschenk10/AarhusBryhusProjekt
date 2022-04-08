@@ -18,7 +18,6 @@ public class PrislistePane extends GridPane {
     private final ListView<Prisliste> lvwPrislister;
     private final ListView<ProduktListview> lvwProdukter;
     private final TextField txfNavn, txfPris;
-    private RadioButton r1, r2, r3;
     private Controller controller = new Controller();
     private ComboBox<Produkt> tilgængeligeProdukter;
     private Button btnFjern;
@@ -118,7 +117,6 @@ public class PrislistePane extends GridPane {
     }
 
     public void selectedProduktChanged(){
-        ProduktListview produktListview = lvwProdukter.getSelectionModel().getSelectedItem();
         btnFjern.setDisable(false);
     }
 
