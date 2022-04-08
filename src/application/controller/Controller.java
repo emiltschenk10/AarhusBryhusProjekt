@@ -31,13 +31,16 @@ public class Controller {
 
         if (pris < 0) {
             throw new IllegalArgumentException("Pris må ikke være mindre end 0");
-        } else {
-            Arrangement arrangement = new Arrangement(navn, beskrivelse, pris, date);
-            storage.addArrangement(arrangement);
-            return arrangement;
+        } else if(date.isBefore(LocalDate.now())) {
+        throw new IllegalArgumentException("Dato skal være idag eller senere");
+        }else {
+
+                Arrangement arrangement = new Arrangement(navn, beskrivelse, pris, date);
+                storage.addArrangement(arrangement);
+                return arrangement;
+            }
         }
 
-    }
 
     public Salg createSalgUdenParm() {
         Salg salg = new Salg();

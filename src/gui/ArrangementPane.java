@@ -105,7 +105,7 @@ public class ArrangementPane extends GridPane {
         datePicker.setOnAction(event -> visArrangementerForDag());
     }
 
-    final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+    final Callback<DatePicker, DateCell> dayCellFactory = new Callback<>() {
         public DateCell call(final DatePicker datePicker) {
             return new DateCell() {
                 @Override public void updateItem(LocalDate item, boolean empty) {
