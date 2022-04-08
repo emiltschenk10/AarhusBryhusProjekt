@@ -17,10 +17,6 @@ public class SortimentPane extends GridPane {
     private final ListView<Produktgruppe> lvwProduktGrupper;
     private final ListView<Produkt> lvwProdukter;
     private final TextField txfNavn, txfBeskrivelse, txfKlipPris, txfPant, txfPGnavn, txfPGbeskrivelse;
-    private Udlejning udlejning;
-    private RadioButton r1, r2, r3;
-    private Controller controller;
-    private DatePicker datePickerAfleveringsDato, datePickerUdleveringsDato;
     private Button btnGem, btnOpretProdukt;
 
 

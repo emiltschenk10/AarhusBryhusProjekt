@@ -2,29 +2,21 @@ package gui;
 
 import application.controller.Controller;
 import application.model.Arrangement;
-import application.model.Udlejning;
-import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.skin.DatePickerSkin;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 
 import java.time.LocalDate;
-import java.time.MonthDay;
-import java.util.Calendar;
 
 public class ArrangementPane extends GridPane {
 
     private final ListView<Arrangement> lvwArrangementer;
     private final TextField txfnavn, txfbeskrivelse, txfPris;
     private Controller controller = new Controller();
-    private TextArea arrangementer = new TextArea();
+    private TextArea arrangementer;
     private  DatePicker datePicker;
 
 
@@ -137,8 +129,6 @@ public class ArrangementPane extends GridPane {
         LocalDate date = LocalDate.now();
         controller.createArrangement(navn, beskrivelse, pris, date);
         lvwArrangementer.getItems().setAll(controller.getArrangementer());
-      //  controller1.createProduktGruppe(navn, beskrivelse);
-     //   lvwArrangementer.getItems().setAll(controller1.getProduktGrupper());
         txfnavn.clear();
         txfbeskrivelse.clear();
         txfPris.clear();

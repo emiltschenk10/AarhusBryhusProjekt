@@ -23,7 +23,6 @@ public class UdlejningsPane extends GridPane {
     private RadioButton r1,r2;
     private Controller controller = new Controller();
     private Udlejning udlejning;
-    //private Udlejning udlejning;
 
 
     public UdlejningsPane() {
@@ -33,12 +32,6 @@ public class UdlejningsPane extends GridPane {
         this.setGridLinesVisible(false);
         Controller controller = new Controller();
 
-        /*
-        this.udlejning = new Udlejning();
-        Prisliste prisliste = controller.getAllePrislister().get(2);
-
-        udlejning.setPrisliste(prisliste);
-*/
         Prisliste prisliste = controller.getAllePrislister().get(2);
         Label lblPriser = new Label("Udlejningspriser:");
         this.add(lblPriser, 0, 1);
@@ -53,7 +46,6 @@ public class UdlejningsPane extends GridPane {
         }
         lvwPriser.getItems().setAll(produktListviews);
         lvwPriser.setDisable(true);
-        //lvwPriser.getItems().setAll(Controller.getKonferencer());
 
 
 
@@ -133,10 +125,7 @@ public class UdlejningsPane extends GridPane {
         this.add(txfPantPris, 5, 7);
         txfPantPris.setDisable(true);
         txfPantPris.setEditable(false);
-/*
-        ChangeListener<Prisliste> listener1 = (ov, gammelPrisListe, nyPrisListe) -> this.selectedPrislisteChanged();
-        prislisteComboBox.getSelectionModel().selectedItemProperty().addListener(listener1);
-*/
+
 
 
         btnTilføjTilKurv = new Button("Tilføj til kurv");
@@ -201,13 +190,9 @@ public class UdlejningsPane extends GridPane {
     }
 
     public void tilføjTilKurvAction(){
-        //TODO
-
         Produkt produkt = lvwPriser.getSelectionModel().getSelectedItem().getProdukt();
         int antal = Integer.parseInt(txfAntal.getText().trim());
-        double pris = lvwPriser.getSelectionModel().getSelectedItem().getPris();
         Ordrelinje ordrelinje = Controller.createOrdrelinjeUdlejning(produkt, antal, udlejning);
-
         if(chkRabat.isSelected() && rabat.getSelectedToggle() != null){
             if(rabat.getSelectedToggle()==r1 && !txfRabat.getText().equals("")){
                 ProcentDiscount discount = controller.createProcentDiscount(Double.parseDouble(txfRabat.getText()));
@@ -228,7 +213,6 @@ public class UdlejningsPane extends GridPane {
         rabat.selectToggle(null);
         txfRabat.setDisable(true);
         lvwPriser.getSelectionModel().clearSelection();
-       // txfSamletPris.setText(""+salg.beregnPris());
     }
 
     public void købBtnAction(){

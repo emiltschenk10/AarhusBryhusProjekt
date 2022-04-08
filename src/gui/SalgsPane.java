@@ -35,7 +35,6 @@ public class SalgsPane extends GridPane {
 
         prislisteComboBox = new ComboBox<>();
         this.add(prislisteComboBox, 0, 0);
-//        prislisteComboBox.setOnMouseClicked(event -> this.visPrisliste());
         prislisteComboBox.getItems().setAll(controller.getAllePrislister());
 
         Label lblPriser = new Label("Priser:");
@@ -45,7 +44,6 @@ public class SalgsPane extends GridPane {
         this.add(lvwPriser, 0, 2, 1, 5);
         lvwPriser.setPrefWidth(200);
         lvwPriser.setPrefHeight(200);
-        //lvwPriser.getItems().setAll(Controller.getKonferencer());
 
 
         Label lblAntal = new Label("Antal:");
@@ -150,8 +148,6 @@ public class SalgsPane extends GridPane {
         btnOpretSalg.setOnAction(event -> this.opretSalgAction());
         btnOpretSalg.setDisable(true);
 
-        // if (lvwUdflugter.getItems().size() > 0) {
-        //   lvwUdflugter.getSelectionModel().select(0);
     }
 
 
@@ -191,8 +187,6 @@ public class SalgsPane extends GridPane {
 
     public void updateControls() {
         Prisliste prisliste = prislisteComboBox.getSelectionModel().getSelectedItem();
-        //TODO der kommer en nulpointer når man skal skifte prisliste
-        //lvwPriser.getItems().setAll(prisliste.getProduktpriser());
         ArrayList<ProduktListview> produktListviews = new ArrayList<>();
         for (Produkt produkt : prisliste.getProduktpriser().keySet()) {
             produktListviews.add(new ProduktListview(produkt,prisliste.getProduktpriser().get(produkt)));
@@ -215,11 +209,9 @@ public class SalgsPane extends GridPane {
     }
 
     public void tilføjTilKurvAction(){
-        //TODO
         Controller controller = new Controller();
         Produkt produkt = lvwPriser.getSelectionModel().getSelectedItem().getProdukt();
         int antal = Integer.parseInt(txfAntal.getText().trim());
-        double pris = lvwPriser.getSelectionModel().getSelectedItem().getPris();
         Ordrelinje ordrelinje = Controller.createOrdrelinjeSalg(produkt,antal, salg);
         if(chkRabat.isSelected() && rabat.getSelectedToggle() != null){
             if(rabat.getSelectedToggle()==r1 && !txfRabat.getText().equals("")){

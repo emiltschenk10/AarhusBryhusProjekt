@@ -3,7 +3,6 @@ package gui;
 import application.controller.Controller;
 import application.model.Betalingsform;
 import application.model.Kunde;
-import application.model.Salg;
 import application.model.Udlejning;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -18,7 +17,6 @@ import javafx.stage.StageStyle;
 import storage.Storage;
 
 import java.time.DateTimeException;
-import java.util.zip.DataFormatException;
 
 public class KundeWindowUdlejning extends Stage {
 
@@ -112,9 +110,6 @@ public class KundeWindowUdlejning extends Stage {
         kundeListView.setPrefWidth(200);
         kundeListView.setPrefHeight(200);
 
-//        ChangeListener<Kunde> listener = (ov, gammelKundeliste, nyKundeliste) -> this.selectedKundeHasChanged();
-//        kundeListView.getSelectionModel().selectedItemProperty().addListener(listener);
-//
 
         Button btnOk = new Button("OK");
         pane.add(btnOk,1,4);
@@ -130,14 +125,6 @@ public class KundeWindowUdlejning extends Stage {
         //---------------------------------------------------------------------------------------------
     }
 
-//    public void selectedKundeHasChanged() {
-//        this.updateControls();
-//    }
-
-
-//    public void updateControls(){
-//
-//    }
 
     private void cancelAction(){this.hide();}
 
