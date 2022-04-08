@@ -143,16 +143,7 @@ public class ArrangementPane extends GridPane {
         visArrangementerForDag();
     }
 
-   /** public void visArrangementerForDag() {
-        for (Arrangement a : controller.getArrangementer()) {
-            if (datePicker.getValue().equals(a.getDate())) {
-                arrangementer.setText(controller.arragementerForDag(a.getDate()).toString());
-                break;
-            } else {
-                arrangementer.setText("Ingen arragementer denne dag");
-            }
-        }
-    }**/
+
 
     public void visArrangementerForDag(){
         int i = 0;
