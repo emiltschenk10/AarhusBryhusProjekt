@@ -2,6 +2,7 @@ package application.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class Prisliste {
     private String navn;
@@ -11,7 +12,6 @@ public class Prisliste {
     private ArrayList<Arrangement> arragementer = new ArrayList<Arrangement>();
 
     private HashMap<Produkt, Double> produktpriser = new HashMap<>();
-
 
     public Prisliste(String navn) {
         this.navn = navn;
