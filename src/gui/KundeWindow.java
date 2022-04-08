@@ -19,6 +19,7 @@ import java.time.LocalDate;
 
 public class KundeWindow extends Stage {
 
+    private Controller controller = Controller.getInstance();
     public KundeWindow(String title, Salg salg){
         this.initStyle(StageStyle.UTILITY);
         this.initModality(Modality.APPLICATION_MODAL);
@@ -89,7 +90,7 @@ public class KundeWindow extends Stage {
         afhentPicker = new DatePicker();
 
         cbxBetalingsform = new ComboBox<>();
-        cbxBetalingsform.getItems().setAll(storage.getBetalingsformer());
+        cbxBetalingsform.getItems().setAll(controller.getBetalingsformer());
 
 
         VBox vBox = new VBox(lblName,lblAdresse,lblTlfNr,lblAfhentning);
@@ -145,7 +146,6 @@ public class KundeWindow extends Stage {
 
     private void btnOkAction(){
         //TODO Vi skal have lavet en setKunde i controller til salg
-        Controller controller = Controller.getInstance();
         if(rbNyKunde.isSelected()){
             Kunde kunde = controller.createKunde(txfName.getText(),Integer.parseInt(txfTlfNr.getText()),txfAdresse.getText());
             controller.setSalgsDato(salg,afhentPicker.getValue());

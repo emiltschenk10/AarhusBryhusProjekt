@@ -228,7 +228,6 @@ public class Controller {
 
 
     public void removeUdlejning(Udlejning udlejning) {
-
         storage.removeUdlejning(udlejning);
         if (udlejning.getOrdrelinjer() != null) {
             for (Ordrelinje o : udlejning.getOrdrelinjer()) {
@@ -258,6 +257,9 @@ public class Controller {
 
     public ArrayList<Produktgruppe> getProduktGrupper() {
         return storage.getProduktGrupper();
+    }
+    public ArrayList<Betalingsform> getBetalingsformer(){
+        return storage.getBetalingsformer();
     }
 
     public ArrayList<Produkt> getProduktGruppensProdukter(Produktgruppe produktgruppe) {
