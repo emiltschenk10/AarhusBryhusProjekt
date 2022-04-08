@@ -18,6 +18,8 @@ public class ArrangementPane extends GridPane {
     private Controller controller = new Controller();
     private TextArea arrangementer;
     private  DatePicker datePicker;
+    private TextArea arrangementer;
+    private  DatePicker datePicker, nytArrangementDato;
 
 
     public ArrangementPane() {
@@ -39,8 +41,9 @@ public class ArrangementPane extends GridPane {
 
 
         Button btnFjern = new Button("Fjern");
-        this.add(btnFjern, 3, 8);
+        this.add(btnFjern, 3, 2);
         GridPane.setHalignment(btnFjern, HPos.LEFT);
+        GridPane.setValignment(btnFjern, VPos.BOTTOM);
         btnFjern.setOnAction(event -> this.fjernAction());
 
         arrangementer = new TextArea();
@@ -84,15 +87,21 @@ public class ArrangementPane extends GridPane {
         txfPris = new TextField();
         this.add(txfPris, 0, 14);
 
+        Label lblDato = new Label("Dato:");
+        this.add(lblDato, 0, 15);
+
+        nytArrangementDato = new DatePicker(LocalDate.now());
+        this.add(nytArrangementDato, 0, 16);
+
         Button btnOpretProduktGruppe = new Button("Opret Arrangement");
-        this.add(btnOpretProduktGruppe, 0, 15);
+        this.add(btnOpretProduktGruppe, 0, 17);
         GridPane.setHalignment(btnOpretProduktGruppe, HPos.LEFT);
         btnOpretProduktGruppe.setOnAction(event -> opretArrangementAction());
 
 
         datePicker = new DatePicker(LocalDate.now());
         this.add(datePicker,4,2);
-        GridPane.setValignment(datePicker, VPos.BOTTOM);
+        GridPane.setValignment(datePicker, VPos.TOP);
         datePicker.setDayCellFactory(dayCellFactory);
         datePicker.setOnAction(event -> visArrangementerForDag());
     }
@@ -118,6 +127,7 @@ public class ArrangementPane extends GridPane {
         if (arrangement != null) {
             controller.removeArrangement(arrangement);
             lvwArrangementer.getItems().setAll(controller.getArrangementer());
+            visArrangementerForDag();
         }
     }
 
@@ -126,12 +136,13 @@ public class ArrangementPane extends GridPane {
         String navn = txfnavn.getText();
         String beskrivelse = txfbeskrivelse.getText();
         double pris = Double.parseDouble(txfPris.getText());
-        LocalDate date = LocalDate.now();
+        LocalDate date = nytArrangementDato.getValue();
         controller.createArrangement(navn, beskrivelse, pris, date);
         lvwArrangementer.getItems().setAll(controller.getArrangementer());
         txfnavn.clear();
         txfbeskrivelse.clear();
         txfPris.clear();
+        visArrangementerForDag();
     }
 
    /** public void visArrangementerForDag() {
