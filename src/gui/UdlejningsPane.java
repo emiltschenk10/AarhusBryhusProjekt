@@ -142,7 +142,7 @@ public class UdlejningsPane extends GridPane {
         btnKøb.setOnAction(event ->købBtnAction());
         btnKøb.setDisable(true);
 
-        btnCancel = new Button("Cancel");
+        btnCancel = new Button("Afbryd udlejning");
         btnCancel.setDisable(true);
         btnCancel.setOnAction(event -> this.cancelAction());
 
