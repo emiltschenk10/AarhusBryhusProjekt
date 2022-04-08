@@ -32,14 +32,14 @@ public class StatistikPane extends GridPane {
 
     private Label lblDagsIntjeneste, lblProduktgruppe, lblProdukt, lblArragement, lblDato, lblAntalProdukterSolgt, lblKlipDate1,lblKlipDate2,lblKlipDate3;
 
-    private Controller controller = new Controller();
+    private Controller controller = Controller.getInstance();
 
     public StatistikPane() {
         this.setPadding(new Insets(20));
         this.setHgap(10);
         this.setVgap(10);
         this.setGridLinesVisible(false);
-        Controller controller = new Controller();
+        Controller controller = Controller.getInstance();
 
 
         datePickerSalgForDag = new DatePicker();

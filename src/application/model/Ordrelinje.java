@@ -1,6 +1,8 @@
 package application.model;
 
-public class Ordrelinje {
+import java.io.Serializable;
+
+public class Ordrelinje implements Serializable {
     private Produkt produkt;
     private int antal;
     private double pris;

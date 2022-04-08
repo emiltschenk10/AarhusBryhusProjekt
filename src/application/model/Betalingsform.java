@@ -1,6 +1,8 @@
 package application.model;
 
-public class Betalingsform {
+import java.io.Serializable;
+
+public class Betalingsform implements Serializable {
     private String navn;
     private String type;
 

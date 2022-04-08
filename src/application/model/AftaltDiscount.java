@@ -1,6 +1,8 @@
 package application.model;
 
-public class AftaltDiscount implements Discount{
+import java.io.Serializable;
+
+public class AftaltDiscount implements Discount, Serializable {
 
     private double pris;
 

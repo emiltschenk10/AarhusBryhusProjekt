@@ -21,7 +21,7 @@ public class RedigerPane extends GridPane {
     private TextArea txaUdestående;
     private int salgNr;
     private int udlejningsNr;
-    private Controller controller = new Controller();
+    private Controller controller = Controller.getInstance();
 
 
     public RedigerPane() {
@@ -29,7 +29,7 @@ public class RedigerPane extends GridPane {
         this.setHgap(15);
         this.setVgap(10);
         this.setGridLinesVisible(false);
-        Controller controller = new Controller();
+        Controller controller = Controller.getInstance();
 
 
         Label lblSalg = new Label("Salg:");
@@ -182,8 +182,8 @@ public class RedigerPane extends GridPane {
     public void btnGemAction(){
         Salg salg = salgListView.getSelectionModel().getSelectedItem();
         if(salg.getSalgsNr() ==salgNr){
-            Controller.setSalgsDato(salg,datePicker.getValue());
-            Controller.setSalgSomBetalt(salg, chxSalgBetalt.isSelected());
+            controller.setSalgsDato(salg,datePicker.getValue());
+            controller.setSalgSomBetalt(salg, chxSalgBetalt.isSelected());
         }
         datePicker.setDisable(true);
         btnGem.setDisable(true);
@@ -210,11 +210,11 @@ public class RedigerPane extends GridPane {
     public void btnGem2Action(){
         Udlejning udlejning = udlejningListView.getSelectionModel().getSelectedItem();
         if(udlejningsNr == udlejning.getUdlejningsNr()){
-            Controller.setUdleveringsDato(udlejning,udleveringsDatePick.getValue());
-            Controller.setAfleveringsDato(udlejning,afleveringsDatePick.getValue());
+            controller.setUdleveringsDato(udlejning,udleveringsDatePick.getValue());
+            controller.setAfleveringsDato(udlejning,afleveringsDatePick.getValue());
 
-            Controller.setUdlejningSomBetalt(udlejning,chxUdlejBetalt.isSelected());
-            Controller.setUdlejningSomUdestående(udlejning,chxUdestående.isSelected());
+            controller.setUdlejningSomBetalt(udlejning,chxUdlejBetalt.isSelected());
+            controller.setUdlejningSomUdestående(udlejning,chxUdestående.isSelected());
         }
         udleveringsDatePick.setDisable(true);
         afleveringsDatePick.setDisable(true);

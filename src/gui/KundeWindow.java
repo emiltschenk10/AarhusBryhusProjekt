@@ -145,21 +145,21 @@ public class KundeWindow extends Stage {
 
     private void btnOkAction(){
         //TODO Vi skal have lavet en setKunde i controller til salg
-        Controller controller = new Controller();
+        Controller controller = Controller.getInstance();
         if(rbNyKunde.isSelected()){
             Kunde kunde = controller.createKunde(txfName.getText(),Integer.parseInt(txfTlfNr.getText()),txfAdresse.getText());
-            Controller.setSalgsDato(salg,afhentPicker.getValue());
-            Controller.setKundePåSalg(kunde,salg);
-            Controller.setBetalingsformPåSalg(cbxBetalingsform.getSelectionModel().getSelectedItem(),salg);
+            controller.setSalgsDato(salg,afhentPicker.getValue());
+            controller.setKundePåSalg(kunde,salg);
+            controller.setBetalingsformPåSalg(cbxBetalingsform.getSelectionModel().getSelectedItem(),salg);
         }else if(rbTidligereKunde.isSelected() && kundeListView.getSelectionModel().getSelectedItem()!=null){
-            Controller.setKundePåSalg(kundeListView.getSelectionModel().getSelectedItem(),salg);
-            Controller.setSalgsDato(salg,afhentPicker.getValue());
-            Controller.setBetalingsformPåSalg(cbxBetalingsform.getSelectionModel().getSelectedItem(),salg);
+            controller.setKundePåSalg(kundeListView.getSelectionModel().getSelectedItem(),salg);
+            controller.setSalgsDato(salg,afhentPicker.getValue());
+            controller.setBetalingsformPåSalg(cbxBetalingsform.getSelectionModel().getSelectedItem(),salg);
         }else{
-            Controller.setKundePåSalg(null,salg);
-            Controller.setSalgsDato(salg, LocalDate.now());
-            Controller.setBetalingsformPåSalg(cbxBetalingsform.getSelectionModel().getSelectedItem(), salg);
-            Controller.setSalgSomBetalt(salg,true);
+            controller.setKundePåSalg(null,salg);
+            controller.setSalgsDato(salg, LocalDate.now());
+            controller.setBetalingsformPåSalg(cbxBetalingsform.getSelectionModel().getSelectedItem(), salg);
+            controller.setSalgSomBetalt(salg,true);
         }
         this.hide();
     }

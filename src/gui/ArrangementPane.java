@@ -15,7 +15,7 @@ public class ArrangementPane extends GridPane {
 
     private final ListView<Arrangement> lvwArrangementer;
     private final TextField txfnavn, txfbeskrivelse, txfPris;
-    private Controller controller = new Controller();
+    private Controller controller = Controller.getInstance();
     private TextArea arrangementer;
     private  DatePicker datePicker, nytArrangementDato;
 
@@ -25,7 +25,7 @@ public class ArrangementPane extends GridPane {
         this.setHgap(15);
         this.setVgap(10);
         this.setGridLinesVisible(false);
-        Controller controller = new Controller();
+        Controller controller = Controller.getInstance();
 
 
         Label lblArrangementer = new Label("Arrangementer:");

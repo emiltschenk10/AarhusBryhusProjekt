@@ -21,7 +21,7 @@ public class UdlejningsPane extends GridPane {
     private final ToggleGroup rabat;
     private final Button btnKøb, btnCancel, btnTilføjTilKurv, btnOpretUdlejning;
     private RadioButton r1,r2;
-    private Controller controller = new Controller();
+    private Controller controller = Controller.getInstance();
     private Udlejning udlejning;
 
 
@@ -30,7 +30,7 @@ public class UdlejningsPane extends GridPane {
         this.setHgap(10);
         this.setVgap(10);
         this.setGridLinesVisible(false);
-        Controller controller = new Controller();
+        Controller controller = Controller.getInstance();
 
         Prisliste prisliste = controller.getAllePrislister().get(2);
         Label lblPriser = new Label("Udlejningspriser:");
@@ -192,20 +192,20 @@ public class UdlejningsPane extends GridPane {
     public void tilføjTilKurvAction(){
         Produkt produkt = lvwPriser.getSelectionModel().getSelectedItem().getProdukt();
         int antal = Integer.parseInt(txfAntal.getText().trim());
-        Ordrelinje ordrelinje = Controller.createOrdrelinjeUdlejning(produkt, antal, udlejning);
+        Ordrelinje ordrelinje = controller.createOrdrelinjeUdlejning(produkt, antal, udlejning);
         if(chkRabat.isSelected() && rabat.getSelectedToggle() != null){
             if(rabat.getSelectedToggle()==r1 && !txfRabat.getText().equals("")){
                 ProcentDiscount discount = controller.createProcentDiscount(Double.parseDouble(txfRabat.getText()));
-                Controller.setDiscount(ordrelinje,discount);
+                controller.setDiscount(ordrelinje,discount);
             }else if (rabat.getSelectedToggle()==r2 && !txfRabat.getText().equals("")){
                 AftaltDiscount discount = controller.createAftaltDiscount(Double.parseDouble(txfRabat.getText()));
-                Controller.setDiscount(ordrelinje,discount);
+                controller.setDiscount(ordrelinje,discount);
             }
 
         }
         txfPantPris.setText("" + udlejning.beregnPantPris());
         txfRestPris.setText(""+udlejning.beregnRestPris());
-        lvwIndkøbskurv.getItems().setAll(Controller.getOrdrelinjePåUdlejning(udlejning));
+        lvwIndkøbskurv.getItems().setAll(controller.getOrdrelinjePåUdlejning(udlejning));
         txfAntal.clear();
         txfRabat.clear();
         chkRabat.setSelected(false);

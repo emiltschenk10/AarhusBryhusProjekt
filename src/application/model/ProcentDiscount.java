@@ -1,6 +1,8 @@
 package application.model;
 
-public class ProcentDiscount implements Discount {
+import java.io.Serializable;
+
+public class ProcentDiscount implements Discount, Serializable {
 
     private double procent;
 

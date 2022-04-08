@@ -2,9 +2,10 @@ package storage;
 
 import application.model.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Storage {
+public class Storage implements Serializable {
 
     private ArrayList<Salg> salgs = new ArrayList<>();
     private ArrayList<Udlejning> udlejninger = new ArrayList<>();
@@ -18,7 +19,7 @@ public class Storage {
     private Storage(){
     }
 
-    public static synchronized Storage getInstance(){
+    public static Storage getInstance(){
         if(uniqueInstance == null){
             uniqueInstance = new Storage();
         }

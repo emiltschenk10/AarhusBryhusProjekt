@@ -1,9 +1,10 @@
 package application.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Udlejning {
+public class Udlejning implements Serializable {
     private LocalDate afleveringsDato;
     private LocalDate udleveringsDato;
     private boolean betalt;
@@ -13,7 +14,7 @@ public class Udlejning {
     private Betalingsform betalingsform;
     private ArrayList<Ordrelinje> ordrelinjes = new ArrayList<>();
     private int udlejningsNr;
-    private  static  int udlejningNext = 0;
+    private transient static  int udlejningNext = 0;
 
 
     public Udlejning(LocalDate afleveringsDato, LocalDate udleveringsDato, Kunde kunde,Prisliste prisliste){

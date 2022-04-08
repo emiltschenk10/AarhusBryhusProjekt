@@ -18,7 +18,7 @@ public class PrislistePane extends GridPane {
     private final ListView<Prisliste> lvwPrislister;
     private final ListView<ProduktListview> lvwProdukter;
     private final TextField txfNavn, txfPris;
-    private Controller controller = new Controller();
+    private Controller controller = Controller.getInstance();
     private ComboBox<Produkt> tilgængeligeProdukter;
     private Button btnFjern;
 
@@ -28,7 +28,7 @@ public class PrislistePane extends GridPane {
         this.setHgap(15);
         this.setVgap(10);
         this.setGridLinesVisible(false);
-        Controller controller = new Controller();
+        Controller controller = Controller.getInstance();
 
 
         Label lblPrislister = new Label("Prislister:");

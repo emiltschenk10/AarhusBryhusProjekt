@@ -25,8 +25,7 @@ public class SortimentPane extends GridPane {
         this.setHgap(15);
         this.setVgap(10);
         this.setGridLinesVisible(false);
-        Controller controller = new Controller();
-
+        Controller controller = Controller.getInstance();
 
         Label lblPriser = new Label("Produkt Grupper:");
         this.add(lblPriser, 0, 1);
@@ -116,7 +115,7 @@ public class SortimentPane extends GridPane {
         lvwProduktGrupper.getSelectionModel().selectedItemProperty().addListener(listener1);
 
     }
-    Controller controller1 = new Controller();
+    Controller controller1 = Controller.getInstance();
     public void selectedProduktGruppeChanged(){
         Produktgruppe produktgruppe = lvwProduktGrupper.getSelectionModel().getSelectedItem();
         if (produktgruppe != null) {
@@ -171,4 +170,5 @@ public class SortimentPane extends GridPane {
         txfPGnavn.clear();
         txfPGbeskrivelse.clear();
     }
+
 }

@@ -1,16 +1,31 @@
 package application.controller;
 
 import application.model.*;
+import setup.StorageInitializer;
 import storage.Storage;
 
+import java.io.*;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class Controller {
 
+    private Storage storage;
+    private static Controller uniqueInstance;
 
-    private Storage storage = Storage.getInstance();
+    private Controller(){
+        storage = Storage.getInstance();
+    }
+
+    public static Controller getInstance(){
+        if(uniqueInstance==null){
+            uniqueInstance = new Controller();
+        }
+        return uniqueInstance;
+    }
+
 
     public Produktgruppe createProduktGruppe(String navn, String beskrivelse) {
         Produktgruppe produktgruppe = new Produktgruppe(navn, beskrivelse);
@@ -68,7 +83,7 @@ public class Controller {
         storage.addKunde(kunde);
         return kunde;
     }
-    public static void setKundePåUdlejning(Kunde kunde, Udlejning udlejning) {
+    public void setKundePåUdlejning(Kunde kunde, Udlejning udlejning) {
         udlejning.setKunde(kunde);
     }
 
@@ -91,15 +106,15 @@ public class Controller {
         return betalingsform;
     }
 
-    public static void setBetalingsformPåUdlejning(Betalingsform betalingsform, Udlejning udlejning) {
+    public void setBetalingsformPåUdlejning(Betalingsform betalingsform, Udlejning udlejning) {
         udlejning.setBetalingsform(betalingsform);
     }
 
-    public static void setPrislistePåUdlejning(Udlejning udlejning, Prisliste prisliste) {
+    public void setPrislistePåUdlejning(Udlejning udlejning, Prisliste prisliste) {
         udlejning.setPrisliste(prisliste);
     }
 
-    public static Produkt createProdukt(String navn, String beskrivelse, int klipPris, double pant, Produktgruppe produktgruppe) {
+    public Produkt createProdukt(String navn, String beskrivelse, int klipPris, double pant, Produktgruppe produktgruppe) {
         if (klipPris < 0 || pant < 0) {
             throw new IllegalArgumentException("Klipris og pant må ikke værem indre end 0");
         } else {
@@ -108,7 +123,7 @@ public class Controller {
         }
     }
 
-    public static Ordrelinje createOrdrelinjeSalg(Produkt produkt, int antal, Salg salg) {
+    public Ordrelinje createOrdrelinjeSalg(Produkt produkt, int antal, Salg salg) {
         if (antal < 1) {
             throw new IllegalArgumentException("Antal må ikke være mindre end 1");
         } else {
@@ -117,7 +132,7 @@ public class Controller {
         }
     }
 
-    public static Ordrelinje createOrdrelinjeUdlejning(Produkt produkt, int antal, Udlejning udlejning) {
+    public Ordrelinje createOrdrelinjeUdlejning(Produkt produkt, int antal, Udlejning udlejning) {
         if (antal < 1) {
             throw new IllegalArgumentException("Antal må ikke være mindre end 1");
         } else {
@@ -127,12 +142,12 @@ public class Controller {
 
     }
 
-    public static ArrayList<Ordrelinje> getOrdrelinjePåUdlejning(Udlejning udlejning) {
+    public ArrayList<Ordrelinje> getOrdrelinjePåUdlejning(Udlejning udlejning) {
         return udlejning.getOrdrelinjer();
     }
 
     //Metoder til prisliste
-    public static void addProduktTilPrisliste(Produkt produkt, double pris, Prisliste prisliste) {
+    public void addProduktTilPrisliste(Produkt produkt, double pris, Prisliste prisliste) {
         if (pris < 1) {
             throw new IllegalArgumentException("Pris må ikke være mindre end 1");
         } else {
@@ -140,44 +155,44 @@ public class Controller {
         }
     }
 
-    public static void addArragementTilPrisliste(Arrangement arrangement, Prisliste prisliste) {
+    public void addArragementTilPrisliste(Arrangement arrangement, Prisliste prisliste) {
         prisliste.addArragement(arrangement);
     }
 
     //Metoder til salg
-    public static void setKundePåSalg(Kunde kunde, Salg salg) {
+    public void setKundePåSalg(Kunde kunde, Salg salg) {
         salg.setKunde(kunde);
     }
 
-    public static void setPrislistePåSalg(Salg salg, Prisliste prisliste) {
+    public void setPrislistePåSalg(Salg salg, Prisliste prisliste) {
         salg.setPrisliste(prisliste);
     }
 
-    public static void setBetalingsformPåSalg(Betalingsform betalingsform, Salg salg) {
+    public void setBetalingsformPåSalg(Betalingsform betalingsform, Salg salg) {
         salg.setBetalingsform(betalingsform);
     }
 
-    public static void setSalgSomBetalt(Salg salg, Boolean betalt) {
+    public void setSalgSomBetalt(Salg salg, Boolean betalt) {
         salg.setBetalt(betalt);
     }
 
-    public static void setUdlejningSomBetalt(Udlejning udlejning, Boolean betalt) {
+    public void setUdlejningSomBetalt(Udlejning udlejning, Boolean betalt) {
         udlejning.setBetalt(betalt);
     }
 
-    public static void setUdlejningSomUdestående(Udlejning udlejning, Boolean udestående) {
+    public void setUdlejningSomUdestående(Udlejning udlejning, Boolean udestående) {
         udlejning.setUdestående(udestående);
     }
 
-    public static void setSalgsDato(Salg salg, LocalDate dato) {
+    public void setSalgsDato(Salg salg, LocalDate dato) {
         salg.setSalgsDato(dato);
     }
 
-    public static void setAfleveringsDato(Udlejning udlejning, LocalDate date) {
+    public void setAfleveringsDato(Udlejning udlejning, LocalDate date) {
         udlejning.setAfleveringsDato(date);
     }
 
-    public static void setUdleveringsDato(Udlejning udlejning, LocalDate date) {
+    public void setUdleveringsDato(Udlejning udlejning, LocalDate date) {
         if (udlejning.getAfleveringsDato() != null && date.isAfter(udlejning.getAfleveringsDato()))
         {
             throw new DateTimeException("Udleveringsdato skal være før afleveringsdato");
@@ -187,7 +202,7 @@ public class Controller {
         }
     }
 
-    public static void setDiscount(Ordrelinje ordrelinje, Discount discount) {
+    public void setDiscount(Ordrelinje ordrelinje, Discount discount) {
         ordrelinje.setDiscount(discount);
     }
 
@@ -195,7 +210,7 @@ public class Controller {
         return storage.getArrangementer();
     }
 
-    public static void beregnPris(Salg salg) {
+    public void beregnPris(Salg salg) {
         salg.beregnPris();
     }
 
@@ -234,7 +249,7 @@ public class Controller {
     }
 
     public ArrayList<Prisliste> getAllePrislister() {
-        return Storage.getInstance().getPrislister();
+        return storage.getPrislister();
     }
 
     public ArrayList<Ordrelinje> getOrdrelinjer(Salg salg) {
@@ -409,68 +424,100 @@ public class Controller {
         }
 
 
-    private static void initStorage() {
-        Controller controller = new Controller();
-        Produktgruppe produktgruppe = controller.createProduktGruppe("Fadøl", "Bajer");
-        Produktgruppe produktgruppe1 = controller.createProduktGruppe("Flaske", "Pant");
-        Produktgruppe produktgruppe2 = controller.createProduktGruppe("Fustage", "asdasd");
-        Produktgruppe produktgruppe3 = controller.createProduktGruppe("Gavekort", "Det gaver");
-        Produkt p1 = Controller.createProdukt("Klosterbryg", "Bajer", 1, 0, produktgruppe);
-        Produkt p2 = Controller.createProdukt("Klosterbryg", "Pant", 2, 1, produktgruppe1);
-        Produkt p3 = Controller.createProdukt("Klosterbryg", "asdasd", 0, 200, produktgruppe2);
-        Produkt p4 = Controller.createProdukt("Klippekort", "Nice", 0, 0, produktgruppe3);
-        Prisliste pr1 = controller.createPrisliste("Fredagsbar");
-        Prisliste pr2 = controller.createPrisliste("Butik");
-        Prisliste pr3 = controller.createPrisliste("Udlejning");
-        Controller.addProduktTilPrisliste(p1, 38.0, pr1);
-        Controller.addProduktTilPrisliste(p2, 70.0, pr1);
-        Controller.addProduktTilPrisliste(p3, 575, pr1);
-        Controller.addProduktTilPrisliste(p1, 38.0, pr2);
-        Controller.addProduktTilPrisliste(p2, 36.0, pr2);
-        Controller.addProduktTilPrisliste(p3, 575, pr3);
-        Controller.addProduktTilPrisliste(p4, 650, pr1);
+//    private static void initStorage() {
+//        Controller controller = new Controller();
+//        Produktgruppe produktgruppe = controller.createProduktGruppe("Fadøl", "Bajer");
+//        Produktgruppe produktgruppe1 = controller.createProduktGruppe("Flaske", "Pant");
+//        Produktgruppe produktgruppe2 = controller.createProduktGruppe("Fustage", "asdasd");
+//        Produktgruppe produktgruppe3 = controller.createProduktGruppe("Gavekort", "Det gaver");
+//        Produkt p1 = Controller.createProdukt("Klosterbryg", "Bajer", 1, 0, produktgruppe);
+//        Produkt p2 = Controller.createProdukt("Klosterbryg", "Pant", 2, 1, produktgruppe1);
+//        Produkt p3 = Controller.createProdukt("Klosterbryg", "asdasd", 0, 200, produktgruppe2);
+//        Produkt p4 = Controller.createProdukt("Klippekort", "Nice", 0, 0, produktgruppe3);
+//        Prisliste pr1 = controller.createPrisliste("Fredagsbar");
+//        Prisliste pr2 = controller.createPrisliste("Butik");
+//        Prisliste pr3 = controller.createPrisliste("Udlejning");
+//        Controller.addProduktTilPrisliste(p1, 38.0, pr1);
+//        Controller.addProduktTilPrisliste(p2, 70.0, pr1);
+//        Controller.addProduktTilPrisliste(p3, 575, pr1);
+//        Controller.addProduktTilPrisliste(p1, 38.0, pr2);
+//        Controller.addProduktTilPrisliste(p2, 36.0, pr2);
+//        Controller.addProduktTilPrisliste(p3, 575, pr3);
+//        Controller.addProduktTilPrisliste(p4, 650, pr1);
+//
+//        controller.createArrangement("Lols", "Nice", 100, LocalDate.now());
+//
+//        controller.createArrangement("Rundvisning", "Nice", 100, LocalDate.now().plusDays(5));
+//
+//        controller.createArrangement("Pizza og film", "Gratis", 0, LocalDate.now().plusDays(5));
+////        Controller.addProduktTilPrisliste(p3, 575, pr2);
+//
+//
+//        Salg s1 = controller.createSalgMedParm(LocalDate.now(), false, pr1);
+//        Salg s2 = controller.createSalgMedParm(LocalDate.now(), false, pr1);
+//        Salg s3 = controller.createSalgMedParm(LocalDate.of(2022, 1, 10), false, pr1);
+//        Salg s4 = controller.createSalgMedParm(LocalDate.now(), false, pr1);
+//
+//
+//        Udlejning u1 = controller.createUdlejning(LocalDate.now().plusDays(5), LocalDate.now(), null, pr1);
+//
+//        Ordrelinje o1 = Controller.createOrdrelinjeSalg(p2, 2, s1);
+//        Ordrelinje o2 = Controller.createOrdrelinjeSalg(p1, 2, s2);
+//        Ordrelinje o3 = Controller.createOrdrelinjeSalg(p1, 2, s3);
+//        Ordrelinje o4 = Controller.createOrdrelinjeUdlejning(p1, 4, u1);
+//        Ordrelinje o5 = Controller.createOrdrelinjeSalg(p4, 5, s4);
+//
+//
+//        controller.createKunde("Kvickly", 121312312, "dyrt.dk");
+//        controller.createKunde("Fakta", 22223333, "BudgetKvickly.dk");
+//
+//        Betalingsform b1 = controller.createBetalingsform("Mobilepay", "Online");
+//        Betalingsform b2 = controller.createBetalingsform("Mastercard", "Creditkort");
+//        Betalingsform b3 = controller.createBetalingsform("Bitcoin", "Crypto");
+//        Betalingsform b4 = controller.createBetalingsform("Klippekort", "Gavekort");
+//
+//        s1.setBetalingsform(b4);
+//        s2.setBetalingsform(b1);
+//        s4.setBetalingsform(b2);
+//        controller.saveStorage();
+//    }
 
-        controller.createArrangement("Lols", "Nice", 100, LocalDate.now());
+//    public static void init() {
+//
+//    }
 
-        controller.createArrangement("Rundvisning", "Nice", 100, LocalDate.now().plusDays(5));
+//    Serializable-----------------------------------------------
 
-        controller.createArrangement("Pizza og film", "Gratis", 0, LocalDate.now().plusDays(5));
-//        Controller.addProduktTilPrisliste(p3, 575, pr2);
+    /**
+     * Loads the storage (including all objects in storage).
+     */
 
+    public void loadStorage() {
+        try (FileInputStream fileIn = new FileInputStream("storage.ser")) {
+            try (ObjectInputStream in = new ObjectInputStream(fileIn);) {
+                storage = (Storage) in.readObject();
 
-        Salg s1 = controller.createSalgMedParm(LocalDate.now(), false, pr1);
-        Salg s2 = controller.createSalgMedParm(LocalDate.now(), false, pr1);
-        Salg s3 = controller.createSalgMedParm(LocalDate.of(2022, 1, 10), false, pr1);
-        Salg s4 = controller.createSalgMedParm(LocalDate.now(), false, pr1);
+                System.out.println("Storage loaded from file storage.ser.");
+            } catch (ClassNotFoundException ex) {
+                System.out.println("Error loading storage object.");
+                throw new RuntimeException(ex);
+            }
+        } catch (IOException ex) {
+            System.out.println("Error loading storage object.");
+            throw new RuntimeException(ex);
+        }
 
-
-        Udlejning u1 = controller.createUdlejning(LocalDate.now().plusDays(5), LocalDate.now(), null, pr1);
-
-        Ordrelinje o1 = Controller.createOrdrelinjeSalg(p2, 2, s1);
-        Ordrelinje o2 = Controller.createOrdrelinjeSalg(p1, 2, s2);
-        Ordrelinje o3 = Controller.createOrdrelinjeSalg(p1, 2, s3);
-        Ordrelinje o4 = Controller.createOrdrelinjeUdlejning(p1, 4, u1);
-        Ordrelinje o5 = Controller.createOrdrelinjeSalg(p4, 5, s4);
-
-
-        controller.createKunde("Kvickly", 121312312, "dyrt.dk");
-        controller.createKunde("Fakta", 22223333, "BudgetKvickly.dk");
-
-        Betalingsform b1 = controller.createBetalingsform("Mobilepay", "Online");
-        Betalingsform b2 = controller.createBetalingsform("Mastercard", "Creditkort");
-        Betalingsform b3 = controller.createBetalingsform("Bitcoin", "Crypto");
-        Betalingsform b4 = controller.createBetalingsform("Klippekort", "Gavekort");
-
-        s1.setBetalingsform(b4);
-        s2.setBetalingsform(b1);
-        s4.setBetalingsform(b2);
     }
 
-    public static void init() {
-        initStorage();
-    }
-
-    public static void main(String[] args) {
-
+    public void saveStorage() {
+        try (FileOutputStream fileOut = new FileOutputStream("storage.ser")) {
+            try (ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+                out.writeObject(storage);
+                System.out.println("Storage saved in file storage.ser.");
+            }
+        } catch (IOException ex) {
+            System.out.println("Error saving storage object.");
+            throw new RuntimeException(ex);
+        }
     }
 }

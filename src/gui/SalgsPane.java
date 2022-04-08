@@ -24,7 +24,7 @@ public class SalgsPane extends GridPane {
     private final ToggleGroup rabat;
     private Salg salg;
     private RadioButton r1,r2,r3;
-    private Controller controller = new Controller();
+    private Controller controller = Controller.getInstance();
     private Button btnOpretSalg,btnTilføjTilKurv,btnKøb,btnAfbrydSalg;
 
 
@@ -210,20 +210,20 @@ public class SalgsPane extends GridPane {
     }
 
     public void tilføjTilKurvAction(){
-        Controller controller = new Controller();
+        Controller controller = Controller.getInstance();
         Produkt produkt = lvwPriser.getSelectionModel().getSelectedItem().getProdukt();
         int antal = Integer.parseInt(txfAntal.getText().trim());
-        Ordrelinje ordrelinje = Controller.createOrdrelinjeSalg(produkt,antal, salg);
+        Ordrelinje ordrelinje = controller.createOrdrelinjeSalg(produkt,antal, salg);
         if(chkRabat.isSelected() && rabat.getSelectedToggle() != null){
             if(rabat.getSelectedToggle()==r1 && !txfRabat.getText().equals("")){
                 ProcentDiscount discount = controller.createProcentDiscount(Double.parseDouble(txfRabat.getText()));
-                Controller.setDiscount(ordrelinje,discount);
+                controller.setDiscount(ordrelinje,discount);
             }else if(rabat.getSelectedToggle()==r2 && !txfRabat.getText().equals("")){
                 AftaltDiscount discount = controller.createAftaltDiscount(Double.parseDouble(txfRabat.getText()));
-                Controller.setDiscount(ordrelinje,discount);
+                controller.setDiscount(ordrelinje,discount);
             }else{
                 Discount discount = controller.createKlipDiscount();
-                Controller.setDiscount(ordrelinje,discount);
+                controller.setDiscount(ordrelinje,discount);
             }
         }
         lvwIndkøbskurv.getItems().setAll(controller.getOrdrelinjer(salg));

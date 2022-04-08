@@ -1,5 +1,6 @@
 package application.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Modellerer et salg
  */
-public class Salg {
+public class Salg implements Serializable {
 
     private LocalDate dato;
 
@@ -23,7 +24,7 @@ public class Salg {
 
     private int salgsNr;
 
-    private  static  int salgNext = 0;
+    private transient static  int salgNext = 0;
 
     /**
      * Initialiserer et nyt salg med dato sat til dagens dato og betalt sat til false.

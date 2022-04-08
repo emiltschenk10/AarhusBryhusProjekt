@@ -1,6 +1,8 @@
 package application.model;
 
-public class KlipDiscount implements Discount {
+import java.io.Serializable;
+
+public class KlipDiscount implements Discount, Serializable {
 
 
 

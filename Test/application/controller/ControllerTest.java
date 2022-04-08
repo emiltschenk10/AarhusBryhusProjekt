@@ -17,7 +17,7 @@ class ControllerTest {
 
     @BeforeEach
     void setUp(){
-        this.controller = new Controller();
+        this.controller = Controller.getInstance();
         this.storage = Storage.getInstance();
     }
 
@@ -91,7 +91,7 @@ class ControllerTest {
     void setKundePåUdlejning() {
         Kunde kunde = controller.createKunde("Hanss", 213213213, "adsd@gmail.com");
         Udlejning udlejning = controller.createUdlejningUdenParm();
-        Controller.setKundePåUdlejning(kunde, udlejning);
+        controller.setKundePåUdlejning(kunde, udlejning);
         assertEquals(kunde, udlejning.getKunde());
         assertTrue(kunde.getUdlejningArrayList().contains(udlejning));
     }
@@ -121,7 +121,7 @@ class ControllerTest {
     @Test
     void createProdukt() {
         Produktgruppe produktgruppe = controller.createProduktGruppe("Fadøl", "sadsa");
-        Produkt produkt = Controller.createProdukt("Classic", "asd", 1, 1, produktgruppe);
+        Produkt produkt = controller.createProdukt("Classic", "asd", 1, 1, produktgruppe);
         assertEquals(1, produktgruppe.getProdukter().size());
         assertTrue(produktgruppe.getProdukter().contains(produkt));
     }
@@ -132,11 +132,11 @@ class ControllerTest {
         Salg salg = controller.createSalgMedParm(LocalDate.now(), false, prisliste);
         Salg salg2 = controller.createSalgUdenParm();
         Produktgruppe produktgruppe = controller.createProduktGruppe("Fadøl", "asdsd");
-        Produkt produkt = Controller.createProdukt("Classic", "sdsad", 1, 0, produktgruppe);
-        Controller.addProduktTilPrisliste(produkt, 40, prisliste);
-        Controller.setPrislistePåSalg(salg2, prisliste);
-        Ordrelinje ordrelinje = Controller.createOrdrelinjeSalg(produkt, 5, salg);
-        Ordrelinje ordrelinje2 = Controller.createOrdrelinjeSalg(produkt, 4, salg2);
+        Produkt produkt = controller.createProdukt("Classic", "sdsad", 1, 0, produktgruppe);
+        controller.addProduktTilPrisliste(produkt, 40, prisliste);
+        controller.setPrislistePåSalg(salg2, prisliste);
+        Ordrelinje ordrelinje = controller.createOrdrelinjeSalg(produkt, 5, salg);
+        Ordrelinje ordrelinje2 = controller.createOrdrelinjeSalg(produkt, 4, salg2);
 
         assertEquals(1, controller.getOrdrelinjer(salg).size());
         assertTrue(controller.getOrdrelinjer(salg).contains(ordrelinje));
@@ -153,18 +153,18 @@ class ControllerTest {
         Udlejning udlejning = controller.createUdlejning(LocalDate.now().plusDays(2), LocalDate.now(),kunde ,prisliste);
         Udlejning udlejning2 = controller.createUdlejningUdenParm();
         Produktgruppe produktgruppe = controller.createProduktGruppe("Fustage", "asd");
-        Produkt produkt = Controller.createProdukt("Klosterbryg", "asd", 0, 200, produktgruppe);
-        Controller.addProduktTilPrisliste(produkt, 575, prisliste);
+        Produkt produkt = controller.createProdukt("Klosterbryg", "asd", 0, 200, produktgruppe);
+        controller.addProduktTilPrisliste(produkt, 575, prisliste);
         //TODO LAV setPrislistePåUdlejning() i controller
         udlejning2.setPrisliste(prisliste);
-        Ordrelinje ordrelinje = Controller.createOrdrelinjeUdlejning(produkt, 2, udlejning);
-        Ordrelinje ordrelinje2 = Controller.createOrdrelinjeUdlejning(produkt, 3, udlejning2);
+        Ordrelinje ordrelinje = controller.createOrdrelinjeUdlejning(produkt, 2, udlejning);
+        Ordrelinje ordrelinje2 = controller.createOrdrelinjeUdlejning(produkt, 3, udlejning2);
 
-        assertEquals(1, Controller.getOrdrelinjePåUdlejning(udlejning).size());
-        assertTrue(Controller.getOrdrelinjePåUdlejning(udlejning).contains(ordrelinje));
+        assertEquals(1, controller.getOrdrelinjePåUdlejning(udlejning).size());
+        assertTrue(controller.getOrdrelinjePåUdlejning(udlejning).contains(ordrelinje));
 
-        assertEquals(1, Controller.getOrdrelinjePåUdlejning(udlejning2).size());
-        assertTrue(Controller.getOrdrelinjePåUdlejning(udlejning2).contains(ordrelinje2));
+        assertEquals(1, controller.getOrdrelinjePåUdlejning(udlejning2).size());
+        assertTrue(controller.getOrdrelinjePåUdlejning(udlejning2).contains(ordrelinje2));
 
 
     }
@@ -172,29 +172,29 @@ class ControllerTest {
     @Test
     void getOrdrelinjePåUdlejning() {
         Produktgruppe produktgruppe = controller.createProduktGruppe("Fadøl", "Øl");
-        Produkt produkt = Controller.createProdukt("Klosterbryg", "Lys øl", 1, 0, produktgruppe);
+        Produkt produkt = controller.createProdukt("Klosterbryg", "Lys øl", 1, 0, produktgruppe);
         Prisliste prisliste = controller.createPrisliste("Fredagsbar");
-        Controller.addProduktTilPrisliste(produkt, 38, prisliste);
+        controller.addProduktTilPrisliste(produkt, 38, prisliste);
         Udlejning udlejning = controller.createUdlejningUdenParm();
-        Controller.setPrislistePåUdlejning(udlejning, prisliste);
-        Ordrelinje result = Controller.createOrdrelinjeUdlejning(produkt, 4, udlejning);
-        Ordrelinje result2 = Controller.createOrdrelinjeUdlejning(produkt, 2, udlejning);
+        controller.setPrislistePåUdlejning(udlejning, prisliste);
+        Ordrelinje result = controller.createOrdrelinjeUdlejning(produkt, 4, udlejning);
+        Ordrelinje result2 = controller.createOrdrelinjeUdlejning(produkt, 2, udlejning);
         ArrayList<Ordrelinje> ordrelinjer = new ArrayList<>();
         ordrelinjer.add(result);
         ordrelinjer.add(result2);
 
 
-        assertEquals(ordrelinjer, Controller.getOrdrelinjePåUdlejning(udlejning));
-        assertTrue(Controller.getOrdrelinjePåUdlejning(udlejning).contains(result));
-        assertTrue(Controller.getOrdrelinjePåUdlejning(udlejning).contains(result2));
+        assertEquals(ordrelinjer, controller.getOrdrelinjePåUdlejning(udlejning));
+        assertTrue(controller.getOrdrelinjePåUdlejning(udlejning).contains(result));
+        assertTrue(controller.getOrdrelinjePåUdlejning(udlejning).contains(result2));
     }
 
     @Test
     void addProduktTilPrisliste() {
         Produktgruppe produktgruppe = controller.createProduktGruppe("Fadøl", "Øl");
-        Produkt produkt3 = Controller.createProdukt("Klosterbryg", "Lys øl", 1, 0, produktgruppe);
+        Produkt produkt3 = controller.createProdukt("Klosterbryg", "Lys øl", 1, 0, produktgruppe);
         Prisliste prisliste1 = controller.createPrisliste("Fredagsbar");
-        Controller.addProduktTilPrisliste(produkt3, 38, prisliste1);
+        controller.addProduktTilPrisliste(produkt3, 38, prisliste1);
 
         //assertEquals(1, prisliste1.getProduktpriser().size());
         assertTrue(prisliste1.getProduktpriser().containsKey(produkt3));
@@ -205,7 +205,7 @@ class ControllerTest {
     void addArragementTilPrisliste() {
         Arrangement arrangement = controller.createArrangement("Rundvisning", "Guided tour", 100, LocalDate.now());
         Prisliste prisliste = controller.createPrisliste("Butik");
-        Controller.addArragementTilPrisliste(arrangement, prisliste);
+        controller.addArragementTilPrisliste(arrangement, prisliste);
         assertEquals(arrangement, prisliste.getArragementer().get(0));
         assertTrue(prisliste.getArragementer().contains(arrangement));
         assertTrue(storage.getArrangementer().contains(arrangement));
@@ -221,7 +221,7 @@ class ControllerTest {
     void setKundePåSalg() {
         Salg salg = controller.createSalgUdenParm();
         Kunde k = controller.createKunde("Hans", 21231231, "Hans.p@gmail.com");
-        Controller.setKundePåSalg(k, salg);
+        controller.setKundePåSalg(k, salg);
         assertEquals(k, salg.getKunde());
         assertEquals(salg, k.getSalgArrayList().get(0));
         assertTrue(k.getSalgArrayList().contains(salg));
@@ -231,7 +231,7 @@ class ControllerTest {
     void setBetalingsformPåSalg() {
         Salg salg = controller.createSalgUdenParm();
         Betalingsform betalingsform = controller.createBetalingsform("Euro", "Udenlandsk valuta");
-        Controller.setBetalingsformPåSalg(betalingsform, salg);
+        controller.setBetalingsformPåSalg(betalingsform, salg);
         assertEquals(betalingsform, salg.getBetalingsform());
     }
 
@@ -239,7 +239,7 @@ class ControllerTest {
     void setSalgSomBetalt() {
         Prisliste prisliste = controller.createPrisliste("Fredagsbar");
         Salg salg = controller.createSalgMedParm(LocalDate.now(), false, prisliste);
-        Controller.setSalgSomBetalt(salg, true);
+        controller.setSalgSomBetalt(salg, true);
         assertTrue(salg.isBetalt());
     }
 
@@ -248,37 +248,37 @@ class ControllerTest {
         Kunde k = controller.createKunde("Hans", 213213323, "asd@gmail.com");
         Prisliste p = controller.createPrisliste("Fredagsbar");
         Udlejning udlejning = controller.createUdlejning(LocalDate.now(), LocalDate.now().minusDays(2), k, p);
-        Controller.setUdlejningSomBetalt(udlejning, true);
+        controller.setUdlejningSomBetalt(udlejning, true);
         assertTrue(udlejning.isBetalt());
     }
 
     @Test
     void setUdlejningSomUdestående() {
         Udlejning udlejning = new Udlejning();
-        Controller.setUdlejningSomUdestående(udlejning, true);
+        controller.setUdlejningSomUdestående(udlejning, true);
         assertTrue(udlejning.isUdestående());
-        Controller.setUdlejningSomUdestående(udlejning, false);
+        controller.setUdlejningSomUdestående(udlejning, false);
         assertFalse(udlejning.isUdestående());
     }
 
     @Test
     void setSalgsDato() {
         Salg salg = controller.createSalgUdenParm();
-        Controller.setSalgsDato(salg, LocalDate.now());
+        controller.setSalgsDato(salg, LocalDate.now());
         assertEquals(LocalDate.now(), salg.getDato());
     }
 
     @Test
     void setAfleveringsDato() {
         Udlejning udlejning = controller.createUdlejningUdenParm();
-        Controller.setAfleveringsDato(udlejning, LocalDate.now());
+        controller.setAfleveringsDato(udlejning, LocalDate.now());
         assertEquals(LocalDate.now(), udlejning.getAfleveringsDato());
     }
 
     @Test
     void setUdleveringsDato() {
         Udlejning udlejning = controller.createUdlejningUdenParm();
-        Controller.setUdleveringsDato(udlejning, LocalDate.now());
+        controller.setUdleveringsDato(udlejning, LocalDate.now());
         assertEquals(LocalDate.now(), udlejning.getUdleveringsDato());
     }
 
@@ -311,14 +311,14 @@ class ControllerTest {
     void salgForProduktogProduktgruppe() {
 
         Produktgruppe produktgruppe = controller.createProduktGruppe("Mad","Det mad");
-        Produkt produkt = Controller.createProdukt("Aftensmad","Det mad",2,2,produktgruppe);
+        Produkt produkt = controller.createProdukt("Aftensmad","Det mad",2,2,produktgruppe);
         Prisliste prisliste = new Prisliste("Madvarer");
         Salg salg = controller.createSalgMedParm(LocalDate.now(), false, prisliste);
         prisliste.addProdukt(produkt,100);
-        Controller.setPrislistePåSalg(salg,prisliste);
-        Ordrelinje ordrelinje = Controller.createOrdrelinjeSalg(produkt,2,salg);
+        controller.setPrislistePåSalg(salg,prisliste);
+        Ordrelinje ordrelinje = controller.createOrdrelinjeSalg(produkt,2,salg);
         Arrangement arrangement = controller.createArrangement("Fredagsbar", "Bar", 50, LocalDate.now());
-        Controller.addArragementTilPrisliste(arrangement, prisliste);
+        controller.addArragementTilPrisliste(arrangement, prisliste);
 
         assertTrue(salg.getPrisliste().getArragementer().contains(arrangement));
         assertEquals(2,controller.salgForProduktogProduktgruppe(produktgruppe,produkt,salg.getDato(),arrangement));

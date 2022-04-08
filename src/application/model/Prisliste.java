@@ -1,9 +1,10 @@
 package application.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Prisliste {
+public class Prisliste implements Serializable {
     private String navn;
 
 

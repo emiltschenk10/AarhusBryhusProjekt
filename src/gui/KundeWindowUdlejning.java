@@ -147,20 +147,20 @@ public class KundeWindowUdlejning extends Stage {
 
     private void btnOkAction(){
         //TODO Vi skal have lavet en setKunde i controller til salg
-        Controller controller = new Controller();
+        Controller controller = Controller.getInstance();
         try {
 
             if (rbNyKunde.isSelected()) {
                 Kunde kunde = controller.createKunde(txfName.getText(), Integer.parseInt(txfTlfNr.getText()), txfAdresse.getText());
-                Controller.setAfleveringsDato(udlejning, afleveringsPicker.getValue());
-                Controller.setUdleveringsDato(udlejning, udleveringspicker.getValue());
-                Controller.setKundePåUdlejning(kunde, udlejning);
-                Controller.setBetalingsformPåUdlejning(cbxBetalingsform.getSelectionModel().getSelectedItem(), udlejning);
+                controller.setAfleveringsDato(udlejning, afleveringsPicker.getValue());
+                controller.setUdleveringsDato(udlejning, udleveringspicker.getValue());
+                controller.setKundePåUdlejning(kunde, udlejning);
+                controller.setBetalingsformPåUdlejning(cbxBetalingsform.getSelectionModel().getSelectedItem(), udlejning);
             } else if (rbTidligereKunde.isSelected() && kundeListView.getSelectionModel().getSelectedItem() != null) {
-                Controller.setKundePåUdlejning(kundeListView.getSelectionModel().getSelectedItem(), udlejning);
-                Controller.setAfleveringsDato(udlejning, afleveringsPicker.getValue());
-                Controller.setUdleveringsDato(udlejning, udleveringspicker.getValue());
-                Controller.setBetalingsformPåUdlejning(cbxBetalingsform.getSelectionModel().getSelectedItem(), udlejning);
+                controller.setKundePåUdlejning(kundeListView.getSelectionModel().getSelectedItem(), udlejning);
+                controller.setAfleveringsDato(udlejning, afleveringsPicker.getValue());
+                controller.setUdleveringsDato(udlejning, udleveringspicker.getValue());
+                controller.setBetalingsformPåUdlejning(cbxBetalingsform.getSelectionModel().getSelectedItem(), udlejning);
             }
             this.hide();
         } catch (DateTimeException d){

@@ -12,32 +12,29 @@ import javafx.stage.Stage;
 
 public class StartWindow extends Application {
 
-    @Override
-    public void init() {
-        Controller.init();
-    }
-
-    @Override
-    public void start(Stage stage) {
-        stage.setTitle("Kasseapparat");
-        BorderPane pane = new BorderPane();
-        this.initContent(pane);
-
-        Scene scene = new Scene(pane);
-        stage.setScene(scene);
-        stage.show();
-    }
+//    @Override
+//    public void init() {
+//        Controller.init();
+//    }
 
     // -----------------------------------------------------------------------------------------------------------------
+    private Controller controller = Controller.getInstance();
+
 
     private RedigerPane redigerPane;
     private void initContent(BorderPane pane) {
+        controller.loadStorage();
         TabPane tabPane = new TabPane();
         this.initTapPane(tabPane);
         pane.setCenter(tabPane);
+
+
     }
 
     private void initTapPane(TabPane tabPane) {
+        Controller controller = Controller.getInstance();
+        controller.loadStorage();
+
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
         Tab tabSalg = new Tab("Salg");
@@ -88,9 +85,27 @@ public class StartWindow extends Application {
 
         ChangeListener<Tab> listener = (ov,gammelTab,nyTab) -> this.selectedTabChanged();
         tabPane.getSelectionModel().selectedItemProperty().addListener(listener);
+
+    }
+
+    @Override
+    public void start(Stage stage) {
+        stage.setTitle("Kasseapparat");
+        BorderPane pane = new BorderPane();
+        this.initContent(pane);
+
+        Scene scene = new Scene(pane);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void stop(){
+        Controller controller = Controller.getInstance();
+        controller.saveStorage();
     }
 
     private void selectedTabChanged(){
         redigerPane.updateLists();
     }
+
 }
