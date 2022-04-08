@@ -17,8 +17,6 @@ public class ArrangementPane extends GridPane {
     private final TextField txfnavn, txfbeskrivelse, txfPris;
     private Controller controller = new Controller();
     private TextArea arrangementer;
-    private  DatePicker datePicker;
-    private TextArea arrangementer;
     private  DatePicker datePicker, nytArrangementDato;
 
 
