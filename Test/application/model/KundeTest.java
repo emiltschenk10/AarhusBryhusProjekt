@@ -13,7 +13,7 @@ class KundeTest {
 
     @BeforeEach
     void setUp(){
-        kunde = new Kunde("Hans", 12345678, "hans.pr@gmail.com");
+        kunde = new Kunde("Hans", 12345678, "Vimmersvej 54");
     }
 
     @Test
