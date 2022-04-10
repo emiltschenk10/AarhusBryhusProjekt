@@ -38,6 +38,6 @@ public class Arrangement implements Serializable {
 
     @Override
     public String toString() {
-        return "Navn: " + navn + "\n" + "Beskrivelse:  " + beskrivelse + " \n" +  "Pris: " + pris + "\n" + "\n";
+        return "Navn: " + navn + "\n" + "Beskrivelse:  " + beskrivelse + " \n" +  "Pris: " + pris + "\n" + "Dato: " + date + "\n" + "\n";
     }
 }
